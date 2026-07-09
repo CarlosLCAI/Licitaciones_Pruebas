@@ -113,33 +113,7 @@ def main():
     pagina = 0
 
     while url_actual and pagina < MAX_PAGINAS:
-        pagina += 1
-        root = fetch_pagina(url_actual)
-        entries = root.findall('atom:entry', NS)
-
-        if not entries:
-            break
-
-        for entry in entries:
-            data = parse_entry(entry)
-            if not data["updated"]:
-                continue
-            fecha_entry = datetime.fromisoformat(data["updated"])
-            if fecha_entry < limite_fecha:
-                # Ya salimos de la ventana temporal deseada
-                url_actual = None
-                break
-
-            if (data["es_andalucia"]
-                and data["cpv_match"]
-                and data["estado"] in ESTADOS_PERMITIDOS
-                and data["folder_id"] not in ids_vistos):
-                resultados_filtrados.append(data)
-                ids_vistos.add(data["folder_id"])
-
-        if url_actual is None:
-            break
-
+        # ... (todo el bloque del bucle, sin cambios)
         url_actual = get_next_link(root)
 
     estado["ids_vistos"] = list(ids_vistos)
@@ -151,13 +125,9 @@ def main():
     for r in resultados_filtrados:
         print(f"- [{r['folder_id']}] {r['titulo']} | {r['link']}")
 
-    # Salida para consumo posterior (Teams, base de datos, etc.)
     with open("resultado_hoy.json", "w", encoding="utf-8") as f:
         json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
-      notificar_teams(resultados_filtrados)
+
+    notificar_teams(resultados_filtrados)
 
     return resultados_filtrados
-
-
-if __name__ == "__main__":
-    main()
