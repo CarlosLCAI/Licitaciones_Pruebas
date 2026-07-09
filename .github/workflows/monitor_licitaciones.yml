@@ -1,0 +1,35 @@
+name: Monitor licitaciones PLACSP
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 06:00 UTC = 08:00 hora España (ajustar según prefieras)
+  workflow_dispatch:        # permite ejecución manual desde la pestaña Actions
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar script
+        run: python fetch_licitaciones.py
+
+      - name: Commit estado actualizado
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add estado.json resultado_hoy.json
+          git diff --quiet --cached || git commit -m "Actualización diaria licitaciones $(date +%F)"
+          git push
