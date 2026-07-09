@@ -77,14 +77,19 @@ def get_next_link(root):
     return next_el.get('href') if next_el is not None else None
 
 
-def notificar_teams(resultados):
+def notificar_teams(resultados, paginas, total_entries):
     webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
     if not webhook_url:
         print("Aviso: no se ha configurado TEAMS_WEBHOOK_URL, se omite notificación.")
         return
 
     ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
-    texto = f"**Lectura PLASP Andalucía** — {len(resultados)} licitaciones nuevas ({ahora})"
+    texto = (
+        f"**Lectura PLASP Andalucía** ({ahora})\n"
+        f"Páginas leídas: {paginas}\n"
+        f"Entries totales leídas: {total_entries}\n"
+        f"Licitaciones nuevas filtradas: {len(resultados)}"
+    )
 
     if resultados:
         detalle = "\n".join(
@@ -157,7 +162,7 @@ def main():
     with open("resultado_hoy.json", "w", encoding="utf-8") as f:
         json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
 
-    notificar_teams(resultados_filtrados)
+    notificar_teams(resultados_filtrados, pagina, total_entries_leidas)
 
     return resultados_filtrados
 
