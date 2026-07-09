@@ -76,6 +76,32 @@ def get_next_link(root):
     next_el = root.find('atom:link[@rel="next"]', NS)
     return next_el.get('href') if next_el is not None else None
 
+def notificar_teams(resultados):
+    webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
+    if not webhook_url:
+        print("Aviso: no se ha configurado TEAMS_WEBHOOK_URL, se omite notificación.")
+        return
+
+    ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
+    texto = f"**Lectura PLASP Andalucía** — {len(resultados)} licitaciones nuevas ({ahora})"
+
+    if resultados:
+        detalle = "\n".join(
+            f"- [{r['folder_id']}] {r['titulo']} — {r['link']}"
+            for r in resultados[:15]  # limita para no saturar el mensaje
+        )
+        texto += f"\n\n{detalle}"
+        if len(resultados) > 15:
+            texto += f"\n\n_(y {len(resultados) - 15} más)_"
+
+    payload = {"text": texto}
+
+    try:
+        resp = req.post(webhook_url, json=payload, timeout=15)
+        resp.raise_for_status()
+    except req.exceptions.RequestException as e:
+        print(f"Error notificando a Teams: {e}")
+
 
 def main():
     estado = cargar_estado()
@@ -128,6 +154,7 @@ def main():
     # Salida para consumo posterior (Teams, base de datos, etc.)
     with open("resultado_hoy.json", "w", encoding="utf-8") as f:
         json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
+      notificar_teams(resultados_filtrados)
 
     return resultados_filtrados
 
