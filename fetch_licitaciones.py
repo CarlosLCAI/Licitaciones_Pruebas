@@ -112,6 +112,7 @@ def main():
     resultados_filtrados = []
     url_actual = FEED_URL
     pagina = 0
+    total_entries_leidas = 0
 
     while url_actual and pagina < MAX_PAGINAS:
         pagina += 1
@@ -122,6 +123,7 @@ def main():
             break
 
         for entry in entries:
+            total_entries_leidas += 1
             data = parse_entry(entry)
             if not data["updated"]:
                 continue
@@ -131,7 +133,7 @@ def main():
                 break
 
             if (data["es_andalucia"]
-                and data["cpv_match"]
+                and (not CPV_PERMITIDOS or data["cpv_match"])
                 and data["estado"] in ESTADOS_PERMITIDOS
                 and data["folder_id"] not in ids_vistos):
                 resultados_filtrados.append(data)
@@ -146,6 +148,7 @@ def main():
     guardar_estado(estado)
 
     print(f"Páginas leídas: {pagina}")
+    print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
     print(f"Licitaciones nuevas filtradas: {len(resultados_filtrados)}")
 
     for r in resultados_filtrados:
