@@ -76,6 +76,7 @@ def get_next_link(root):
     next_el = root.find('atom:link[@rel="next"]', NS)
     return next_el.get('href') if next_el is not None else None
 
+
 def notificar_teams(resultados):
     webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
     if not webhook_url:
@@ -88,7 +89,7 @@ def notificar_teams(resultados):
     if resultados:
         detalle = "\n".join(
             f"- [{r['folder_id']}] {r['titulo']} — {r['link']}"
-            for r in resultados[:15]  # limita para no saturar el mensaje
+            for r in resultados[:15]
         )
         texto += f"\n\n{detalle}"
         if len(resultados) > 15:
@@ -97,9 +98,9 @@ def notificar_teams(resultados):
     payload = {"text": texto}
 
     try:
-        resp = req.post(webhook_url, json=payload, timeout=15)
+        resp = requests.post(webhook_url, json=payload, timeout=15)
         resp.raise_for_status()
-    except req.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e:
         print(f"Error notificando a Teams: {e}")
 
 
@@ -113,7 +114,32 @@ def main():
     pagina = 0
 
     while url_actual and pagina < MAX_PAGINAS:
-        # ... (todo el bloque del bucle, sin cambios)
+        pagina += 1
+        root = fetch_pagina(url_actual)
+        entries = root.findall('atom:entry', NS)
+
+        if not entries:
+            break
+
+        for entry in entries:
+            data = parse_entry(entry)
+            if not data["updated"]:
+                continue
+            fecha_entry = datetime.fromisoformat(data["updated"])
+            if fecha_entry < limite_fecha:
+                url_actual = None
+                break
+
+            if (data["es_andalucia"]
+                and data["cpv_match"]
+                and data["estado"] in ESTADOS_PERMITIDOS
+                and data["folder_id"] not in ids_vistos):
+                resultados_filtrados.append(data)
+                ids_vistos.add(data["folder_id"])
+
+        if url_actual is None:
+            break
+
         url_actual = get_next_link(root)
 
     estado["ids_vistos"] = list(ids_vistos)
@@ -131,3 +157,7 @@ def main():
     notificar_teams(resultados_filtrados)
 
     return resultados_filtrados
+
+
+if __name__ == "__main__":
+    main()
