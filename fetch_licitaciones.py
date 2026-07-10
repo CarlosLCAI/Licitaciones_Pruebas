@@ -203,6 +203,14 @@ def main():
     print(f"Páginas leídas: {pagina}")
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
     print(f"Licitaciones nuevas filtradas: {len(resultados_filtrados)}")
+    metadata_lectura = {
+        "fecha_hora": datetime.now(timezone.utc).isoformat(),
+        "paginas": pagina,
+        "total_entries_leidas": total_entries_leidas,
+        "nuevas_filtradas": len(resultados_filtrados),
+    }
+    with open("ultima_lectura.json", "w", encoding="utf-8") as f:
+        json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)
 
     for r in resultados_filtrados:
         print(f"- [{r['folder_id']}] {r['titulo']} | {r['link']}")
