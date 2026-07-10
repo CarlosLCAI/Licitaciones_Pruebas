@@ -13,7 +13,7 @@ NS = {
 }
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
-CPV_PERMITIDOS = ["71400000", "71410000", "71240000", "71300000"]  # AJUSTAR con tus códigos definitivos
+CPV_PERMITIDOS = ["71400000", "71222000", "71240000", "71300000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
 ESTADOS_PERMITIDOS = ["PUB"]  # ampliar si quieres EV/ADJ
 VENTANA_HORAS = 24
 MAX_PAGINAS = 30
@@ -94,7 +94,7 @@ def notificar_teams(resultados, paginas, total_entries):
     ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
 
     texto_resumen = (
-        f"**Lectura PLASP Andalucía** ({ahora})\n\n"
+        f"**Lectura PLACSP UDU Andalucía** ({ahora})\n\n"
         f"Páginas leídas: {paginas}  \n"
         f"Entries totales leídas: {total_entries}  \n"
         f"Licitaciones nuevas filtradas: {len(resultados)}"
