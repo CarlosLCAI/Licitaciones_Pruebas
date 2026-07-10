@@ -53,6 +53,12 @@ def parse_entry(entry):
     cpv_codes = [e.text for e in entry.findall('.//cbc:ItemClassificationCode', NS)]
     cpv_match = any(c in CPV_PERMITIDOS for c in cpv_codes)
 
+    pcap_el = entry.find('.//cac:LegalDocumentReference//cbc:URI', NS)
+    pcap_url = pcap_el.text if pcap_el is not None else None
+
+    ppt_el = entry.find('.//cac:TechnicalDocumentReference//cbc:URI', NS)
+    ppt_url = ppt_el.text if ppt_el is not None else None
+
     return {
         "folder_id": folder_id,
         "estado": estado_code,
@@ -62,6 +68,8 @@ def parse_entry(entry):
         "es_andalucia": es_andalucia,
         "cpv_match": cpv_match,
         "cpv_codes": cpv_codes,
+        "pcap_url": pcap_url,
+        "ppt_url": ppt_url,
     }
 
 
