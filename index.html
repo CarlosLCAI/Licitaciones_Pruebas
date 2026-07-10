@@ -58,6 +58,34 @@
     margin: 0;
   }
   .cajetin .value.teal { color: var(--teal-dark); }
+  .tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--navy);
+  }
+  .tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    background: #ece9e1;
+    color: var(--ink-soft);
+    border: none;
+    cursor: pointer;
+  }
+  .tab.active {
+    background: var(--navy);
+    color: #fff;
+  }
+  .tab .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-left: 6px;
+  }
   .controls {
     display: flex;
     gap: 10px;
@@ -148,14 +176,16 @@
       <p class="value teal">Andalucía · ES61</p>
     </div>
     <div>
-      <p class="label">Resultados</p>
+      <p class="label">Resultados visibles</p>
       <p class="value teal" id="total-count">—</p>
     </div>
     <div>
-      <p class="label">Última actualización</p>
+      <p class="label">Última lectura registrada</p>
       <p class="value" id="last-update">—</p>
     </div>
   </div>
+
+  <div class="tabs" id="tabs"></div>
 
   <div class="controls">
     <input type="text" id="buscar" placeholder="Buscar por título, órgano o expediente">
@@ -172,8 +202,10 @@
 
 <script>
 let datos = [];
+let pestanaActiva = 'ultima';
 let ordenColumna = 'updated';
 let ordenAsc = false;
+let fechaUltimaLectura = null;
 
 function formatearImporte(v) {
   if (!v) return '—';
@@ -193,10 +225,38 @@ function badgeClass(estado) {
   return ['PUB', 'EV', 'ADJ'].includes(estado) ? 'badge-' + estado : 'badge-other';
 }
 
+function datosPorPestana() {
+  if (pestanaActiva === 'ultima') {
+    return datos.filter(d => d.fecha_captura === fechaUltimaLectura);
+  }
+  if (pestanaActiva === 'anteriores') {
+    return datos.filter(d => d.fecha_captura !== fechaUltimaLectura);
+  }
+  return datos;
+}
+
+function renderTabs() {
+  const ultima = datos.filter(d => d.fecha_captura === fechaUltimaLectura).length;
+  const anteriores = datos.length - ultima;
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML =
+    '<button class="tab' + (pestanaActiva === 'ultima' ? ' active' : '') + '" data-tab="ultima">Última lectura<span class="count">' + ultima + '</span></button>' +
+    '<button class="tab' + (pestanaActiva === 'anteriores' ? ' active' : '') + '" data-tab="anteriores">Anteriores<span class="count">' + anteriores + '</span></button>' +
+    '<button class="tab' + (pestanaActiva === 'todas' ? ' active' : '') + '" data-tab="todas">Todas<span class="count">' + datos.length + '</span></button>';
+
+  tabsEl.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pestanaActiva = btn.dataset.tab;
+      renderTabs();
+      aplicarFiltros();
+    });
+  });
+}
+
 function renderTabla(lista) {
   const cont = document.getElementById('contenido');
   if (!lista.length) {
-    cont.innerHTML = '<div class="empty"><strong>Sin resultados</strong>El monitor diario aún no ha detectado licitaciones que coincidan con el filtro, o la búsqueda no encuentra coincidencias.</div>';
+    cont.innerHTML = '<div class="empty"><strong>Sin resultados</strong>No hay licitaciones que coincidan con esta pestaña o búsqueda.</div>';
     return;
   }
   let html = '<table><thead><tr>' +
@@ -205,7 +265,8 @@ function renderTabla(lista) {
     '<th data-col="organo">Órgano</th>' +
     '<th data-col="importe">Importe</th>' +
     '<th data-col="estado">Estado</th>' +
-    '<th data-col="updated">Fecha</th>' +
+    '<th data-col="updated">Fecha licitación</th>' +
+    '<th data-col="fecha_captura">Detectada el</th>' +
     '<th>Documentos</th>' +
     '</tr></thead><tbody>';
   for (const r of lista) {
@@ -216,6 +277,7 @@ function renderTabla(lista) {
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td><span class="badge ' + badgeClass(r.estado) + '">' + (r.estado || '—') + '</span></td>' +
       '<td class="mono">' + formatearFecha(r.updated) + '</td>' +
+      '<td class="mono">' + (r.fecha_captura || '—') + '</td>' +
       '<td class="links">' +
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
@@ -237,6 +299,7 @@ function renderTabla(lista) {
 
 function poblarFiltroEstado() {
   const select = document.getElementById('filtro-estado');
+  select.innerHTML = '<option value="">Todos los estados</option>';
   const estados = [...new Set(datos.map(d => d.estado).filter(Boolean))];
   for (const e of estados) {
     const opt = document.createElement('option');
@@ -250,7 +313,7 @@ function aplicarFiltros() {
   const texto = document.getElementById('buscar').value.toLowerCase();
   const estado = document.getElementById('filtro-estado').value;
 
-  let filtrados = datos.filter(d => {
+  let filtrados = datosPorPestana().filter(d => {
     const coincideTexto = !texto ||
       (d.titulo && d.titulo.toLowerCase().includes(texto)) ||
       (d.organo && d.organo.toLowerCase().includes(texto)) ||
@@ -282,12 +345,18 @@ fetch('./historico.json')
   })
   .then(json => {
     datos = json;
-    document.getElementById('total-count').textContent = datos.length;
-    document.getElementById('last-update').textContent = new Date().toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    if (datos.length) {
+      fechaUltimaLectura = datos.reduce((max, d) => {
+        return (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max;
+      }, '');
+      document.getElementById('last-update').textContent = fechaUltimaLectura;
+    }
     poblarFiltroEstado();
+    renderTabs();
     aplicarFiltros();
   })
   .catch(() => {
+    document.getElementById('tabs').innerHTML = '';
     document.getElementById('contenido').innerHTML =
       '<div class="empty"><strong>Aún no hay datos</strong>El fichero historico.json todavía no existe o está vacío. Aparecerá en cuanto el monitor diario registre su primera licitación.</div>';
   });
