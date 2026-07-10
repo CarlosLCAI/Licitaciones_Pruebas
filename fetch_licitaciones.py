@@ -2,6 +2,7 @@ import requests
 from lxml import etree
 import json
 import os
+import re
 from datetime import datetime, timedelta, timezone
 
 NS = {
@@ -43,6 +44,7 @@ def parse_entry(entry):
     estado_code = find_text('.//cbc-place-ext:ContractFolderStatusCode')
     titulo = find_text('atom:title')
     updated = find_text('atom:updated')
+    summary_text = find_text('atom:summary')
 
     link_el = entry.find('atom:link', NS)
     link = link_el.get('href') if link_el is not None else None
@@ -59,6 +61,13 @@ def parse_entry(entry):
     ppt_el = entry.find('.//cac:TechnicalDocumentReference//cbc:URI', NS)
     ppt_url = ppt_el.text if ppt_el is not None else None
 
+    organo, importe = None, None
+    if summary_text:
+        organo_match = re.search(r'rgano de Contrataci.n:\s*(.*?);\s*Importe', summary_text)
+        importe_match = re.search(r'Importe:\s*([\d.,]+)\s*EUR', summary_text)
+        organo = organo_match.group(1).strip() if organo_match else None
+        importe = importe_match.group(1).strip() if importe_match else None
+
     return {
         "folder_id": folder_id,
         "estado": estado_code,
@@ -70,6 +79,8 @@ def parse_entry(entry):
         "cpv_codes": cpv_codes,
         "pcap_url": pcap_url,
         "ppt_url": ppt_url,
+        "organo": organo,
+        "importe": importe,
     }
 
 
@@ -198,6 +209,17 @@ def main():
 
     with open("resultado_hoy.json", "w", encoding="utf-8") as f:
         json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
+    HISTORICO_FILE = "historico.json"
+    if os.path.exists(HISTORICO_FILE):
+        with open(HISTORICO_FILE, "r", encoding="utf-8") as f:
+            historico = json.load(f)
+    else:
+        historico = []
+
+    historico.extend(resultados_filtrados)
+
+    with open(HISTORICO_FILE, "w", encoding="utf-8") as f:
+        json.dump(historico, f, ensure_ascii=False, indent=2)
 
     notificar_teams(resultados_filtrados, pagina, total_entries_leidas)
 
