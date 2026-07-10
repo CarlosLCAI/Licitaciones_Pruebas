@@ -234,27 +234,48 @@ function formatearFecha(v) {
   return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
+function celdaFechaLimite(v) {
+  if (!v) return '—';
+  const limite = new Date(v);
+  if (isNaN(limite)) return v;
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const dias = Math.round((limite - hoy) / (1000 * 60 * 60 * 24));
+  const texto = formatearFecha(v);
+  if (dias < 0) return texto;
+  if (dias <= 5) return '<span style="color: var(--pink); font-weight: 500;">' + texto + ' (' + dias + 'd)</span>';
+  return texto + ' (' + dias + 'd)';
+}
+
 function badgeClass(estado) {
   return ['PUB', 'EV', 'ADJ'].includes(estado) ? 'badge-' + estado : 'badge-other';
+}
+
+function esVigente(d) {
+  if (!d.fecha_limite) return false;
+  const limite = new Date(d.fecha_limite);
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  return !isNaN(limite) && limite >= hoy;
 }
 
 function datosPorPestana() {
   if (pestanaActiva === 'ultima') {
     return datos.filter(d => d.fecha_captura === fechaUltimaLectura);
   }
-  if (pestanaActiva === 'anteriores') {
-    return datos.filter(d => d.fecha_captura !== fechaUltimaLectura);
+  if (pestanaActiva === 'enplazo') {
+    return datos.filter(esVigente);
   }
   return datos;
 }
 
 function renderTabs() {
   const ultima = datos.filter(d => d.fecha_captura === fechaUltimaLectura).length;
-  const anteriores = datos.length - ultima;
+  const enPlazo = datos.filter(esVigente).length;
   const tabsEl = document.getElementById('tabs');
   tabsEl.innerHTML =
     '<button class="tab' + (pestanaActiva === 'ultima' ? ' active' : '') + '" data-tab="ultima">Última lectura<span class="count">' + ultima + '</span></button>' +
-    '<button class="tab' + (pestanaActiva === 'anteriores' ? ' active' : '') + '" data-tab="anteriores">Anteriores<span class="count">' + anteriores + '</span></button>' +
+    '<button class="tab' + (pestanaActiva === 'enplazo' ? ' active' : '') + '" data-tab="enplazo">En plazo<span class="count">' + enPlazo + '</span></button>' +
     '<button class="tab' + (pestanaActiva === 'todas' ? ' active' : '') + '" data-tab="todas">Todas<span class="count">' + datos.length + '</span></button>';
 
   tabsEl.querySelectorAll('.tab').forEach(btn => {
@@ -296,6 +317,7 @@ function renderTabla(lista) {
     '<th data-col="importe">Importe</th>' +
     '<th data-col="estado">Estado</th>' +
     '<th data-col="updated">Fecha licitación</th>' +
+    '<th data-col="fecha_limite">Fecha límite</th>' +
     '<th data-col="fecha_captura">Detectada el</th>' +
     '<th>Documentos</th>' +
     '</tr></thead><tbody>';
@@ -307,6 +329,7 @@ function renderTabla(lista) {
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td><span class="badge ' + badgeClass(r.estado) + '">' + (r.estado || '—') + '</span></td>' +
       '<td class="mono">' + formatearFecha(r.updated) + '</td>' +
+      '<td class="mono">' + celdaFechaLimite(r.fecha_limite) + '</td>' +
       '<td class="mono">' + (r.fecha_captura || '—') + '</td>' +
       '<td class="links">' +
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
