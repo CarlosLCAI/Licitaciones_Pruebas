@@ -92,23 +92,44 @@ def notificar_teams(resultados, paginas, total_entries):
         return
 
     ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
-    texto = (
-        f"**Lectura PLASP Andalucía** ({ahora})\n"
-        f"Páginas leídas: {paginas}\n"
-        f"Entries totales leídas: {total_entries}\n"
+
+    texto_resumen = (
+        f"**Lectura PLASP Andalucía** ({ahora})\n\n"
+        f"Páginas leídas: {paginas}  \n"
+        f"Entries totales leídas: {total_entries}  \n"
         f"Licitaciones nuevas filtradas: {len(resultados)}"
     )
 
     if resultados:
-        detalle = "\n".join(
-            f"- [{r['folder_id']}] {r['titulo']} — {r['link']}"
+        detalle = "\n\n".join(
+            f"- **[{r['folder_id']}]** {r['titulo']}  \n{r['link']}"
             for r in resultados[:15]
         )
-        texto += f"\n\n{detalle}"
+        texto_resumen += f"\n\n{detalle}"
         if len(resultados) > 15:
-            texto += f"\n\n_(y {len(resultados) - 15} más)_"
+            texto_resumen += f"\n\n_(y {len(resultados) - 15} más)_"
 
-    payload = {"text": texto}
+    adaptive_card = {
+        "type": "AdaptiveCard",
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "version": "1.4",
+        "body": [
+            {
+                "type": "TextBlock",
+                "text": texto_resumen,
+                "wrap": True
+            }
+        ]
+    }
+
+    payload = {
+        "attachments": [
+            {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": adaptive_card
+            }
+        ]
+    }
 
     try:
         resp = requests.post(webhook_url, json=payload, timeout=15)
