@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "folder_id": "esDONES/260/2026",
+    "estado": "PUB",
+    "titulo": "Contratación de servicios de consultoría y soporte en cálculos neutrónicos mediante simulaciones Monte Carlo en el proyecto IFMIF-DONES",
+    "updated": "2026-07-08T12:22:04.453+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=KCK3iB8oZn1eKgd8LfVV9g%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71300000",
+      "71356200",
+      "71356000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=WW2aXCv4CZYnsTSKyqgXUiwNJJGfYMqT0QXzvhmixlldNwy5%2BLlveU5msBy/8LDXvts2PIe3Hl8M5D0IxbSxaAycWCNAtWQk3r4GSt49BygZyAJWGsSt0OzTSTyw9JAs",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=YUZr6Mf8bK0peQFpNsFP200PBcDgiYBQ51ZEXef207DEzkNd60%2B6oHOoHZcr47a780r7OXf80cD7q2IHd2NNvbPHP7OnqLX3TIY42NiNoiqB0nvVKRzfe4rpHcnlPhSZ",
+    "organo": "Consorcio IFMIF-DONES España",
+    "importe": "0",
+    "fecha_captura": "2026-07-10"
+  },
+  {
+    "folder_id": "704/2026",
+    "estado": "PUB",
+    "titulo": "Servicio de redacción nuevo Plan Básico de Ordenación Municipal y Catálogo de Patrimonio Histórico y Cultural del Municipio de Montemayor (Córdoba)",
+    "updated": "2026-07-08T10:33:16.418+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=%2FlhOflFrVsJVYjgxA4nMUw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71400000",
+      "71410000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=whygy/FLN2pC4SMW%2BaihaRnqTrHSmQGk9aH%2BAN%2BB6f8hXBZLYBmpjNtHUu6FO/xlbmD7952hedo%2BHlwSSvE7SNPgmeOx8kV%2BAcM1TbtLGxnDdQD9RyhUmzT4jZ2In4zL",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=hEd/s8AELbeR3Eu1UfjrWyRLmU0dHIIXdKhWjjjOTDpqjPY%2BDrauqV4a/lL8HoJCzPgSEd3J8wdilG8aFbpppj7Cm3GgSaIPkl8nUn78ANF7QB3HKyQaFUExmUVQCerk",
+    "organo": "Alcaldía del Ayuntamiento de Montemayor",
+    "importe": "141534.71",
+    "fecha_captura": "2026-07-10"
+  },
+  {
+    "folder_id": "DIR260603",
+    "estado": "PUB",
+    "titulo": "Obras de mejora de infraestructuras hidráulicas en el municipio de Huercal-Overa con financiación del contratista y pago aplazado",
+    "updated": "2026-07-08T09:00:00.000+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=hEUEaBQ91x5LAIVZdUs8KA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "45231300",
+      "71300000",
+      "71200000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=dsZVdOzLCo7ZhUUXJw77FiCtRc7d9W0jAOre3DWsZVJhlUzYzO1SEKhy1lOOJB2OqrezbN0v/si%2Blnno32Ec7FgrPM5WbfPpXrnyIYmj4MiB0nvVKRzfe4rpHcnlPhSZ",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=V8i8T6uBTJVbqP27cwZFPYJu6Yzs7cR91c3xr3zwfSt74L28Asg7Z1FsEcVkXRCm9Xut9cdzIBf89CxZso1tR15HrZ5Odm1I4EXFfJQq2xZ45ClyWkoJ44mKM70IFcOu",
+    "organo": "Consejería Delegada de Gestión de Aguas del Levante Almeriense, S.A. (GALASA)",
+    "importe": "11333914.79",
+    "fecha_captura": "2026-07-10"
+  }
+]
