@@ -60,6 +60,9 @@ def parse_entry(entry):
 
     ppt_el = entry.find('.//cac:TechnicalDocumentReference//cbc:URI', NS)
     ppt_url = ppt_el.text if ppt_el is not None else None
+    
+    deadline_el = entry.find('.//cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod/cbc:EndDate', NS)
+    fecha_limite = deadline_el.text if deadline_el is not None else None
 
     organo, importe = None, None
     if summary_text:
