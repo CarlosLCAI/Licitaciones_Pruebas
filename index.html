@@ -161,6 +161,16 @@
     font-size: 14px;
   }
   .empty strong { display: block; font-size: 16px; color: var(--navy); margin-bottom: 6px; }
+  .resumen-lectura {
+    display: none;
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 1px solid var(--navy);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -198,10 +208,13 @@
     <p class="empty">Cargando…</p>
   </div>
 
+  <div id="resumen-lectura" class="resumen-lectura"></div>
+
 </div>
 
 <script>
 let datos = [];
+let metaLectura = null;
 let pestanaActiva = 'ultima';
 let ordenColumna = 'updated';
 let ordenAsc = false;
@@ -251,6 +264,23 @@ function renderTabs() {
       aplicarFiltros();
     });
   });
+}
+
+function renderResumenLectura() {
+  const el = document.getElementById('resumen-lectura');
+  if (pestanaActiva !== 'ultima' || !metaLectura) {
+    el.style.display = 'none';
+    return;
+  }
+  const fecha = new Date(metaLectura.fecha_hora);
+  const horaStr = isNaN(fecha)
+    ? metaLectura.fecha_hora
+    : fecha.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) + ' UTC';
+  el.style.display = 'block';
+  el.textContent = 'Última búsqueda: ' + horaStr +
+    ' · ' + metaLectura.total_entries_leidas + ' licitaciones leídas' +
+    ' · ' + metaLectura.paginas + ' páginas' +
+    ' · ' + metaLectura.nuevas_filtradas + ' nuevas filtradas';
 }
 
 function renderTabla(lista) {
@@ -336,30 +366,29 @@ function aplicarFiltros() {
 
   document.getElementById('total-count').textContent = filtrados.length;
   renderTabla(filtrados);
+  renderResumenLectura();
 }
 
-fetch('./historico.json')
-  .then(r => {
-    if (!r.ok) throw new Error('no encontrado');
-    return r.json();
-  })
-  .then(json => {
-    datos = json;
-    if (datos.length) {
-      fechaUltimaLectura = datos.reduce((max, d) => {
-        return (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max;
-      }, '');
-      document.getElementById('last-update').textContent = fechaUltimaLectura;
-    }
-    poblarFiltroEstado();
-    renderTabs();
-    aplicarFiltros();
-  })
-  .catch(() => {
-    document.getElementById('tabs').innerHTML = '';
-    document.getElementById('contenido').innerHTML =
-      '<div class="empty"><strong>Aún no hay datos</strong>El fichero historico.json todavía no existe o está vacío. Aparecerá en cuanto el monitor diario registre su primera licitación.</div>';
-  });
+Promise.all([
+  fetch('./historico.json').then(r => r.ok ? r.json() : []).catch(() => []),
+  fetch('./ultima_lectura.json').then(r => r.ok ? r.json() : null).catch(() => null)
+]).then(([hist, meta]) => {
+  datos = hist;
+  metaLectura = meta;
+  if (datos.length) {
+    fechaUltimaLectura = datos.reduce((max, d) => {
+      return (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max;
+    }, '');
+    document.getElementById('last-update').textContent = fechaUltimaLectura;
+  }
+  poblarFiltroEstado();
+  renderTabs();
+  aplicarFiltros();
+}).catch(() => {
+  document.getElementById('tabs').innerHTML = '';
+  document.getElementById('contenido').innerHTML =
+    '<div class="empty"><strong>Aún no hay datos</strong>Los ficheros de datos todavía no existen. Aparecerán en cuanto el monitor diario se ejecute por primera vez.</div>';
+});
 
 document.getElementById('buscar').addEventListener('input', aplicarFiltros);
 document.getElementById('filtro-estado').addEventListener('change', aplicarFiltros);
