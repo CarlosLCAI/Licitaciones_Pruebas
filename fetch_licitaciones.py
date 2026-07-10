@@ -209,7 +209,8 @@ def main():
 
     with open("resultado_hoy.json", "w", encoding="utf-8") as f:
         json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
-fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     for r in resultados_filtrados:
         r["fecha_captura"] = fecha_captura_hoy
 
