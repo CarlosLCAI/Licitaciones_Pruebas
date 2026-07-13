@@ -14,6 +14,7 @@ NS = {
 }
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
+VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
 CPV_PERMITIDOS = ["71400000", "71222000", "71240000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
 ESTADOS_PERMITIDOS = ["PUB"]  # ampliar si quieres EV/ADJ
 VENTANA_HORAS = 30
@@ -84,6 +85,7 @@ def parse_entry(entry):
         "ppt_url": ppt_url,
         "organo": organo,
         "importe": importe,
+        "fecha_limite": fecha_limite,
     }
 
 
@@ -105,8 +107,7 @@ def fetch_pagina(url, intentos=3):
 def get_next_link(root):
     next_el = root.find('atom:link[@rel="next"]', NS)
     return next_el.get('href') if next_el is not None else None
-
-
+    
 def notificar_teams(resultados, paginas, total_entries):
     webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
     if not webhook_url:
@@ -116,10 +117,11 @@ def notificar_teams(resultados, paginas, total_entries):
     ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
 
     texto_resumen = (
-        f"**Lectura PLACSP UDU Andalucía** ({ahora})\n\n"
+        f"**Lectura PLASP Andalucía** ({ahora})\n\n"
         f"Páginas leídas: {paginas}  \n"
         f"Entries totales leídas: {total_entries}  \n"
-        f"Licitaciones nuevas filtradas: {len(resultados)}"
+        f"Licitaciones nuevas filtradas: {len(resultados)}\n\n"
+        f"[Abrir visor completo]({VISOR_URL})"
     )
 
     if resultados:
@@ -140,6 +142,13 @@ def notificar_teams(resultados, paginas, total_entries):
                 "type": "TextBlock",
                 "text": texto_resumen,
                 "wrap": True
+            }
+        ],
+        "actions": [
+            {
+                "type": "Action.OpenUrl",
+                "title": "Abrir visor",
+                "url": VISOR_URL
             }
         ]
     }
