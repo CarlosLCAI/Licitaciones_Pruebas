@@ -16,7 +16,7 @@ NS = {
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
 CPV_PERMITIDOS = ["71400000", "71222000", "71240000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
 ESTADOS_PERMITIDOS = ["PUB"]  # ampliar si quieres EV/ADJ
-VENTANA_HORAS = 96
+VENTANA_HORAS = 30
 MAX_PAGINAS = 30
 ESTADO_FILE = "estado.json"
 
