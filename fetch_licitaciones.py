@@ -15,7 +15,7 @@ NS = {
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
 VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
-CPV_PERMITIDOS = ["71400000", "71410000", "71222000", "71240000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
+CPV_PERMITIDOS = ["71400000", "71410000", "71420000", "71222000", "71222100", "71222200", "71240000", "71241000", "71242000", "71243000", "71245000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
 ESTADOS_PERMITIDOS = ["PUB"]  # ampliar si quieres EV/ADJ
 VENTANA_HORAS = 30
 MAX_PAGINAS = 30
