@@ -103,11 +103,21 @@
   .controls input { flex: 1; min-width: 220px; }
   table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     background: #fff;
     border: 1px solid var(--border);
     font-size: 13.5px;
   }
+  th:nth-child(1), td:nth-child(1) { width: 60px; }
+  th:nth-child(2), td:nth-child(2) { width: 30%; }
+  th:nth-child(3), td:nth-child(3) { width: 16%; }
+  th:nth-child(4), td:nth-child(4) { width: 9%; }
+  th:nth-child(5), td:nth-child(5) { width: 60px; }
+  th:nth-child(6), td:nth-child(6) { width: 90px; }
+  th:nth-child(7), td:nth-child(7) { width: 100px; }
+  th:nth-child(8), td:nth-child(8) { width: 80px; }
+  th:nth-child(9), td:nth-child(9) { width: 70px; }
   thead th {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
@@ -120,6 +130,12 @@
     padding: 10px 12px;
     cursor: pointer;
     user-select: none;
+    white-space: nowrap;
+  }
+  .exp-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: right;
     white-space: nowrap;
   }
   thead th:hover { background: var(--teal-dark); }
@@ -145,13 +161,13 @@
   .badge-EV { background: #e6f1fb; color: #0c447c; }
   .badge-ADJ { background: #fbeaf0; color: #72243e; }
   .badge-other { background: #f1efe8; color: #444441; }
+  .links { display: flex; flex-direction: column; gap: 3px; }
   .links a {
-    display: inline-block;
-    margin-right: 8px;
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--teal-dark);
     text-decoration: none;
     border-bottom: 1px dotted var(--teal-dark);
+    width: fit-content;
   }
   .links a:hover { color: var(--pink); border-color: var(--pink); }
   .empty {
@@ -312,7 +328,7 @@ function renderTabla(lista) {
     return;
   }
   let html = '<table><thead><tr>' +
-    '<th data-col="folder_id">Expediente</th>' +
+    '<th data-col="folder_id">Exp</th>' +
     '<th data-col="titulo">Título</th>' +
     '<th data-col="organo">Órgano</th>' +
     '<th data-col="importe">Importe</th>' +
@@ -324,7 +340,7 @@ function renderTabla(lista) {
     '</tr></thead><tbody>';
   for (const r of lista) {
     html += '<tr>' +
-      '<td class="mono">' + (r.folder_id || '—') + '</td>' +
+      '<td class="mono exp-vertical">' + (r.folder_id || '—') + '</td>' +
       '<td class="titulo">' + (r.titulo || '—') + '</td>' +
       '<td>' + (r.organo || '—') + '</td>' +
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
