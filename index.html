@@ -223,9 +223,9 @@ let fechaUltimaLectura = null;
 
 function formatearImporte(v) {
   if (!v) return '—';
-  const n = parseFloat(v.replace(/\./g, '').replace(',', '.'));
+  const n = parseFloat(v);
   if (isNaN(n)) return v;
-  return n.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €';
+  return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 }
 
 function formatearFecha(v) {
@@ -380,8 +380,8 @@ function aplicarFiltros() {
     let va = a[ordenColumna] || '';
     let vb = b[ordenColumna] || '';
     if (ordenColumna === 'importe') {
-      va = parseFloat((va || '0').replace(/\./g, '').replace(',', '.')) || 0;
-      vb = parseFloat((vb || '0').replace(/\./g, '').replace(',', '.')) || 0;
+      va = parseFloat(va) || 0;
+      vb = parseFloat(vb) || 0;
     }
     if (va < vb) return ordenAsc ? -1 : 1;
     if (va > vb) return ordenAsc ? 1 : -1;
