@@ -223,6 +223,15 @@ def main():
     }
     with open("ultima_lectura.json", "w", encoding="utf-8") as f:
         json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)
+    filtro_config = {
+        "nombre": "Diseño Urbano Andalucía",
+        "nuts_prefix": "ES61",
+        "region": "Andalucía",
+        "cpv_permitidos": CPV_PERMITIDOS,
+        "estados_permitidos": ESTADOS_PERMITIDOS,
+    }
+    with open("filtro_config.json", "w", encoding="utf-8") as f:
+        json.dump(filtro_config, f, ensure_ascii=False, indent=2)
 
     for r in resultados_filtrados:
         print(f"- [{r['folder_id']}] {r['titulo']} | {r['link']}")
