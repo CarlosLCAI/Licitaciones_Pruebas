@@ -187,6 +187,84 @@
     color: var(--ink-soft);
     text-align: center;
   }
+  .filtro-selector-row { display: flex; align-items: center; gap: 6px; }
+  #selector-filtro {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--teal-dark);
+    border: none;
+    background: transparent;
+    padding: 2px 0;
+    cursor: pointer;
+  }
+  #selector-filtro option:disabled { color: var(--ink-soft); }
+  #btn-detalle-filtro {
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--ink-soft);
+    background: #ece9e1;
+    border: 1px solid var(--border);
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  #btn-detalle-filtro:hover { background: var(--teal); color: #fff; }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(24, 48, 60, 0.55);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.abierto { display: flex; }
+  .modal-panel {
+    background: #fff;
+    border: 1.5px solid var(--navy);
+    width: 420px;
+    max-width: 90vw;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--navy);
+  }
+  .modal-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    margin: 0;
+  }
+  #btn-cerrar-modal {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .modal-body { padding: 18px; font-size: 13.5px; }
+  .modal-body dl { margin: 0; }
+  .modal-body dt {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 14px;
+  }
+  .modal-body dt:first-child { margin-top: 0; }
+  .modal-body dd {
+    margin: 4px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
 </style>
 </head>
 <body>
@@ -197,9 +275,17 @@
       <p class="label">Monitor</p>
       <p class="value teal">CAI Consultores</p>
     </div>
-    <div>
-      <p class="label">Ámbito</p>
-      <p class="value teal">Andalucía · ES61</p>
+    <div class="filtro-box">
+      <p class="label">Filtro</p>
+      <div class="filtro-selector-row">
+        <select id="selector-filtro">
+          <option value="filtro1">Filtro 1 · Diseño Urbano Andalucía</option>
+          <option value="filtro2" disabled>Filtro 2 (próximamente)</option>
+          <option value="filtro3" disabled>Filtro 3 (próximamente)</option>
+          <option value="filtro4" disabled>Filtro 4 (próximamente)</option>
+        </select>
+        <button id="btn-detalle-filtro" aria-label="Ver criterios del filtro">⋯</button>
+      </div>
     </div>
     <div>
       <p class="label">Resultados visibles</p>
@@ -226,6 +312,16 @@
 
   <div id="resumen-lectura" class="resumen-lectura"></div>
 
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <p class="modal-titulo" id="modal-titulo">Criterios del filtro</p>
+        <button id="btn-cerrar-modal" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">Cargando…</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -235,7 +331,7 @@ let pestanaActiva = 'ultima';
 let ordenColumna = 'updated';
 let ordenAsc = false;
 let fechaUltimaLectura = null;
-
+let filtroConfigActual = null;
 
 function formatearImporte(v) {
   if (!v) return '—';
@@ -409,12 +505,33 @@ function aplicarFiltros() {
   renderResumenLectura();
 }
 
+function pintarModalFiltro(cfg) {
+  const body = document.getElementById('modal-body');
+  const titulo = document.getElementById('modal-titulo');
+  if (!cfg) {
+    titulo.textContent = 'Criterios del filtro';
+    body.innerHTML = '<p>Configuración no disponible.</p>';
+    return;
+  }
+  const cpv = (cfg.cpv_permitidos && cfg.cpv_permitidos.length) ? cfg.cpv_permitidos.join(', ') : 'Todos';
+  const estados = (cfg.estados_permitidos && cfg.estados_permitidos.length) ? cfg.estados_permitidos.join(', ') : 'Todos';
+  titulo.textContent = cfg.nombre || 'Criterios del filtro';
+  body.innerHTML =
+    '<dl>' +
+    '<dt>Región · NUTS</dt><dd>' + (cfg.region || '—') + ' · ' + (cfg.nuts_prefix || '—') + '</dd>' +
+    '<dt>Códigos CPV</dt><dd>' + cpv + '</dd>' +
+    '<dt>Estados admitidos</dt><dd>' + estados + '</dd>' +
+    '</dl>';
+}
+
 Promise.all([
   fetch('./historico.json').then(r => r.ok ? r.json() : []).catch(() => []),
-  fetch('./ultima_lectura.json').then(r => r.ok ? r.json() : null).catch(() => null)
-]).then(([hist, meta]) => {
+  fetch('./ultima_lectura.json').then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch('./filtro_config.json').then(r => r.ok ? r.json() : null).catch(() => null)
+]).then(([hist, meta, cfg]) => {
   datos = hist;
   metaLectura = meta;
+  filtroConfigActual = cfg;
   if (datos.length) {
     fechaUltimaLectura = datos.reduce((max, d) => {
       return (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max;
@@ -432,6 +549,27 @@ Promise.all([
 
 document.getElementById('buscar').addEventListener('input', aplicarFiltros);
 document.getElementById('filtro-estado').addEventListener('change', aplicarFiltros);
+
+document.getElementById('btn-detalle-filtro').addEventListener('click', () => {
+  pintarModalFiltro(filtroConfigActual);
+  document.getElementById('modal-overlay').classList.add('abierto');
+});
+
+document.getElementById('btn-cerrar-modal').addEventListener('click', () => {
+  document.getElementById('modal-overlay').classList.remove('abierto');
+});
+
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-overlay') {
+    document.getElementById('modal-overlay').classList.remove('abierto');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('modal-overlay').classList.remove('abierto');
+  }
+});
 </script>
 </body>
 </html>
