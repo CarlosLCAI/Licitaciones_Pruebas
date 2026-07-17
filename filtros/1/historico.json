@@ -343,7 +343,7 @@
     "procedimiento_match": true,
     "importe_match": true,
     "fecha_captura": "2026-07-17",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-07-17T12:01:22.366Z"
+    "revisado_humano": false,
+    "revisado_fecha": null
   }
 ]
