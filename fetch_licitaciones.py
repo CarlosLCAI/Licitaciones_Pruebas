@@ -1,5 +1,7 @@
 import requests
 from lxml import etree
+from pypdf import PdfReader
+from io import BytesIO
 import json
 import os
 import re
@@ -56,6 +58,119 @@ FILTRO_CONFIG_VACIO = {
 }
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (CAI-Consultores-Monitor/1.0)"}
+
+# Revisión de solvencia por IA (opcional): se activa solo si la variable de entorno
+# SOLVENCIA_EMPRESA está configurada (secret de GitHub Actions). Usa GitHub Models,
+# autenticado con el propio GITHUB_TOKEN del workflow — sin API key ni facturación aparte.
+GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions"
+GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4o-mini")
+CLASIFICACIONES_VALIDAS = {"Apto", "Apto / UTE", "No Apto", "Revisión"}
+
+PROMPT_SISTEMA_SOLVENCIA = (
+    "Eres un asistente que evalúa si una empresa de arquitectura/ingeniería puede presentarse a "
+    "una licitación pública española, comparando el perfil de la empresa contra el PCAP y el PPT "
+    "de esa licitación. Debes revisar tres cosas, en este orden:\n\n"
+    "1. COMPOSICIÓN DEL EQUIPO (normalmente en el PPT, apartado de equipo mínimo o medios "
+    "personales): compara los roles y titulaciones exigidas contra el \"Equipo técnico disponible\" "
+    "del perfil de la empresa. Si a algún rol exigido no le corresponde nadie con la titulación "
+    "adecuada en el perfil, es un problema de solvencia técnica.\n"
+    "2. SOLVENCIA ECONÓMICA Y FINANCIERA (en el PCAP, normalmente un volumen de negocios mínimo "
+    "anual o acumulado): compara contra el volumen de negocios del perfil.\n"
+    "3. SOLVENCIA TÉCNICA Y PROFESIONAL (en el PCAP, normalmente trabajos similares ejecutados en "
+    "los últimos años, y a veces clasificación empresarial): compara contra las obras/servicios "
+    "similares del perfil.\n\n"
+    "Además, si el PCAP incluye criterios de adjudicación cuantificables automáticamente o "
+    "mediante fórmulas matemáticas relacionados con experiencia complementaria del equipo, mejoras "
+    "ofertadas o experiencia en trabajos previos, valora brevemente en el motivo si el perfil de la "
+    "empresa parece bien posicionado en esos criterios — esto NO debe cambiar la clasificación de "
+    "aptitud, es solo información adicional útil.\n\n"
+    "Responde ÚNICAMENTE con un JSON de la forma "
+    '{"clasificacion": "...", "motivo": "..."}, sin texto adicional ni bloques de código.\n\n'
+    "Valores posibles de \"clasificacion\" (exactamente uno de estos, tal cual):\n"
+    "- \"Apto\": la empresa cumple los tres puntos (equipo, solvencia económica, solvencia técnica) "
+    "en solitario.\n"
+    "- \"Apto / UTE\": no cumple en solitario, pero sí lo haría formando una UTE con sus socios "
+    "habituales según su perfil (p. ej. sumando volumen de negocios o completando roles del equipo).\n"
+    "- \"No Apto\": no cumple los requisitos ni en solitario ni en UTE.\n"
+    "- \"Revisión\": no hay información suficiente en el PCAP/PPT o en el perfil para decidir con "
+    "confianza, o los documentos no se han podido leer.\n\n"
+    "El campo \"motivo\" debe ser una frase breve (máximo 50 palabras): qué punto de los tres falla "
+    "o cumple, y si procede, una nota sobre los criterios de adjudicación cuantificables."
+)
+
+
+def extraer_texto_pdf(url, max_chars=12000):
+    if not url:
+        return ""
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+    lector = PdfReader(BytesIO(resp.content))
+    fragmentos = []
+    total = 0
+    for pagina in lector.pages:
+        texto_pagina = pagina.extract_text() or ""
+        fragmentos.append(texto_pagina)
+        total += len(texto_pagina)
+        if total >= max_chars:
+            break
+    return "\n".join(fragmentos)[:max_chars]
+
+
+def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organo):
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        return {"clasificacion": "Revisión", "motivo": "No hay GITHUB_TOKEN configurado para llamar a GitHub Models."}
+    if not texto_pcap and not texto_ppt:
+        return {"clasificacion": "Revisión", "motivo": "No se pudo obtener texto del PCAP ni del PPT."}
+
+    fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    mensaje_usuario = (
+        f"FECHA DE HOY: {fecha_hoy} (usa esta fecha para calcular años de experiencia si el perfil "
+        f"indica un año de titulación en vez de un número de años ya calculado)\n"
+        f"LICITACIÓN: {titulo}\n"
+        f"ÓRGANO: {organo}\n\n"
+        f"PERFIL DE SOLVENCIA DE LA EMPRESA:\n{perfil_empresa}\n\n"
+        f"EXTRACTO DEL PCAP (requisitos de solvencia y otros):\n{texto_pcap or '(no disponible)'}\n\n"
+        f"EXTRACTO DEL PPT (objeto y alcance técnico):\n{texto_ppt or '(no disponible)'}"
+    )
+
+    payload = {
+        "model": GITHUB_MODELS_MODEL,
+        "messages": [
+            {"role": "system", "content": PROMPT_SISTEMA_SOLVENCIA},
+            {"role": "user", "content": mensaje_usuario},
+        ],
+        "temperature": 0,
+    }
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    try:
+        resp = requests.post(GITHUB_MODELS_ENDPOINT, headers=headers, json=payload, timeout=60)
+        resp.raise_for_status()
+        contenido = resp.json()["choices"][0]["message"]["content"].strip()
+        contenido = re.sub(r"^```(json)?|```$", "", contenido, flags=re.MULTILINE).strip()
+        resultado = json.loads(contenido)
+        clasificacion = resultado.get("clasificacion", "Revisión")
+        if clasificacion not in CLASIFICACIONES_VALIDAS:
+            clasificacion = "Revisión"
+        return {"clasificacion": clasificacion, "motivo": resultado.get("motivo", "")}
+    except Exception as e:
+        return {"clasificacion": "Revisión", "motivo": f"Error al analizar con IA: {e}"}
+
+
+def analizar_solvencia(r, perfil_empresa):
+    try:
+        texto_pcap = extraer_texto_pdf(r.get("pcap_url"))
+    except Exception:
+        texto_pcap = ""
+    try:
+        texto_ppt = extraer_texto_pdf(r.get("ppt_url"))
+    except Exception:
+        texto_ppt = ""
+
+    resultado = clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, r.get("titulo"), r.get("organo"))
+    resultado["fecha_analisis"] = datetime.now(timezone.utc).isoformat()
+    return resultado
 
 
 def cargar_manifiesto_filtros():
@@ -330,6 +445,7 @@ def main():
 
     fecha_hora_iso = datetime.now(timezone.utc).isoformat()
     fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    perfil_empresa = os.environ.get("SOLVENCIA_EMPRESA")
 
     resultados_por_filtro = {}
     for ctx in contextos:
@@ -337,6 +453,11 @@ def main():
         resultados = ctx["resultados"]
         nombre_filtro = ctx["cfg"].get("nombre") or f"Filtro {desc['id']}"
         print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}")
+
+        if perfil_empresa:
+            for r in resultados:
+                r["revision_ia"] = analizar_solvencia(r, perfil_empresa)
+                print(f"    -> Revisión IA [{r['folder_id']}]: {r['revision_ia']['clasificacion']}")
 
         guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {"ids_vistos": list(ctx["ids_vistos"])})
 
