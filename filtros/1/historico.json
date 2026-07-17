@@ -342,6 +342,8 @@
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-07-17"
+    "fecha_captura": "2026-07-17",
+    "revisado_humano": true,
+    "revisado_fecha": "2026-07-17T12:00:42.023Z"
   }
 ]
