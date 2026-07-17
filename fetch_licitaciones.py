@@ -17,11 +17,18 @@ FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitac
 VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
 VENTANA_HORAS = 30
 MAX_PAGINAS = 30
-FILTRO_CONFIG_FILE = "filtro_config.json"
 FILTROS_MANIFEST_FILE = "filtros.json"
+FILTROS_CARPETA_BASE = "filtros"
 
-# Se usa solo si filtro_config.json no existe todavía (primera ejecución del filtro "1").
-# A partir de ahí, cada filtro_config*.json es la fuente de verdad y se edita desde el visor.
+# Nombres de archivo estándar dentro de la carpeta de cada filtro (filtros/<id>/...).
+NOMBRE_CONFIG = "config.json"
+NOMBRE_ESTADO = "estado.json"
+NOMBRE_HISTORICO = "historico.json"
+NOMBRE_RESULTADO_HOY = "resultado_hoy.json"
+NOMBRE_ULTIMA_LECTURA = "ultima_lectura.json"
+
+# Se usa solo si la carpeta del filtro "1" no tiene config.json todavía (primera ejecución).
+# A partir de ahí, filtros/<id>/config.json es la fuente de verdad y se edita desde el visor.
 FILTRO_CONFIG_POR_DEFECTO = {
     "nombre": "Diseño Urbano Andalucía",
     "nuts_prefix": "ES61",
@@ -56,22 +63,17 @@ def cargar_manifiesto_filtros():
         with open(FILTROS_MANIFEST_FILE, "r", encoding="utf-8") as f:
             return json.load(f).get("filtros", [])
     # Primera vez que se ejecuta con soporte multi-filtro: se crea el manifiesto
-    # apuntando a los ficheros clásicos, para no perder el histórico del filtro "1".
-    manifiesto = {
-        "filtros": [
-            {
-                "id": "1",
-                "archivo_config": FILTRO_CONFIG_FILE,
-                "archivo_estado": "estado.json",
-                "archivo_historico": "historico.json",
-                "archivo_resultado_hoy": "resultado_hoy.json",
-                "archivo_ultima_lectura": "ultima_lectura.json",
-            }
-        ]
-    }
+    # con un único filtro "1" en filtros/1/.
+    manifiesto = {"filtros": [{"id": "1", "carpeta": f"{FILTROS_CARPETA_BASE}/1"}]}
     with open(FILTROS_MANIFEST_FILE, "w", encoding="utf-8") as f:
         json.dump(manifiesto, f, ensure_ascii=False, indent=2)
     return manifiesto["filtros"]
+
+
+def ruta_filtro(desc, nombre_archivo):
+    carpeta = desc["carpeta"]
+    os.makedirs(carpeta, exist_ok=True)
+    return os.path.join(carpeta, nombre_archivo)
 
 
 def cargar_estado(archivo):
@@ -269,8 +271,8 @@ def main():
     contextos = []
     for desc in filtros_desc:
         config_por_defecto = FILTRO_CONFIG_POR_DEFECTO if desc["id"] == "1" else FILTRO_CONFIG_VACIO
-        cfg = cargar_filtro_config(desc["archivo_config"], config_por_defecto)
-        estado = cargar_estado(desc["archivo_estado"])
+        cfg = cargar_filtro_config(ruta_filtro(desc, NOMBRE_CONFIG), config_por_defecto)
+        estado = cargar_estado(ruta_filtro(desc, NOMBRE_ESTADO))
         contextos.append({
             "desc": desc,
             "cfg": cfg,
@@ -336,7 +338,7 @@ def main():
         nombre_filtro = ctx["cfg"].get("nombre") or f"Filtro {desc['id']}"
         print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}")
 
-        guardar_estado(desc["archivo_estado"], {"ids_vistos": list(ctx["ids_vistos"])})
+        guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {"ids_vistos": list(ctx["ids_vistos"])})
 
         metadata_lectura = {
             "fecha_hora": fecha_hora_iso,
@@ -344,25 +346,26 @@ def main():
             "total_entries_leidas": total_entries_leidas,
             "nuevas_filtradas": len(resultados),
         }
-        with open(desc["archivo_ultima_lectura"], "w", encoding="utf-8") as f:
+        with open(ruta_filtro(desc, NOMBRE_ULTIMA_LECTURA), "w", encoding="utf-8") as f:
             json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)
 
         for r in resultados:
             print(f"  - [{r['folder_id']}] {r['titulo']} | {r['link']}")
 
-        with open(desc["archivo_resultado_hoy"], "w", encoding="utf-8") as f:
+        with open(ruta_filtro(desc, NOMBRE_RESULTADO_HOY), "w", encoding="utf-8") as f:
             json.dump(resultados, f, ensure_ascii=False, indent=2)
 
         for r in resultados:
             r["fecha_captura"] = fecha_captura_hoy
 
-        if os.path.exists(desc["archivo_historico"]):
-            with open(desc["archivo_historico"], "r", encoding="utf-8") as f:
+        archivo_historico = ruta_filtro(desc, NOMBRE_HISTORICO)
+        if os.path.exists(archivo_historico):
+            with open(archivo_historico, "r", encoding="utf-8") as f:
                 historico = json.load(f)
         else:
             historico = []
         historico.extend(resultados)
-        with open(desc["archivo_historico"], "w", encoding="utf-8") as f:
+        with open(archivo_historico, "w", encoding="utf-8") as f:
             json.dump(historico, f, ensure_ascii=False, indent=2)
 
         notificar_teams(resultados, pagina, total_entries_leidas, nombre_filtro)

@@ -846,11 +846,15 @@ function poblarSelectorFiltros() {
   select.value = filtroActivoId;
 }
 
+function rutaFiltro(desc, nombreArchivo) {
+  return desc.carpeta + '/' + nombreArchivo;
+}
+
 async function cargarDatosFiltro(desc) {
   const [hist, meta, cfg] = await Promise.all([
-    fetch('./' + desc.archivo_historico).then(r => r.ok ? r.json() : []).catch(() => []),
-    fetch('./' + desc.archivo_ultima_lectura).then(r => r.ok ? r.json() : null).catch(() => null),
-    fetch('./' + desc.archivo_config).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./' + rutaFiltro(desc, 'historico.json')).then(r => r.ok ? r.json() : []).catch(() => []),
+    fetch('./' + rutaFiltro(desc, 'ultima_lectura.json')).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./' + rutaFiltro(desc, 'config.json')).then(r => r.ok ? r.json() : null).catch(() => null),
   ]);
   return { historico: hist, meta, cfg };
 }
@@ -894,13 +898,13 @@ async function iniciarVisor() {
 
   if (!manifiesto.length) {
     // Compatibilidad hacia atrás si filtros.json todavía no existe.
-    manifiesto = [{ id: '1', archivo_config: 'filtro_config.json', archivo_historico: 'historico.json', archivo_ultima_lectura: 'ultima_lectura.json' }];
+    manifiesto = [{ id: '1', carpeta: 'filtros/1' }];
   }
   filtrosManifest = manifiesto;
 
   await Promise.all(filtrosManifest.map(async f => {
     try {
-      const r = await fetch('./' + f.archivo_config);
+      const r = await fetch('./' + rutaFiltro(f, 'config.json'));
       const cfg = r.ok ? await r.json() : null;
       f.nombre = cfg && cfg.nombre;
     } catch (e) { /* se muestra "Filtro <id>" si no se puede leer el nombre */ }
@@ -951,7 +955,7 @@ document.getElementById('btn-guardar-filtro').addEventListener('click', async ()
   estadoEl.textContent = 'Guardando en GitHub…';
 
   try {
-    await guardarFiltroEnGitHub(nuevoCfg, desc.archivo_config);
+    await guardarFiltroEnGitHub(nuevoCfg, rutaFiltro(desc, 'config.json'));
     filtroConfigActual = nuevoCfg;
     if (cacheFiltros[filtroActivoId]) cacheFiltros[filtroActivoId].cfg = nuevoCfg;
     desc.nombre = nuevoCfg.nombre;
