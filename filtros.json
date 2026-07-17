@@ -1,0 +1,20 @@
+{
+  "filtros": [
+    {
+      "id": "1",
+      "archivo_config": "filtro_config.json",
+      "archivo_estado": "estado.json",
+      "archivo_historico": "historico.json",
+      "archivo_resultado_hoy": "resultado_hoy.json",
+      "archivo_ultima_lectura": "ultima_lectura.json"
+    },
+    {
+      "id": "2",
+      "archivo_config": "filtro_config_2.json",
+      "archivo_estado": "estado_2.json",
+      "archivo_historico": "historico_2.json",
+      "archivo_resultado_hoy": "resultado_hoy_2.json",
+      "archivo_ultima_lectura": "ultima_lectura_2.json"
+    }
+  ]
+}

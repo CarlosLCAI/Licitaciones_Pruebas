@@ -1,0 +1,26 @@
+{
+  "nombre": "Diseño Urbano España (prueba)",
+  "nuts_prefix": "",
+  "region": "",
+  "cpv_permitidos": [
+    "71400000",
+    "71410000",
+    "71420000",
+    "71222000",
+    "71222100",
+    "71222200",
+    "71240000",
+    "71241000",
+    "71243000",
+    "71245000",
+    "71510000",
+    "90712100"
+  ],
+  "estados_permitidos": [
+    "PUB"
+  ],
+  "tipos_contrato_permitidos": [],
+  "procedimientos_permitidos": [],
+  "importe_min": null,
+  "importe_max": null
+}

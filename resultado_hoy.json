@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "folder_id": "SV33/2026",
+    "estado": "PUB",
+    "titulo": "Servicio para la redacción del proyecto básico y de ejecución y estudio básico de seguridad y salud para las obras de terminación de instalaciones deportivas en parcela con uso deportivo en calle Arroyo del Búho, Barriada Campoverde de Utrera (Sevilla), así como dirección facultativa y coordinación de seguridad y salud de las obras.",
+    "updated": "2026-07-16T13:07:21.470+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=FigWFZaFMaE3vLk2DU2Ddg%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71222000",
+      "71220000",
+      "71245000",
+      "71242000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=JXoMnjrf%2BEbLmnMxx2vTvx3wkuvUtwMF7WedQm9ZsZIf1QMYGHfdyowT586Yx2oNif62Wb14DYKm62Gl2I8V7DTlO1TWLB5fJmF5JMbPCVNt/o8fNevwsujgRzaBbugn",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=%2Bi2Xw/s85XbMnYuorJN60RIjtT81pTQqLsZnvz0Eh1BfNCOUat7wE%2BiCHcto0crAyMLnEQt1NOoxUVIvuu/ufEN8fpqC63Xf1yozpy/cIN17QB3HKyQaFUExmUVQCerk",
+    "organo": "Alcaldía del Ayuntamiento de Utrera",
+    "importe": "9075.25",
+    "importe_num": 9075.25,
+    "fecha_limite": "2026-07-31",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true
+  },
+  {
+    "folder_id": "2025/409350/006-302/00001",
+    "estado": "PUB",
+    "titulo": "Contrato de servicios para la redaccion del Plan Basico de Ordenacion Municipal",
+    "updated": "2026-07-16T12:07:16.854+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=2fmtzst552mP66GS%2BONYvQ%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71410000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=kX/V19/Fz/bG1kAt6GFelivFfGpfOGShssj2ISFrL/7xpXbZ/oMvbNqzM2Nn1RshN1IEtJmZADZo2c058RX/x1TlH/QQrucxlni5INlSnfMZyAJWGsSt0OzTSTyw9JAs",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Pnc3X%2BoOvCe8WLTEPcVDjXbciH0xDve9%2BY8bsaiZYpHlMF0yH251WTL1tyKDaPNaPWX0aIyfDTNN4JdLYTsVtFSDoE7BUfFYvaK7cn4hSLZ7QB3HKyQaFUExmUVQCerk",
+    "organo": "Junta de Gobierno del Ayuntamiento de Turre",
+    "importe": "172315",
+    "importe_num": 172315.0,
+    "fecha_limite": "2026-07-31",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true
+  }
+]

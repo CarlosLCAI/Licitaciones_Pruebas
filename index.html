@@ -225,9 +225,13 @@
   .modal-panel {
     background: #fff;
     border: 1.5px solid var(--navy);
-    width: 420px;
+    width: 480px;
     max-width: 90vw;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
   }
+  .modal-body { overflow-y: auto; }
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -265,6 +269,88 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
   }
+  .campo { margin-bottom: 12px; }
+  .campo label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .campo input, .campo textarea {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 7px 9px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--ink);
+    resize: vertical;
+  }
+  .campo .ayuda { font-size: 11px; color: var(--ink-soft); margin-top: 3px; }
+  .rango-importe { display: flex; gap: 10px; }
+  .rango-importe > div { flex: 1; }
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    background: #fbfaf7;
+  }
+  .checkbox-grid label {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .checkbox-grid input { width: auto; margin: 2px 0 0; }
+  .modal-separador {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 16px 0;
+  }
+  .token-status {
+    font-size: 11.5px;
+    margin: 6px 0 0;
+  }
+  .token-status.ok { color: var(--teal-dark); }
+  .token-status.falta { color: var(--ink-soft); }
+  .token-row { display: flex; gap: 6px; }
+  .token-row input { flex: 1; }
+  .modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .btn-primario, .btn-secundario {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid var(--navy);
+    cursor: pointer;
+  }
+  .btn-primario { background: var(--navy); color: #fff; }
+  .btn-primario:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
+  .btn-primario:disabled { background: #b9c3c8; border-color: #b9c3c8; cursor: not-allowed; }
+  .btn-secundario { background: #fff; color: var(--navy); }
+  .btn-secundario:hover { background: #ece9e1; }
+  #guardar-estado { font-size: 12px; }
+  #guardar-estado.ok { color: var(--teal-dark); }
+  #guardar-estado.error { color: var(--pink); }
 </style>
 </head>
 <body>
@@ -278,12 +364,7 @@
     <div class="filtro-box">
       <p class="label">Filtro</p>
       <div class="filtro-selector-row">
-        <select id="selector-filtro">
-          <option value="filtro1">Diseño Urbano Andalucía</option>
-          <option value="filtro2" disabled>Filtro 2 (próximamente)</option>
-          <option value="filtro3" disabled>Filtro 3 (próximamente)</option>
-          <option value="filtro4" disabled>Filtro 4 (próximamente)</option>
-        </select>
+        <select id="selector-filtro"></select>
         <button id="btn-detalle-filtro" aria-label="Ver criterios del filtro">⋯</button>
       </div>
     </div>
@@ -318,7 +399,61 @@
         <p class="modal-titulo" id="modal-titulo">Criterios del filtro</p>
         <button id="btn-cerrar-modal" aria-label="Cerrar">✕</button>
       </div>
-      <div class="modal-body" id="modal-body">Cargando…</div>
+      <div class="modal-body" id="modal-body">
+        <div class="campo">
+          <label for="f-nombre">Nombre del filtro</label>
+          <input type="text" id="f-nombre">
+        </div>
+        <div class="campo">
+          <label for="f-region">Región</label>
+          <select id="f-region"></select>
+        </div>
+        <div class="campo">
+          <label for="f-cpv">Códigos CPV permitidos</label>
+          <textarea id="f-cpv" rows="3" placeholder="separados por coma"></textarea>
+          <p class="ayuda">Deja vacío para no filtrar por CPV.</p>
+        </div>
+        <div class="campo">
+          <label>Estados admitidos</label>
+          <div class="checkbox-grid" id="grid-estados"></div>
+          <p class="ayuda">Ninguno marcado = todos los estados.</p>
+        </div>
+        <div class="campo">
+          <label>Tipo de contrato</label>
+          <div class="checkbox-grid" id="grid-tipos-contrato"></div>
+          <p class="ayuda">Ninguno marcado = todos los tipos.</p>
+        </div>
+        <div class="campo">
+          <label>Tipo de procedimiento</label>
+          <div class="checkbox-grid" id="grid-procedimientos"></div>
+          <p class="ayuda">Ninguno marcado = todos los procedimientos.</p>
+        </div>
+        <div class="campo">
+          <label>Importe estimado (EUR)</label>
+          <div class="rango-importe">
+            <div><input type="number" id="f-importe-min" placeholder="Mínimo" min="0"></div>
+            <div><input type="number" id="f-importe-max" placeholder="Máximo" min="0"></div>
+          </div>
+          <p class="ayuda">Deja vacío el que no quieras limitar.</p>
+        </div>
+
+        <hr class="modal-separador">
+
+        <div class="campo">
+          <label for="f-token">Token de GitHub (permiso de escritura sobre este repo)</label>
+          <div class="token-row">
+            <input type="password" id="f-token" placeholder="ghp_...">
+            <button type="button" class="btn-secundario" id="btn-guardar-token">Guardar token</button>
+          </div>
+          <p id="token-status" class="token-status"></p>
+          <p class="ayuda">El token se guarda solo en este navegador (localStorage) y se usa para hacer commit directo a GitHub. Usa un token de acceso concedido para este repo, con permisos mínimos de escritura de contenidos.</p>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-primario" id="btn-guardar-filtro">Guardar cambios en GitHub</button>
+          <span id="guardar-estado"></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -332,6 +467,9 @@ let ordenColumna = 'updated';
 let ordenAsc = false;
 let fechaUltimaLectura = null;
 let filtroConfigActual = null;
+let filtrosManifest = [];
+let filtroActivoId = null;
+let cacheFiltros = {};
 
 function formatearImporte(v) {
   if (!v) return '—';
@@ -505,46 +643,281 @@ function aplicarFiltros() {
   renderResumenLectura();
 }
 
-function pintarModalFiltro(cfg) {
-  const body = document.getElementById('modal-body');
-  const titulo = document.getElementById('modal-titulo');
-  if (!cfg) {
-    titulo.textContent = 'Criterios del filtro';
-    body.innerHTML = '<p>Configuración no disponible.</p>';
-    return;
-  }
-  const cpv = (cfg.cpv_permitidos && cfg.cpv_permitidos.length) ? cfg.cpv_permitidos.join(', ') : 'Todos';
-  const estados = (cfg.estados_permitidos && cfg.estados_permitidos.length) ? cfg.estados_permitidos.join(', ') : 'Todos';
-  titulo.textContent = cfg.nombre || 'Criterios del filtro';
-  body.innerHTML =
-    '<dl>' +
-    '<dt>Región · NUTS</dt><dd>' + (cfg.region || '—') + ' · ' + (cfg.nuts_prefix || '—') + '</dd>' +
-    '<dt>Códigos CPV</dt><dd>' + cpv + '</dd>' +
-    '<dt>Estados admitidos</dt><dd>' + estados + '</dd>' +
-    '</dl>';
+// Repo de GitHub donde vive este visor y filtro_config.json (ajustar si cambia el origen/rama).
+const GH_OWNER = 'carloslcai';
+const GH_REPO = 'Licitaciones_Pruebas';
+const GH_BRANCH = 'main';
+const GH_TOKEN_KEY = 'monitorLicitaciones.githubToken';
+
+// Códigos oficiales CODICE (contrataciondelestado.es) para tipo de contrato y tipo de procedimiento.
+const TIPOS_CONTRATO = [
+  { code: '2', label: 'Servicios' },
+  { code: '3', label: 'Obras' },
+  { code: '1', label: 'Suministros' },
+  { code: '21', label: 'Gestión de Servicios Públicos' },
+  { code: '22', label: 'Concesión de Servicios' },
+  { code: '31', label: 'Concesión de Obras Públicas' },
+  { code: '32', label: 'Concesión de Obras' },
+  { code: '40', label: 'Colaboración público-privada' },
+  { code: '7', label: 'Administrativo especial' },
+  { code: '8', label: 'Privado' },
+  { code: '50', label: 'Patrimonial' },
+];
+
+const PROCEDIMIENTOS = [
+  { code: '1', label: 'Abierto' },
+  { code: '9', label: 'Abierto simplificado' },
+  { code: '2', label: 'Restringido' },
+  { code: '3', label: 'Negociado sin publicidad' },
+  { code: '4', label: 'Negociado con publicidad' },
+  { code: '5', label: 'Diálogo competitivo' },
+  { code: '6', label: 'Contrato menor' },
+  { code: '7', label: 'Derivado de acuerdo marco' },
+  { code: '8', label: 'Concurso de proyectos' },
+  { code: '10', label: 'Asociación para la innovación' },
+  { code: '11', label: 'Derivado de asociación para la innovación' },
+  { code: '12', label: 'Basado en sistema dinámico de adquisición' },
+  { code: '13', label: 'Licitación con negociación' },
+  { code: '100', label: 'Normas internas' },
+  { code: '999', label: 'Otros' },
+];
+
+// Códigos oficiales SyndicationContractFolderStatusCode-2.04.
+const ESTADOS_LICITACION = [
+  { code: 'PUB', label: 'En plazo (PUB)' },
+  { code: 'EV', label: 'Pendiente de adjudicación (EV)' },
+  { code: 'ADJ', label: 'Adjudicada (ADJ)' },
+  { code: 'PRE', label: 'Anuncio previo (PRE)' },
+  { code: 'RES', label: 'Resuelta (RES)' },
+  { code: 'ANUL', label: 'Anulada (ANUL)' },
+];
+
+// Comunidades y ciudades autónomas de España (NUTS-2, 2021). nuts_prefix vacío = sin restricción de región.
+const REGIONES_ESPANA = [
+  { nuts: '', nombre: 'Todas las regiones' },
+  { nuts: 'ES11', nombre: 'Galicia' },
+  { nuts: 'ES12', nombre: 'Principado de Asturias' },
+  { nuts: 'ES13', nombre: 'Cantabria' },
+  { nuts: 'ES21', nombre: 'País Vasco' },
+  { nuts: 'ES22', nombre: 'Comunidad Foral de Navarra' },
+  { nuts: 'ES23', nombre: 'La Rioja' },
+  { nuts: 'ES24', nombre: 'Aragón' },
+  { nuts: 'ES30', nombre: 'Comunidad de Madrid' },
+  { nuts: 'ES41', nombre: 'Castilla y León' },
+  { nuts: 'ES42', nombre: 'Castilla-La Mancha' },
+  { nuts: 'ES43', nombre: 'Extremadura' },
+  { nuts: 'ES51', nombre: 'Cataluña' },
+  { nuts: 'ES52', nombre: 'Comunidad Valenciana' },
+  { nuts: 'ES53', nombre: 'Illes Balears' },
+  { nuts: 'ES61', nombre: 'Andalucía' },
+  { nuts: 'ES62', nombre: 'Región de Murcia' },
+  { nuts: 'ES63', nombre: 'Ciudad Autónoma de Ceuta' },
+  { nuts: 'ES64', nombre: 'Ciudad Autónoma de Melilla' },
+  { nuts: 'ES70', nombre: 'Canarias' },
+];
+
+function renderSelectRegiones(seleccionNuts) {
+  const select = document.getElementById('f-region');
+  select.innerHTML = REGIONES_ESPANA.map(r =>
+    '<option value="' + r.nuts + '">' + r.nombre + '</option>'
+  ).join('');
+  const existe = REGIONES_ESPANA.some(r => r.nuts === seleccionNuts);
+  select.value = existe ? seleccionNuts : '';
 }
 
-Promise.all([
-  fetch('./historico.json').then(r => r.ok ? r.json() : []).catch(() => []),
-  fetch('./ultima_lectura.json').then(r => r.ok ? r.json() : null).catch(() => null),
-  fetch('./filtro_config.json').then(r => r.ok ? r.json() : null).catch(() => null)
-]).then(([hist, meta, cfg]) => {
-  datos = hist;
-  metaLectura = meta;
-  filtroConfigActual = cfg;
-  if (datos.length) {
-    fechaUltimaLectura = datos.reduce((max, d) => {
-      return (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max;
-    }, '');
-    document.getElementById('last-update').textContent = fechaUltimaLectura;
+function renderCheckboxGrid(containerId, opciones, seleccionados) {
+  const cont = document.getElementById(containerId);
+  const set = new Set(seleccionados || []);
+  cont.innerHTML = opciones.map(o =>
+    '<label><input type="checkbox" value="' + o.code + '"' + (set.has(o.code) ? ' checked' : '') + '> ' + o.label + '</label>'
+  ).join('');
+}
+
+function leerCheckboxGrid(containerId) {
+  const cont = document.getElementById(containerId);
+  return Array.from(cont.querySelectorAll('input:checked')).map(i => i.value);
+}
+
+function pintarModalFiltro(cfg) {
+  const titulo = document.getElementById('modal-titulo');
+  titulo.textContent = (cfg && cfg.nombre) || 'Criterios del filtro';
+
+  document.getElementById('f-nombre').value = (cfg && cfg.nombre) || '';
+  renderSelectRegiones(cfg && cfg.nuts_prefix);
+  document.getElementById('f-cpv').value = (cfg && cfg.cpv_permitidos) ? cfg.cpv_permitidos.join(', ') : '';
+  document.getElementById('f-importe-min').value = (cfg && cfg.importe_min != null) ? cfg.importe_min : '';
+  document.getElementById('f-importe-max').value = (cfg && cfg.importe_max != null) ? cfg.importe_max : '';
+
+  renderCheckboxGrid('grid-tipos-contrato', TIPOS_CONTRATO, cfg && cfg.tipos_contrato_permitidos);
+  renderCheckboxGrid('grid-procedimientos', PROCEDIMIENTOS, cfg && cfg.procedimientos_permitidos);
+  renderCheckboxGrid('grid-estados', ESTADOS_LICITACION, cfg && cfg.estados_permitidos);
+
+  document.getElementById('f-token').value = '';
+  document.getElementById('guardar-estado').textContent = '';
+  document.getElementById('guardar-estado').className = '';
+  actualizarEstadoToken();
+}
+
+function obtenerTokenGuardado() {
+  return localStorage.getItem(GH_TOKEN_KEY) || '';
+}
+
+function actualizarEstadoToken() {
+  const el = document.getElementById('token-status');
+  if (obtenerTokenGuardado()) {
+    el.textContent = 'Token configurado ✓';
+    el.className = 'token-status ok';
+  } else {
+    el.textContent = 'Sin token configurado todavía.';
+    el.className = 'token-status falta';
   }
+}
+
+function leerFiltroDelFormulario() {
+  const cpv = document.getElementById('f-cpv').value
+    .split(',').map(s => s.trim()).filter(Boolean);
+  const nutsSeleccionado = document.getElementById('f-region').value;
+  const regionInfo = REGIONES_ESPANA.find(r => r.nuts === nutsSeleccionado) || REGIONES_ESPANA[0];
+  const importeMinTexto = document.getElementById('f-importe-min').value.trim();
+  const importeMaxTexto = document.getElementById('f-importe-max').value.trim();
+  return {
+    nombre: document.getElementById('f-nombre').value.trim(),
+    region: regionInfo.nuts ? regionInfo.nombre : '',
+    nuts_prefix: regionInfo.nuts,
+    cpv_permitidos: cpv,
+    estados_permitidos: leerCheckboxGrid('grid-estados'),
+    tipos_contrato_permitidos: leerCheckboxGrid('grid-tipos-contrato'),
+    procedimientos_permitidos: leerCheckboxGrid('grid-procedimientos'),
+    importe_min: importeMinTexto ? Number(importeMinTexto) : null,
+    importe_max: importeMaxTexto ? Number(importeMaxTexto) : null,
+  };
+}
+
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binario = '';
+  bytes.forEach(b => { binario += String.fromCharCode(b); });
+  return btoa(binario);
+}
+
+async function guardarFiltroEnGitHub(nuevoCfg, archivoConfig) {
+  const token = obtenerTokenGuardado();
+  if (!token) throw new Error('Configura primero un token de GitHub.');
+
+  const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${archivoConfig}`;
+  const cabeceras = {
+    Authorization: `token ${token}`,
+    Accept: 'application/vnd.github+json',
+  };
+
+  const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras });
+  if (!actual.ok) {
+    throw new Error(`No se pudo leer ${archivoConfig} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
+  }
+  const actualData = await actual.json();
+
+  const contenido = JSON.stringify(nuevoCfg, null, 2) + '\n';
+  const resp = await fetch(apiUrl, {
+    method: 'PUT',
+    headers: cabeceras,
+    body: JSON.stringify({
+      message: `Actualiza ${archivoConfig} desde el visor`,
+      content: utf8ToBase64(contenido),
+      sha: actualData.sha,
+      branch: GH_BRANCH,
+    }),
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(`Error al guardar (HTTP ${resp.status}): ${err.message || 'sin detalle'}`);
+  }
+  return resp.json();
+}
+
+function descriptorFiltro(id) {
+  return filtrosManifest.find(f => f.id === id);
+}
+
+function poblarSelectorFiltros() {
+  const select = document.getElementById('selector-filtro');
+  select.innerHTML = filtrosManifest.map(f =>
+    '<option value="' + f.id + '">' + (f.nombre || ('Filtro ' + f.id)) + '</option>'
+  ).join('');
+  select.value = filtroActivoId;
+}
+
+async function cargarDatosFiltro(desc) {
+  const [hist, meta, cfg] = await Promise.all([
+    fetch('./' + desc.archivo_historico).then(r => r.ok ? r.json() : []).catch(() => []),
+    fetch('./' + desc.archivo_ultima_lectura).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./' + desc.archivo_config).then(r => r.ok ? r.json() : null).catch(() => null),
+  ]);
+  return { historico: hist, meta, cfg };
+}
+
+function aplicarDatosFiltro(datosCargados) {
+  datos = datosCargados.historico || [];
+  metaLectura = datosCargados.meta;
+  filtroConfigActual = datosCargados.cfg;
+  fechaUltimaLectura = '';
+  if (datos.length) {
+    fechaUltimaLectura = datos.reduce((max, d) => (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max, '');
+  }
+  document.getElementById('last-update').textContent = fechaUltimaLectura || '—';
+  pestanaActiva = 'ultima';
   poblarFiltroEstado();
   renderTabs();
   aplicarFiltros();
-}).catch(() => {
+}
+
+async function cambiarFiltroActivo(id) {
+  const desc = descriptorFiltro(id);
+  if (!desc) return;
+  filtroActivoId = id;
+  document.getElementById('selector-filtro').value = id;
+
+  if (!cacheFiltros[id]) {
+    document.getElementById('contenido').innerHTML = '<p class="empty">Cargando…</p>';
+    cacheFiltros[id] = await cargarDatosFiltro(desc);
+  }
+  aplicarDatosFiltro(cacheFiltros[id]);
+}
+
+async function iniciarVisor() {
+  let manifiesto = [];
+  try {
+    const resp = await fetch('./filtros.json');
+    manifiesto = resp.ok ? (await resp.json()).filtros || [] : [];
+  } catch (e) {
+    manifiesto = [];
+  }
+
+  if (!manifiesto.length) {
+    // Compatibilidad hacia atrás si filtros.json todavía no existe.
+    manifiesto = [{ id: '1', archivo_config: 'filtro_config.json', archivo_historico: 'historico.json', archivo_ultima_lectura: 'ultima_lectura.json' }];
+  }
+  filtrosManifest = manifiesto;
+
+  await Promise.all(filtrosManifest.map(async f => {
+    try {
+      const r = await fetch('./' + f.archivo_config);
+      const cfg = r.ok ? await r.json() : null;
+      f.nombre = cfg && cfg.nombre;
+    } catch (e) { /* se muestra "Filtro <id>" si no se puede leer el nombre */ }
+  }));
+
+  poblarSelectorFiltros();
+  await cambiarFiltroActivo(filtrosManifest[0].id);
+}
+
+iniciarVisor().catch(() => {
   document.getElementById('tabs').innerHTML = '';
   document.getElementById('contenido').innerHTML =
     '<div class="empty"><strong>Aún no hay datos</strong>Los ficheros de datos todavía no existen. Aparecerán en cuanto el monitor diario se ejecute por primera vez.</div>';
+});
+
+document.getElementById('selector-filtro').addEventListener('change', (e) => {
+  cambiarFiltroActivo(e.target.value);
 });
 
 document.getElementById('buscar').addEventListener('input', aplicarFiltros);
@@ -557,6 +930,41 @@ document.getElementById('btn-detalle-filtro').addEventListener('click', () => {
 
 document.getElementById('btn-cerrar-modal').addEventListener('click', () => {
   document.getElementById('modal-overlay').classList.remove('abierto');
+});
+
+document.getElementById('btn-guardar-token').addEventListener('click', () => {
+  const valor = document.getElementById('f-token').value.trim();
+  if (!valor) return;
+  localStorage.setItem(GH_TOKEN_KEY, valor);
+  document.getElementById('f-token').value = '';
+  actualizarEstadoToken();
+});
+
+document.getElementById('btn-guardar-filtro').addEventListener('click', async () => {
+  const boton = document.getElementById('btn-guardar-filtro');
+  const estadoEl = document.getElementById('guardar-estado');
+  const nuevoCfg = leerFiltroDelFormulario();
+  const desc = descriptorFiltro(filtroActivoId);
+
+  boton.disabled = true;
+  estadoEl.className = '';
+  estadoEl.textContent = 'Guardando en GitHub…';
+
+  try {
+    await guardarFiltroEnGitHub(nuevoCfg, desc.archivo_config);
+    filtroConfigActual = nuevoCfg;
+    if (cacheFiltros[filtroActivoId]) cacheFiltros[filtroActivoId].cfg = nuevoCfg;
+    desc.nombre = nuevoCfg.nombre;
+    poblarSelectorFiltros();
+    estadoEl.className = 'ok';
+    estadoEl.textContent = 'Guardado ✓ (el monitor lo usará en la próxima ejecución)';
+    document.getElementById('modal-titulo').textContent = nuevoCfg.nombre || 'Criterios del filtro';
+  } catch (e) {
+    estadoEl.className = 'error';
+    estadoEl.textContent = e.message || 'Error al guardar.';
+  } finally {
+    boton.disabled = false;
+  }
 });
 
 document.getElementById('modal-overlay').addEventListener('click', (e) => {

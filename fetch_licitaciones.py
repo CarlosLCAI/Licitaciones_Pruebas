@@ -15,28 +15,88 @@ NS = {
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
 VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
-CPV_PERMITIDOS = ["71400000", "71410000", "71420000", "71222000", "71222100", "71222200", "71240000", "71241000", "71243000", "71245000", "71510000", "90712100"]  # AJUSTAR con tus códigos definitivos
-ESTADOS_PERMITIDOS = ["PUB"]  # ampliar si quieres EV/ADJ
 VENTANA_HORAS = 30
 MAX_PAGINAS = 30
-ESTADO_FILE = "estado.json"
+FILTRO_CONFIG_FILE = "filtro_config.json"
+FILTROS_MANIFEST_FILE = "filtros.json"
+
+# Se usa solo si filtro_config.json no existe todavía (primera ejecución del filtro "1").
+# A partir de ahí, cada filtro_config*.json es la fuente de verdad y se edita desde el visor.
+FILTRO_CONFIG_POR_DEFECTO = {
+    "nombre": "Diseño Urbano Andalucía",
+    "nuts_prefix": "ES61",
+    "region": "Andalucía",
+    "cpv_permitidos": ["71400000", "71410000", "71420000", "71222000", "71222100", "71222200", "71240000", "71241000", "71243000", "71245000", "71510000", "90712100"],
+    "estados_permitidos": ["PUB"],
+    "tipos_contrato_permitidos": [],   # códigos de ProcurementProject/TypeCode; vacío = todos
+    "procedimientos_permitidos": [],   # códigos de TenderingProcess/ProcedureCode; vacío = todos
+    "importe_min": None,
+    "importe_max": None,
+}
+
+# Config por defecto para un filtro nuevo añadido al manifiesto que aún no tiene archivo propio:
+# sin ningún criterio activo (coincide con todo) hasta que se configure desde el visor.
+FILTRO_CONFIG_VACIO = {
+    "nombre": "Nuevo filtro",
+    "nuts_prefix": "",
+    "region": "",
+    "cpv_permitidos": [],
+    "estados_permitidos": [],
+    "tipos_contrato_permitidos": [],
+    "procedimientos_permitidos": [],
+    "importe_min": None,
+    "importe_max": None,
+}
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (CAI-Consultores-Monitor/1.0)"}
 
 
-def cargar_estado():
-    if os.path.exists(ESTADO_FILE):
-        with open(ESTADO_FILE, "r", encoding="utf-8") as f:
+def cargar_manifiesto_filtros():
+    if os.path.exists(FILTROS_MANIFEST_FILE):
+        with open(FILTROS_MANIFEST_FILE, "r", encoding="utf-8") as f:
+            return json.load(f).get("filtros", [])
+    # Primera vez que se ejecuta con soporte multi-filtro: se crea el manifiesto
+    # apuntando a los ficheros clásicos, para no perder el histórico del filtro "1".
+    manifiesto = {
+        "filtros": [
+            {
+                "id": "1",
+                "archivo_config": FILTRO_CONFIG_FILE,
+                "archivo_estado": "estado.json",
+                "archivo_historico": "historico.json",
+                "archivo_resultado_hoy": "resultado_hoy.json",
+                "archivo_ultima_lectura": "ultima_lectura.json",
+            }
+        ]
+    }
+    with open(FILTROS_MANIFEST_FILE, "w", encoding="utf-8") as f:
+        json.dump(manifiesto, f, ensure_ascii=False, indent=2)
+    return manifiesto["filtros"]
+
+
+def cargar_estado(archivo):
+    if os.path.exists(archivo):
+        with open(archivo, "r", encoding="utf-8") as f:
             return json.load(f)
     return {"ids_vistos": []}
 
 
-def guardar_estado(estado):
-    with open(ESTADO_FILE, "w", encoding="utf-8") as f:
+def guardar_estado(archivo, estado):
+    with open(archivo, "w", encoding="utf-8") as f:
         json.dump(estado, f, ensure_ascii=False, indent=2)
 
 
-def parse_entry(entry):
+def cargar_filtro_config(archivo, config_por_defecto):
+    if os.path.exists(archivo):
+        with open(archivo, "r", encoding="utf-8") as f:
+            cfg = json.load(f)
+        return {**config_por_defecto, **cfg}
+    with open(archivo, "w", encoding="utf-8") as f:
+        json.dump(config_por_defecto, f, ensure_ascii=False, indent=2)
+    return dict(config_por_defecto)
+
+
+def parse_entry(entry, filtro_cfg):
     def find_text(path):
         el = entry.find(path, NS)
         return el.text if el is not None else None
@@ -50,11 +110,13 @@ def parse_entry(entry):
     link_el = entry.find('atom:link', NS)
     link = link_el.get('href') if link_el is not None else None
 
+    nuts_prefix = filtro_cfg.get("nuts_prefix") or ""
     nuts_codes = [e.text for e in entry.findall('.//cbc:CountrySubentityCode', NS)]
-    es_andalucia = any(c and c.startswith("ES61") for c in nuts_codes)
+    es_andalucia = (not nuts_prefix) or any(c and c.startswith(nuts_prefix) for c in nuts_codes)
 
+    cpv_permitidos = filtro_cfg.get("cpv_permitidos") or []
     cpv_codes = [e.text for e in entry.findall('.//cbc:ItemClassificationCode', NS)]
-    cpv_match = any(c in CPV_PERMITIDOS for c in cpv_codes)
+    cpv_match = any(c in cpv_permitidos for c in cpv_codes)
 
     pcap_el = entry.find('.//cac:LegalDocumentReference//cbc:URI', NS)
     pcap_url = pcap_el.text if pcap_el is not None else None
@@ -72,6 +134,32 @@ def parse_entry(entry):
         organo = organo_match.group(1).strip() if organo_match else None
         importe = importe_match.group(1).strip() if importe_match else None
 
+    tipo_contrato = find_text('.//cac:ProcurementProject/cbc:TypeCode')
+    procedimiento = find_text('.//cac:TenderingProcess/cbc:ProcedureCode')
+
+    importe_num = None
+    importe_el = entry.find('.//cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount', NS)
+    if importe_el is not None and importe_el.text:
+        try:
+            importe_num = float(importe_el.text)
+        except ValueError:
+            importe_num = None
+
+    tipos_contrato_permitidos = filtro_cfg.get("tipos_contrato_permitidos") or []
+    tipo_contrato_match = not tipos_contrato_permitidos or tipo_contrato in tipos_contrato_permitidos
+
+    procedimientos_permitidos = filtro_cfg.get("procedimientos_permitidos") or []
+    procedimiento_match = not procedimientos_permitidos or procedimiento in procedimientos_permitidos
+
+    importe_min = filtro_cfg.get("importe_min")
+    importe_max = filtro_cfg.get("importe_max")
+    importe_match = True
+    if importe_num is not None:
+        if importe_min is not None and importe_num < importe_min:
+            importe_match = False
+        if importe_max is not None and importe_num > importe_max:
+            importe_match = False
+
     return {
         "folder_id": folder_id,
         "estado": estado_code,
@@ -85,7 +173,13 @@ def parse_entry(entry):
         "ppt_url": ppt_url,
         "organo": organo,
         "importe": importe,
+        "importe_num": importe_num,
         "fecha_limite": fecha_limite,
+        "tipo_contrato": tipo_contrato,
+        "tipo_contrato_match": tipo_contrato_match,
+        "procedimiento": procedimiento,
+        "procedimiento_match": procedimiento_match,
+        "importe_match": importe_match,
     }
 
 
@@ -108,7 +202,7 @@ def get_next_link(root):
     next_el = root.find('atom:link[@rel="next"]', NS)
     return next_el.get('href') if next_el is not None else None
     
-def notificar_teams(resultados, paginas, total_entries):
+def notificar_teams(resultados, paginas, total_entries, nombre_filtro="Monitor"):
     webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
     if not webhook_url:
         print("Aviso: no se ha configurado TEAMS_WEBHOOK_URL, se omite notificación.")
@@ -117,7 +211,7 @@ def notificar_teams(resultados, paginas, total_entries):
     ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
 
     texto_resumen = (
-        f"**Lectura PLASP Andalucía** ({ahora})\n\n"
+        f"**Lectura PLACSP — {nombre_filtro}** ({ahora})\n\n"
         f"Páginas leídas: {paginas}  \n"
         f"Entries totales leídas: {total_entries}  \n"
         f"Licitaciones nuevas filtradas: {len(resultados)}\n\n"
@@ -170,11 +264,21 @@ def notificar_teams(resultados, paginas, total_entries):
 
 
 def main():
-    estado = cargar_estado()
-    ids_vistos = set(estado.get("ids_vistos", []))
+    filtros_desc = cargar_manifiesto_filtros()
+
+    contextos = []
+    for desc in filtros_desc:
+        config_por_defecto = FILTRO_CONFIG_POR_DEFECTO if desc["id"] == "1" else FILTRO_CONFIG_VACIO
+        cfg = cargar_filtro_config(desc["archivo_config"], config_por_defecto)
+        estado = cargar_estado(desc["archivo_estado"])
+        contextos.append({
+            "desc": desc,
+            "cfg": cfg,
+            "ids_vistos": set(estado.get("ids_vistos", [])),
+            "resultados": [],
+        })
 
     limite_fecha = datetime.now(timezone.utc) - timedelta(hours=VENTANA_HORAS)
-    resultados_filtrados = []
     url_actual = FEED_URL
     pagina = 0
     total_entries_leidas = 0
@@ -187,77 +291,84 @@ def main():
         if not entries:
             break
 
+        parar = False
         for entry in entries:
             total_entries_leidas += 1
-            data = parse_entry(entry)
-            if not data["updated"]:
+            updated_el = entry.find('atom:updated', NS)
+            if updated_el is None or not updated_el.text:
                 continue
-            fecha_entry = datetime.fromisoformat(data["updated"])
+            fecha_entry = datetime.fromisoformat(updated_el.text)
             if fecha_entry < limite_fecha:
-                url_actual = None
+                parar = True
                 break
 
-            if (data["es_andalucia"]
-                and (not CPV_PERMITIDOS or data["cpv_match"])
-                and data["estado"] in ESTADOS_PERMITIDOS
-                and data["folder_id"] not in ids_vistos):
-                resultados_filtrados.append(data)
-                ids_vistos.add(data["folder_id"])
+            for ctx in contextos:
+                cfg = ctx["cfg"]
+                data = parse_entry(entry, cfg)
+                cpv_permitidos = cfg.get("cpv_permitidos") or []
+                estados_permitidos = cfg.get("estados_permitidos") or []
 
-        if url_actual is None:
+                if (data["es_andalucia"]
+                    and (not cpv_permitidos or data["cpv_match"])
+                    and (not estados_permitidos or data["estado"] in estados_permitidos)
+                    and data["tipo_contrato_match"]
+                    and data["procedimiento_match"]
+                    and data["importe_match"]
+                    and data["folder_id"] not in ctx["ids_vistos"]):
+                    ctx["resultados"].append(data)
+                    ctx["ids_vistos"].add(data["folder_id"])
+
+        if parar:
             break
 
         url_actual = get_next_link(root)
 
-    estado["ids_vistos"] = list(ids_vistos)
-    guardar_estado(estado)
-
     print(f"Páginas leídas: {pagina}")
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
-    print(f"Licitaciones nuevas filtradas: {len(resultados_filtrados)}")
-    metadata_lectura = {
-        "fecha_hora": datetime.now(timezone.utc).isoformat(),
-        "paginas": pagina,
-        "total_entries_leidas": total_entries_leidas,
-        "nuevas_filtradas": len(resultados_filtrados),
-    }
-    with open("ultima_lectura.json", "w", encoding="utf-8") as f:
-        json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)
-    filtro_config = {
-        "nombre": "Diseño Urbano Andalucía",
-        "nuts_prefix": "ES61",
-        "region": "Andalucía",
-        "cpv_permitidos": CPV_PERMITIDOS,
-        "estados_permitidos": ESTADOS_PERMITIDOS,
-    }
-    with open("filtro_config.json", "w", encoding="utf-8") as f:
-        json.dump(filtro_config, f, ensure_ascii=False, indent=2)
 
-    for r in resultados_filtrados:
-        print(f"- [{r['folder_id']}] {r['titulo']} | {r['link']}")
-
-    with open("resultado_hoy.json", "w", encoding="utf-8") as f:
-        json.dump(resultados_filtrados, f, ensure_ascii=False, indent=2)
-
+    fecha_hora_iso = datetime.now(timezone.utc).isoformat()
     fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    for r in resultados_filtrados:
-        r["fecha_captura"] = fecha_captura_hoy
 
-    HISTORICO_FILE = "historico.json"
-    if os.path.exists(HISTORICO_FILE):
-        with open(HISTORICO_FILE, "r", encoding="utf-8") as f:
-            historico = json.load(f)
-    else:
-        historico = []
+    resultados_por_filtro = {}
+    for ctx in contextos:
+        desc = ctx["desc"]
+        resultados = ctx["resultados"]
+        nombre_filtro = ctx["cfg"].get("nombre") or f"Filtro {desc['id']}"
+        print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}")
 
-    historico.extend(resultados_filtrados)
+        guardar_estado(desc["archivo_estado"], {"ids_vistos": list(ctx["ids_vistos"])})
 
-    with open(HISTORICO_FILE, "w", encoding="utf-8") as f:
-        json.dump(historico, f, ensure_ascii=False, indent=2)
+        metadata_lectura = {
+            "fecha_hora": fecha_hora_iso,
+            "paginas": pagina,
+            "total_entries_leidas": total_entries_leidas,
+            "nuevas_filtradas": len(resultados),
+        }
+        with open(desc["archivo_ultima_lectura"], "w", encoding="utf-8") as f:
+            json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)
 
-    notificar_teams(resultados_filtrados, pagina, total_entries_leidas)
+        for r in resultados:
+            print(f"  - [{r['folder_id']}] {r['titulo']} | {r['link']}")
 
-    return resultados_filtrados
+        with open(desc["archivo_resultado_hoy"], "w", encoding="utf-8") as f:
+            json.dump(resultados, f, ensure_ascii=False, indent=2)
+
+        for r in resultados:
+            r["fecha_captura"] = fecha_captura_hoy
+
+        if os.path.exists(desc["archivo_historico"]):
+            with open(desc["archivo_historico"], "r", encoding="utf-8") as f:
+                historico = json.load(f)
+        else:
+            historico = []
+        historico.extend(resultados)
+        with open(desc["archivo_historico"], "w", encoding="utf-8") as f:
+            json.dump(historico, f, ensure_ascii=False, indent=2)
+
+        notificar_teams(resultados, pagina, total_entries_leidas, nombre_filtro)
+        resultados_por_filtro[desc["id"]] = resultados
+
+    return resultados_por_filtro
 
 
 if __name__ == "__main__":
