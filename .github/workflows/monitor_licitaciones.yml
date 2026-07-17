@@ -34,4 +34,5 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add filtros.json filtros/
           git diff --quiet --cached || git commit -m "Actualización diaria licitaciones $(date +%F)"
+          git pull --rebase origin main
           git push
