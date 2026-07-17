@@ -110,8 +110,8 @@
     font-size: 13.5px;
   }
   th:nth-child(1), td:nth-child(1) { width: 60px; }
-  th:nth-child(2), td:nth-child(2) { width: 28%; }
-  th:nth-child(3), td:nth-child(3) { width: 14%; }
+  th:nth-child(2), td:nth-child(2) { width: 26%; }
+  th:nth-child(3), td:nth-child(3) { width: 13%; }
   th:nth-child(4), td:nth-child(4) { width: 9%; }
   th:nth-child(5), td:nth-child(5) { width: 60px; }
   th:nth-child(6), td:nth-child(6) { width: 95px; }
@@ -119,6 +119,9 @@
   th:nth-child(8), td:nth-child(8) { width: 100px; }
   th:nth-child(9), td:nth-child(9) { width: 80px; }
   th:nth-child(10), td:nth-child(10) { width: 70px; }
+  th:nth-child(11), td:nth-child(11) { width: 65px; text-align: center; }
+  .check-revisado { width: 16px; height: 16px; cursor: pointer; }
+  .check-revisado:disabled { cursor: wait; opacity: 0.5; }
   thead th {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
@@ -529,6 +532,13 @@ function celdaRevisionIA(revisionIA) {
     escapeHtml(revisionIA.clasificacion) + '</span>';
 }
 
+function celdaRevisadoHumano(r) {
+  const marcado = !!r.revisado_humano;
+  const titulo = r.revisado_fecha ? 'Revisado el ' + formatearFecha(r.revisado_fecha) : 'Marcar como revisado';
+  return '<input type="checkbox" class="check-revisado" data-folder-id="' + escapeHtml(r.folder_id || '') +
+    '" title="' + escapeHtml(titulo) + '"' + (marcado ? ' checked' : '') + '>';
+}
+
 function esVigente(d) {
   if (!d.fecha_limite) return false;
   const limite = new Date(d.fecha_limite);
@@ -599,6 +609,7 @@ function renderTabla(lista) {
     '<th data-col="fecha_limite">Fecha límite</th>' +
     '<th data-col="fecha_captura">Detectada el</th>' +
     '<th>Documentos</th>' +
+    '<th data-col="revisado_humano">Revisado</th>' +
     '</tr></thead><tbody>';
   for (const r of lista) {
     html += '<tr>' +
@@ -616,6 +627,7 @@ function renderTabla(lista) {
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
         (r.ppt_url ? '<a href="' + r.ppt_url + '" target="_blank" rel="noopener">PPT</a>' : '') +
       '</td>' +
+      '<td>' + celdaRevisadoHumano(r) + '</td>' +
     '</tr>';
   }
   html += '</tbody></table>';
@@ -627,6 +639,10 @@ function renderTabla(lista) {
       if (ordenColumna === col) { ordenAsc = !ordenAsc; } else { ordenColumna = col; ordenAsc = true; }
       aplicarFiltros();
     });
+  });
+
+  cont.querySelectorAll('.check-revisado').forEach(chk => {
+    chk.addEventListener('change', () => alCambiarRevisadoHumano(chk));
   });
 }
 
@@ -665,6 +681,10 @@ function aplicarFiltros() {
     if (ordenColumna === 'revision_ia') {
       va = (a.revision_ia && a.revision_ia.clasificacion) || '';
       vb = (b.revision_ia && b.revision_ia.clasificacion) || '';
+    }
+    if (ordenColumna === 'revisado_humano') {
+      va = a.revisado_humano ? 1 : 0;
+      vb = b.revisado_humano ? 1 : 0;
     }
     if (va < vb) return ordenAsc ? -1 : 1;
     if (va > vb) return ordenAsc ? 1 : -1;
@@ -865,6 +885,69 @@ async function guardarFiltroEnGitHub(nuevoCfg, archivoConfig) {
     throw new Error(`Error al guardar (HTTP ${resp.status}): ${err.message || 'sin detalle'}`);
   }
   return resp.json();
+}
+
+function base64ToUtf8(b64) {
+  const binario = atob(b64.replace(/\n/g, ''));
+  const bytes = Uint8Array.from(binario, c => c.charCodeAt(0));
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+async function guardarRevisionHumana(folderId, valor) {
+  const token = obtenerTokenGuardado();
+  if (!token) throw new Error('Configura primero un token de GitHub.');
+
+  const desc = descriptorFiltro(filtroActivoId);
+  const archivo = rutaFiltro(desc, 'historico.json');
+  const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${archivo}`;
+  const cabeceras = { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' };
+
+  const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras });
+  if (!actual.ok) {
+    throw new Error(`No se pudo leer ${archivo} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
+  }
+  const actualData = await actual.json();
+  const historicoRemoto = JSON.parse(base64ToUtf8(actualData.content));
+
+  const idx = historicoRemoto.findIndex(r => r.folder_id === folderId);
+  if (idx === -1) {
+    throw new Error('No se encontró esta licitación en el histórico remoto (puede que se haya actualizado mientras tanto — recarga la página).');
+  }
+  historicoRemoto[idx].revisado_humano = valor;
+  historicoRemoto[idx].revisado_fecha = valor ? new Date().toISOString() : null;
+
+  const contenido = JSON.stringify(historicoRemoto, null, 2) + '\n';
+  const resp = await fetch(apiUrl, {
+    method: 'PUT',
+    headers: cabeceras,
+    body: JSON.stringify({
+      message: `Marca revisión humana de ${folderId} (${archivo})`,
+      content: utf8ToBase64(contenido),
+      sha: actualData.sha,
+      branch: GH_BRANCH,
+    }),
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(`Error al guardar (HTTP ${resp.status}): ${err.message || 'sin detalle'}`);
+  }
+  return historicoRemoto;
+}
+
+async function alCambiarRevisadoHumano(checkbox) {
+  const folderId = checkbox.dataset.folderId;
+  const valor = checkbox.checked;
+  checkbox.disabled = true;
+  try {
+    const historicoActualizado = await guardarRevisionHumana(folderId, valor);
+    cacheFiltros[filtroActivoId].historico = historicoActualizado;
+    datos = historicoActualizado;
+    aplicarFiltros();
+  } catch (e) {
+    checkbox.checked = !valor;
+    checkbox.disabled = false;
+    alert('No se pudo guardar la revisión: ' + e.message);
+  }
 }
 
 function descriptorFiltro(id) {
