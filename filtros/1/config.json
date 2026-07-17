@@ -1,7 +1,7 @@
 {
   "nombre": "Diseño Urbano Andalucía",
-  "nuts_prefix": "ES61",
   "region": "Andalucía",
+  "nuts_prefix": "ES61",
   "cpv_permitidos": [
     "71400000",
     "71410000",
@@ -18,5 +18,11 @@
   ],
   "estados_permitidos": [
     "PUB"
-  ]
+  ],
+  "tipos_contrato_permitidos": [
+    "2"
+  ],
+  "procedimientos_permitidos": [],
+  "importe_min": null,
+  "importe_max": null
 }
