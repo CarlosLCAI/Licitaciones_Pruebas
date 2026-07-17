@@ -317,8 +317,8 @@
     "procedimiento_match": true,
     "importe_match": true,
     "fecha_captura": "2026-07-17",
-    "revisado_humano": false,
-    "revisado_fecha": null
+    "revisado_humano": true,
+    "revisado_fecha": "2026-07-17T12:01:39.928Z"
   },
   {
     "folder_id": "2025/409350/006-302/00001",
