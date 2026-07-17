@@ -316,7 +316,9 @@
     "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-07-17"
+    "fecha_captura": "2026-07-17",
+    "revisado_humano": true,
+    "revisado_fecha": "2026-07-17T11:38:51.506Z"
   },
   {
     "folder_id": "2025/409350/006-302/00001",
@@ -333,7 +335,7 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Pnc3X%2BoOvCe8WLTEPcVDjXbciH0xDve9%2BY8bsaiZYpHlMF0yH251WTL1tyKDaPNaPWX0aIyfDTNN4JdLYTsVtFSDoE7BUfFYvaK7cn4hSLZ7QB3HKyQaFUExmUVQCerk",
     "organo": "Junta de Gobierno del Ayuntamiento de Turre",
     "importe": "172315",
-    "importe_num": 172315.0,
+    "importe_num": 172315,
     "fecha_limite": "2026-07-31",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
