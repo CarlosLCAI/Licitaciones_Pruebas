@@ -1014,7 +1014,7 @@ async function guardarFiltroEnGitHub(nuevoCfg, archivoConfig, intentosMax = 3) {
   const contenido = JSON.stringify(nuevoCfg, null, 2) + '\n';
 
   for (let intento = 1; intento <= intentosMax; intento++) {
-    const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras });
+    const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras, cache: 'no-store' });
     if (!actual.ok) {
       throw new Error(`No se pudo leer ${archivoConfig} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
     }
@@ -1058,7 +1058,7 @@ async function guardarRevisionHumana(folderId, valor, intentosMax = 3) {
   const cabeceras = { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' };
 
   for (let intento = 1; intento <= intentosMax; intento++) {
-    const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras });
+    const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras, cache: 'no-store' });
     if (!actual.ok) {
       throw new Error(`No se pudo leer ${archivo} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
     }
