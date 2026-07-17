@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  models: read   # necesario para que GITHUB_TOKEN pueda llamar a GitHub Models (revisión IA de solvencia)
 
 jobs:
   fetch:
@@ -26,6 +27,8 @@ jobs:
       - name: Ejecutar script
         env:
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          SOLVENCIA_EMPRESA: ${{ secrets.SOLVENCIA_EMPRESA }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python fetch_licitaciones.py
 
       - name: Commit estado actualizado
