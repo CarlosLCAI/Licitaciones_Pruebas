@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "folder_id": "6670/2026",
+    "estado": "PUB",
+    "titulo": "Servicio para la dirección facultativa y coordinación de seguridad y salud durante la ejecución de las obras de conservación de la Casa Aragón.",
+    "updated": "2026-07-17T09:06:59.970+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=ctr6l5AVaXe5HQrHoP3G5A%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71520000",
+      "71240000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=ps8Bg23/KFynhxMp0usm6uZDPTTz3BpAmNwsYEOCV6%2B6sOHIgMt0sby2y3uj/3PAJXK6iqOBInJi3%2BLExweNDgSbZ4Zg1vben0vJf8oT/jOHAj0WEJrB5sP7amrh2jBD",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=/%2BNhtIbkvyV2tiJpGRE1T2rzFFv/m2nmntBmXH5IAyMwrHysUkxNd%2BWBgHacYQuIwEl8gO/pgPgROTqicdqUueoFs37deyFLOZvCN2Cdo9dJOVDbGCDM%2BMigrvuVS7Rv",
+    "organo": "Alcaldia del Ayuntamiento de Aguilar de la Frontera",
+    "importe": "44982",
+    "importe_num": 44982.0,
+    "fecha_limite": "2026-08-03",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "clasificacion": "No Apto",
+      "motivo": "Falta de roles exigidos en el equipo técnico, específicamente en dirección de obra y coordinación de seguridad y salud.",
+      "fecha_analisis": "2026-07-18T07:24:33.988922+00:00"
+    }
+  }
+]
