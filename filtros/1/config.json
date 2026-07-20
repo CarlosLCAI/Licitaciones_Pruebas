@@ -23,6 +23,6 @@
     "2"
   ],
   "procedimientos_permitidos": [],
-  "importe_min": null,
+  "importe_min": 20000,
   "importe_max": null
 }
