@@ -2,7 +2,7 @@ name: Monitor licitaciones PLACSP
 
 on:
   schedule:
-    - cron: '0 6 * * *'   # 06:00 UTC = 08:00 hora España (ajustar según prefieras)
+    - cron: '8 3 * * *'   # 03:08 UTC = 05:08 hora España en verano (04:08 en invierno) — hora "no en punto" para evitar picos de carga en Actions, con margen amplio antes del inicio de la jornada
   workflow_dispatch:        # permite ejecución manual desde la pestaña Actions
 
 permissions:
