@@ -63,29 +63,41 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (CAI-Consultores-Monitor/1.0)"}
 # SOLVENCIA_EMPRESA está configurada (secret de GitHub Actions). Usa GitHub Models,
 # autenticado con el propio GITHUB_TOKEN del workflow — sin API key ni facturación aparte.
 GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions"
-GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4o-mini")
+GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-5")
 CLASIFICACIONES_VALIDAS = {"Apto", "Apto / UTE", "No Apto", "Revisión"}
 
 PROMPT_SISTEMA_SOLVENCIA = (
     "Eres un asistente que evalúa si una empresa de arquitectura/ingeniería puede presentarse a "
     "una licitación pública española, comparando el perfil de la empresa contra el PCAP y el PPT "
-    "de esa licitación. Debes revisar tres cosas, en este orden:\n\n"
+    "de esa licitación. Razona paso a paso internamente antes de responder, pero en la salida "
+    "final solo debes dar el JSON pedido — no muestres tu razonamiento intermedio.\n\n"
+    "Debes revisar tres cosas, en este orden:\n\n"
     "1. COMPOSICIÓN DEL EQUIPO (normalmente en el PPT, apartado de equipo mínimo o medios "
     "personales): compara los roles y titulaciones exigidas contra el \"Equipo técnico disponible\" "
-    "del perfil de la empresa. Si a algún rol exigido no le corresponde nadie con la titulación "
-    "adecuada en el perfil, es un problema de solvencia técnica.\n"
+    "del perfil de la empresa. No te limites a un cruce literal de nombres de titulación: razona si "
+    "un rol exigido podría cubrirlo razonablemente alguien del equipo con una titulación distinta a "
+    "la literal, teniendo en cuenta las atribuciones profesionales reales en España (por ejemplo, un "
+    "Arquitecto Técnico/Aparejador puede asumir dirección de ejecución material pero no la autoría "
+    "de un proyecto que exige Arquitecto superior si así lo fija la LOE; un Ingeniero de Caminos "
+    "puede cubrir roles de obra civil/hidráulica pero no firmar un proyecto de edificación que "
+    "requiera visado de Arquitecto, salvo que el PPT lo permita explícitamente). Si tienes dudas "
+    "razonables sobre si una titulación distinta es legalmente válida para un rol, sé conservador y "
+    "indica ese punto en el motivo en vez de asumir que sí vale.\n"
     "2. SOLVENCIA ECONÓMICA Y FINANCIERA (en el PCAP, normalmente un volumen de negocios mínimo "
     "anual o acumulado): compara contra el volumen de negocios del perfil.\n"
     "3. SOLVENCIA TÉCNICA Y PROFESIONAL (en el PCAP, normalmente trabajos similares ejecutados en "
     "los últimos años, y a veces clasificación empresarial): compara contra las obras/servicios "
     "similares del perfil.\n\n"
-    "Además, si el PCAP incluye criterios de adjudicación cuantificables automáticamente o "
-    "mediante fórmulas matemáticas relacionados con experiencia complementaria del equipo, mejoras "
-    "ofertadas o experiencia en trabajos previos, valora brevemente en el motivo si el perfil de la "
-    "empresa parece bien posicionado en esos criterios — esto NO debe cambiar la clasificación de "
-    "aptitud, es solo información adicional útil.\n\n"
+    "Además, si el PCAP incluye criterios de adjudicación cuantificables automáticamente o mediante "
+    "fórmulas matemáticas relacionados con experiencia complementaria del equipo, mejoras ofertadas "
+    "o experiencia en trabajos previos, razona con detalle en el campo "
+    "\"valoracion_criterios_adjudicacion\" cómo de bien posicionado parece el perfil de la empresa en "
+    "cada uno de esos criterios (por qué, con qué puntuación relativa podría competir, qué le falta "
+    "para maximizar la puntuación) — esto NO debe cambiar la clasificación de aptitud, es información "
+    "adicional para preparar la oferta.\n\n"
     "Responde ÚNICAMENTE con un JSON de la forma "
-    '{"clasificacion": "...", "motivo": "..."}, sin texto adicional ni bloques de código.\n\n'
+    '{"clasificacion": "...", "motivo": "...", "valoracion_criterios_adjudicacion": "..."}, '
+    "sin texto adicional ni bloques de código.\n\n"
     "Valores posibles de \"clasificacion\" (exactamente uno de estos, tal cual):\n"
     "- \"Apto\": la empresa cumple los tres puntos (equipo, solvencia económica, solvencia técnica) "
     "en solitario.\n"
@@ -94,8 +106,11 @@ PROMPT_SISTEMA_SOLVENCIA = (
     "- \"No Apto\": no cumple los requisitos ni en solitario ni en UTE.\n"
     "- \"Revisión\": no hay información suficiente en el PCAP/PPT o en el perfil para decidir con "
     "confianza, o los documentos no se han podido leer.\n\n"
-    "El campo \"motivo\" debe ser una frase breve (máximo 50 palabras): qué punto de los tres falla "
-    "o cumple, y si procede, una nota sobre los criterios de adjudicación cuantificables."
+    "El campo \"motivo\" debe ser una frase breve (máximo 50 palabras): qué punto de los tres falla o "
+    "cumple, incluyendo si alguna sustitución de titulación fue determinante.\n"
+    "El campo \"valoracion_criterios_adjudicacion\" puede ser más largo (hasta 120 palabras) y debe "
+    "razonar sobre los criterios de adjudicación cuantificables si existen; si el PCAP no tiene "
+    "criterios de este tipo o no se pudieron leer, indícalo brevemente ahí."
 )
 
 
@@ -119,9 +134,17 @@ def extraer_texto_pdf(url, max_chars=12000):
 def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organo):
     token = os.environ.get("GITHUB_TOKEN")
     if not token:
-        return {"clasificacion": "Revisión", "motivo": "No hay GITHUB_TOKEN configurado para llamar a GitHub Models."}
+        return {
+            "clasificacion": "Revisión",
+            "motivo": "No hay GITHUB_TOKEN configurado para llamar a GitHub Models.",
+            "valoracion_criterios_adjudicacion": "",
+        }
     if not texto_pcap and not texto_ppt:
-        return {"clasificacion": "Revisión", "motivo": "No se pudo obtener texto del PCAP ni del PPT."}
+        return {
+            "clasificacion": "Revisión",
+            "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
+            "valoracion_criterios_adjudicacion": "",
+        }
 
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     mensaje_usuario = (
@@ -140,7 +163,6 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
             {"role": "system", "content": PROMPT_SISTEMA_SOLVENCIA},
             {"role": "user", "content": mensaje_usuario},
         ],
-        "temperature": 0,
     }
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
@@ -153,9 +175,17 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
         clasificacion = resultado.get("clasificacion", "Revisión")
         if clasificacion not in CLASIFICACIONES_VALIDAS:
             clasificacion = "Revisión"
-        return {"clasificacion": clasificacion, "motivo": resultado.get("motivo", "")}
+        return {
+            "clasificacion": clasificacion,
+            "motivo": resultado.get("motivo", ""),
+            "valoracion_criterios_adjudicacion": resultado.get("valoracion_criterios_adjudicacion", ""),
+        }
     except Exception as e:
-        return {"clasificacion": "Revisión", "motivo": f"Error al analizar con IA: {e}"}
+        return {
+            "clasificacion": "Revisión",
+            "motivo": f"Error al analizar con IA: {e}",
+            "valoracion_criterios_adjudicacion": "",
+        }
 
 
 def analizar_solvencia(r, perfil_empresa):
@@ -392,6 +422,7 @@ def main():
             "desc": desc,
             "cfg": cfg,
             "ids_vistos": set(estado.get("ids_vistos", [])),
+            "total_entries_acumulado_previo": estado.get("total_entries_acumulado", 0),
             "resultados": [],
         })
 
@@ -459,13 +490,18 @@ def main():
                 r["revision_ia"] = analizar_solvencia(r, perfil_empresa)
                 print(f"    -> Revisión IA [{r['folder_id']}]: {r['revision_ia']['clasificacion']}")
 
-        guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {"ids_vistos": list(ctx["ids_vistos"])})
+        total_entries_acumulado = ctx["total_entries_acumulado_previo"] + total_entries_leidas
+        guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {
+            "ids_vistos": list(ctx["ids_vistos"]),
+            "total_entries_acumulado": total_entries_acumulado,
+        })
 
         metadata_lectura = {
             "fecha_hora": fecha_hora_iso,
             "paginas": pagina,
             "total_entries_leidas": total_entries_leidas,
             "nuevas_filtradas": len(resultados),
+            "total_entries_acumulado": total_entries_acumulado,
         }
         with open(ruta_filtro(desc, NOMBRE_ULTIMA_LECTURA), "w", encoding="utf-8") as f:
             json.dump(metadata_lectura, f, ensure_ascii=False, indent=2)

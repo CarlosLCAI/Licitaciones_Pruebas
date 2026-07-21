@@ -587,8 +587,11 @@ function badgeClassIA(clasificacion) {
 
 function celdaRevisionIA(revisionIA) {
   if (!revisionIA || !revisionIA.clasificacion) return '<span class="mono">—</span>';
-  const titulo = escapeHtml(revisionIA.motivo || '');
-  return '<span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '" title="' + titulo + '">' +
+  let titulo = revisionIA.motivo || '';
+  if (revisionIA.valoracion_criterios_adjudicacion) {
+    titulo += '\n\nCriterios de adjudicación: ' + revisionIA.valoracion_criterios_adjudicacion;
+  }
+  return '<span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '" title="' + escapeHtml(titulo) + '">' +
     escapeHtml(revisionIA.clasificacion) + '</span>';
 }
 
@@ -793,8 +796,6 @@ function renderEstadisticas() {
   const revisadas = datos.filter(d => d.revisado_humano).length;
   const pctRevisadas = total ? Math.round((revisadas / total) * 100) : 0;
 
-  const importeTotal = datos.reduce((sum, d) => sum + (parseFloat(d.importe) || 0), 0);
-
   let html = '<div class="stats-wrap">';
 
   html += '<h3 class="stats-section-title">Última lectura (parcial)</h3><div class="stats-grid">';
@@ -814,11 +815,14 @@ function renderEstadisticas() {
   html += '</div>';
 
   html += '<h3 class="stats-section-title">Histórico global — ' + escapeHtml((filtroConfigActual && filtroConfigActual.nombre) || '') + '</h3>';
+  const entriesAcumuladas = metaLectura
+    ? (metaLectura.total_entries_acumulado != null ? metaLectura.total_entries_acumulado : metaLectura.total_entries_leidas)
+    : null;
   html += '<div class="stats-grid">' +
+    statTile('Entradas totales leídas (acumulado)', entriesAcumuladas != null ? entriesAcumuladas : '—') +
     statTile('Total licitaciones filtradas (acumulado)', total) +
     statTile('En plazo ahora mismo', enPlazo) +
     statTile('Plazo vencido', vencidas) +
-    statTile('Importe total acumulado', formatearImporte(String(importeTotal))) +
     statTile('Revisadas por el equipo', revisadas + ' / ' + total + ' (' + pctRevisadas + '%)') +
     '</div>';
 
