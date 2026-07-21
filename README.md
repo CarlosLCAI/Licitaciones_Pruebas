@@ -25,7 +25,7 @@ Cada ejecución:
 Los códigos CPV configurados son una selección orientativa de servicios de urbanismo, arquitectura, ingeniería y planificación territorial. Deben revisarse y confirmarse formalmente antes de considerar el filtro cerrado.
 
 ## Próximos pasos (roadmap)
-
-- **✓Múltiples filtros configurables**: permitir varios filtros simultáneos (Filtro 2, 3, 4...) con distinto ámbito geográfico, CPV o estado, cada uno generando su propio histórico, seleccionables desde el desplegable ya presente en el visor.
-- **✓Edición de filtros desde el front-end**: requiere incorporar un backend (API propia) que reciba los cambios de configuración desde el visor y los traslade al proceso de captura, sustituyendo el modelo actual de solo lectura.
-- **~Análisis automático de viabilidad con IA**: para cada licitación filtrada, descargar el PCAP y el PPT, extraer los requisitos de solvencia técnica y económica, contrastarlos con los criterios de la empresa, y generar un resumen de los criterios de adjudicación junto con una valoración de viabilidad de presentarse.
+- **[✓]Estadísticas**:
+- **[✓]Múltiples filtros configurables**: permitir varios filtros simultáneos (Filtro 2, 3, 4...) con distinto ámbito geográfico, CPV o estado, cada uno generando su propio histórico, seleccionables desde el desplegable ya presente en el visor.
+- **[✓]Edición de filtros desde el front-end**: requiere incorporar un backend (API propia) que reciba los cambios de configuración desde el visor y los traslade al proceso de captura, sustituyendo el modelo actual de solo lectura.
+- **[~]Análisis automático de viabilidad con IA**: para cada licitación filtrada, descargar el PCAP y el PPT, extraer los requisitos de solvencia técnica y económica, contrastarlos con los criterios de la empresa, y generar un resumen de los criterios de adjudicación junto con una valoración de viabilidad de presentarse.
