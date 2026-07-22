@@ -407,5 +407,35 @@
     "fecha_captura": "2026-07-22",
     "revisado_humano": true,
     "revisado_fecha": "2026-07-22T10:52:15.467Z"
+  },
+  {
+    "folder_id": "160/2026",
+    "estado": "PUB",
+    "titulo": "Servicio de asistencia técnica al Ayuntamiento de Iznatoraf, para la redacción Plan Básico de Ordenación Municipal (PBOM) y el Plan Especial de Protección del Patrimonio Histórico (PEPPH).",
+    "updated": "2026-07-21T18:24:04.681+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=CqCs6W%2BKVz%2Fs%2BnLj3vAg5A%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71410000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=XVJlwm//LEAdKG06DfrJww85Jz62msPLd4OaUdP0VCDGJC7YSf54JUCUVtpLzf6W3bHTIuDP4Buj4vv6nhWQkObbbmItBhgN9GY0SCPsC1nDdQD9RyhUmzT4jZ2In4zL",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=08s9YCZJxBas%2B039%2BFaIMeyC9QAB6eIlCxFddjp2P6Hp5xLX12DJQIXaLJkirDj2SjbSAVRbS/Gqm/QT9BxuhEKaJOzbhx4/84pYxC8I0qv3GVhXrFFqN7yFncy7YfRK",
+    "organo": "Alcaldía del Ayuntamiento de Iznatoraf",
+    "importe": "120000",
+    "importe_num": 120000.0,
+    "fecha_limite": "2026-08-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "clasificacion": "Revisión",
+      "motivo": "No se encuentra información suficiente sobre los requisitos de composición de equipo ni sobre la solvencia técnica/experiencia previa exigida en los extractos proporcionados del PCAP y PPT.",
+      "valoracion_criterios_adjudicacion": "No se pueden valorar los criterios de adjudicación cuantificables por falta de información en los extractos del PCAP y PPT recibidos. Es necesario estudiar los pliegos completos o acceder a los apartados específicos para una evaluación precisa.",
+      "fecha_analisis": "2026-07-22T10:57:12.077734+00:00"
+    },
+    "fecha_captura": "2026-07-22"
   }
 ]

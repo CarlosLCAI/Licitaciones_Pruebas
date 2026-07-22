@@ -23,9 +23,9 @@
     "importe_match": true,
     "revision_ia": {
       "clasificacion": "Revisión",
-      "motivo": "Error al analizar con IA: 413 Client Error: Payload Too Large for url: https://models.github.ai/inference/chat/completions",
-      "valoracion_criterios_adjudicacion": "",
-      "fecha_analisis": "2026-07-22T10:27:55.186194+00:00"
+      "motivo": "No se encuentra información suficiente sobre los requisitos de composición de equipo ni sobre la solvencia técnica/experiencia previa exigida en los extractos proporcionados del PCAP y PPT.",
+      "valoracion_criterios_adjudicacion": "No se pueden valorar los criterios de adjudicación cuantificables por falta de información en los extractos del PCAP y PPT recibidos. Es necesario estudiar los pliegos completos o acceder a los apartados específicos para una evaluación precisa.",
+      "fecha_analisis": "2026-07-22T10:57:12.077734+00:00"
     }
   }
 ]
