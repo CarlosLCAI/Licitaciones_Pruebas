@@ -23,9 +23,9 @@
     "importe_match": true,
     "revision_ia": {
       "clasificacion": "Revisión",
-      "motivo": "Error al analizar con IA: 413 Client Error: Payload Too Large for url: https://models.github.ai/inference/chat/completions",
+      "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
       "valoracion_criterios_adjudicacion": "",
-      "fecha_analisis": "2026-07-22T06:08:51.323871+00:00"
+      "fecha_analisis": "2026-07-22T09:51:46.104197+00:00"
     }
   }
 ]
