@@ -65,12 +65,41 @@ HEADERS = {
     "Referer": "https://contrataciondelestado.es/",
 }
 
-# Revisión de solvencia por IA (opcional): se activa solo si la variable de entorno
-# SOLVENCIA_EMPRESA está configurada (secret de GitHub Actions). Usa GitHub Models,
-# autenticado con el propio GITHUB_TOKEN del workflow — sin API key ni facturación aparte.
-GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions"
-GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
+# Revisión de solvencia por IA (opcional): se activa solo si las variables de entorno
+# SOLVENCIA_EMPRESA y ANTHROPIC_API_KEY están configuradas (secrets de GitHub Actions).
+# Usa la API directa de Anthropic (Claude) — sin los límites de tokens de GitHub Models.
+ANTHROPIC_API_ENDPOINT = "https://api.anthropic.com/v1/messages"
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
+ANTHROPIC_VERSION = "2023-06-01"
 CLASIFICACIONES_VALIDAS = {"Apto", "Apto / UTE", "No Apto", "Revisión"}
+
+# Herramienta forzada para garantizar una salida JSON con la forma exacta que necesitamos,
+# en vez de depender de que el modelo "recuerde" devolver solo JSON en su respuesta de texto.
+HERRAMIENTA_CLASIFICACION = {
+    "name": "clasificar_solvencia",
+    "description": "Registra la clasificación de aptitud de la empresa para presentarse a esta licitación.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "clasificacion": {
+                "type": "string",
+                "enum": ["Apto", "Apto / UTE", "No Apto", "Revisión"],
+            },
+            "motivo": {
+                "type": "string",
+                "description": "Frase breve (máximo 50 palabras) con la razón principal.",
+            },
+            "valoracion_criterios_adjudicacion": {
+                "type": "string",
+                "description": (
+                    "Hasta 120 palabras razonando sobre los criterios de adjudicación "
+                    "cuantificables, si existen."
+                ),
+            },
+        },
+        "required": ["clasificacion", "motivo", "valoracion_criterios_adjudicacion"],
+    },
+}
 
 PROMPT_SISTEMA_SOLVENCIA = (
     "Eres un asistente que evalúa si una empresa de arquitectura/ingeniería puede presentarse a "
@@ -101,9 +130,8 @@ PROMPT_SISTEMA_SOLVENCIA = (
     "cada uno de esos criterios (por qué, con qué puntuación relativa podría competir, qué le falta "
     "para maximizar la puntuación) — esto NO debe cambiar la clasificación de aptitud, es información "
     "adicional para preparar la oferta.\n\n"
-    "Responde ÚNICAMENTE con un JSON de la forma "
-    '{"clasificacion": "...", "motivo": "...", "valoracion_criterios_adjudicacion": "..."}, '
-    "sin texto adicional ni bloques de código.\n\n"
+    "Registra tu conclusión llamando a la herramienta \"clasificar_solvencia\" con los tres campos "
+    "pedidos — no respondas con texto libre.\n\n"
     "Valores posibles de \"clasificacion\" (exactamente uno de estos, tal cual):\n"
     "- \"Apto\": la empresa cumple los tres puntos (equipo, solvencia económica, solvencia técnica) "
     "en solitario.\n"
@@ -120,47 +148,10 @@ PROMPT_SISTEMA_SOLVENCIA = (
 )
 
 
-# Palabras clave para localizar las cláusulas relevantes dentro de un documento largo,
-# en vez de mandar el documento entero o cortarlo a ciegas por los primeros caracteres.
-PALABRAS_CLAVE_PCAP = [
-    "solvencia económica", "solvencia financiera", "solvencia técnica", "solvencia profesional",
-    "clasificación empresarial", "clasificación del contratista", "volumen de negocios",
-    "volumen anual de negocios", "criterios de adjudicación", "criterios de valoración",
-]
-PALABRAS_CLAVE_PPT = [
-    "equipo mínimo", "equipo técnico", "medios personales", "personal adscrito",
-    "composición del equipo", "medios humanos", "equipo de trabajo", "equipo adscrito",
-]
-
-
-def extraer_secciones_relevantes(texto, palabras_clave, ventana=2500, max_total=8000):
-    """Busca cada palabra clave (sin distinguir mayúsculas/acentos exactos) y devuelve el
-    texto alrededor de cada aparición, para capturar la cláusula relevante aunque esté lejos
-    del principio del documento. Si no encuentra ninguna, cae a los primeros max_total
-    caracteres como último recurso."""
-    texto_lower = texto.lower()
-    fragmentos = []
-    posiciones_usadas = []
-    for palabra in palabras_clave:
-        idx = 0
-        while True:
-            pos = texto_lower.find(palabra, idx)
-            if pos == -1:
-                break
-            if not any(abs(pos - p) < ventana for p in posiciones_usadas):
-                inicio = max(0, pos - 300)
-                fin = min(len(texto), pos + ventana)
-                fragmentos.append(texto[inicio:fin])
-                posiciones_usadas.append(pos)
-            idx = pos + len(palabra)
-
-    if not fragmentos:
-        return texto[:max_total]
-
-    return "\n[...]\n".join(fragmentos)[:max_total]
-
-
-def extraer_texto_pdf(url, palabras_clave=None, max_chars_extraccion=200000, max_chars_final=8000):
+def extraer_texto_pdf(url, max_chars=150000):
+    """Extrae el texto completo del PDF hasta max_chars. Con Claude (200.000 tokens de
+    contexto) no hace falta recortar agresivamente ni buscar secciones por palabras clave:
+    este tope es solo una salvaguarda para PDFs verdaderamente extremos."""
     if not url:
         return ""
     resp = requests.get(url, headers=HEADERS, timeout=30)
@@ -172,21 +163,17 @@ def extraer_texto_pdf(url, palabras_clave=None, max_chars_extraccion=200000, max
         texto_pagina = pagina.extract_text() or ""
         fragmentos.append(texto_pagina)
         total += len(texto_pagina)
-        if total >= max_chars_extraccion:
+        if total >= max_chars:
             break
-    texto_completo = "\n".join(fragmentos)[:max_chars_extraccion]
-
-    if palabras_clave:
-        return extraer_secciones_relevantes(texto_completo, palabras_clave, max_total=max_chars_final)
-    return texto_completo[:max_chars_final]
+    return "\n".join(fragmentos)[:max_chars]
 
 
 def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organo):
-    token = os.environ.get("GITHUB_TOKEN")
-    if not token:
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
         return {
             "clasificacion": "Revisión",
-            "motivo": "No hay GITHUB_TOKEN configurado para llamar a GitHub Models.",
+            "motivo": "No hay ANTHROPIC_API_KEY configurada para llamar a Claude.",
             "valoracion_criterios_adjudicacion": "",
         }
     if not texto_pcap and not texto_ppt:
@@ -195,14 +182,6 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
             "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
             "valoracion_criterios_adjudicacion": "",
         }
-
-    # Tope de seguridad sobre el perfil de la empresa: no controlamos su tamaño (viene de un
-    # secret editado a mano) y un perfil demasiado largo podría hacer que la petición a la IA
-    # supere el límite de tamaño de GitHub Models (HTTP 413).
-    PERFIL_MAX_CHARS = 3000
-    if len(perfil_empresa) > PERFIL_MAX_CHARS:
-        print(f"    Aviso: perfil de solvencia truncado de {len(perfil_empresa)} a {PERFIL_MAX_CHARS} caracteres.")
-        perfil_empresa = perfil_empresa[:PERFIL_MAX_CHARS]
 
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     mensaje_usuario = (
@@ -216,13 +195,18 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     )
 
     payload = {
-        "model": GITHUB_MODELS_MODEL,
-        "messages": [
-            {"role": "system", "content": PROMPT_SISTEMA_SOLVENCIA},
-            {"role": "user", "content": mensaje_usuario},
-        ],
+        "model": ANTHROPIC_MODEL,
+        "max_tokens": 1024,
+        "system": PROMPT_SISTEMA_SOLVENCIA,
+        "messages": [{"role": "user", "content": mensaje_usuario}],
+        "tools": [HERRAMIENTA_CLASIFICACION],
+        "tool_choice": {"type": "tool", "name": "clasificar_solvencia"},
     }
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": ANTHROPIC_VERSION,
+        "Content-Type": "application/json",
+    }
 
     # Diagnóstico de tamaños (nunca se imprime el contenido del perfil, es un secret).
     payload_bytes = len(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
@@ -233,13 +217,13 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     )
 
     try:
-        resp = requests.post(GITHUB_MODELS_ENDPOINT, headers=headers, json=payload, timeout=60)
+        resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=120)
         if not resp.ok:
-            print(f"    Respuesta de error de GitHub Models (HTTP {resp.status_code}): {resp.text[:2000]}")
+            print(f"    Respuesta de error de Anthropic (HTTP {resp.status_code}): {resp.text[:2000]}")
         resp.raise_for_status()
-        contenido = resp.json()["choices"][0]["message"]["content"].strip()
-        contenido = re.sub(r"^```(json)?|```$", "", contenido, flags=re.MULTILINE).strip()
-        resultado = json.loads(contenido)
+        data = resp.json()
+        bloque_tool = next(b for b in data["content"] if b.get("type") == "tool_use")
+        resultado = bloque_tool["input"]
         clasificacion = resultado.get("clasificacion", "Revisión")
         if clasificacion not in CLASIFICACIONES_VALIDAS:
             clasificacion = "Revisión"
@@ -258,11 +242,11 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
 
 def analizar_solvencia(r, perfil_empresa):
     try:
-        texto_pcap = extraer_texto_pdf(r.get("pcap_url"), palabras_clave=PALABRAS_CLAVE_PCAP)
+        texto_pcap = extraer_texto_pdf(r.get("pcap_url"))
     except Exception:
         texto_pcap = ""
     try:
-        texto_ppt = extraer_texto_pdf(r.get("ppt_url"), palabras_clave=PALABRAS_CLAVE_PPT)
+        texto_ppt = extraer_texto_pdf(r.get("ppt_url"))
     except Exception:
         texto_ppt = ""
 
