@@ -316,7 +316,9 @@
     "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-07-17"
+    "fecha_captura": "2026-07-17",
+    "revisado_humano": false,
+    "revisado_fecha": null
   },
   {
     "folder_id": "2025/409350/006-302/00001",
@@ -333,43 +335,45 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Pnc3X%2BoOvCe8WLTEPcVDjXbciH0xDve9%2BY8bsaiZYpHlMF0yH251WTL1tyKDaPNaPWX0aIyfDTNN4JdLYTsVtFSDoE7BUfFYvaK7cn4hSLZ7QB3HKyQaFUExmUVQCerk",
     "organo": "Junta de Gobierno del Ayuntamiento de Turre",
     "importe": "172315",
-    "importe_num": 172315.0,
+    "importe_num": 172315,
     "fecha_limite": "2026-07-31",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-07-17"
+    "fecha_captura": "2026-07-17",
+    "revisado_humano": false,
+    "revisado_fecha": null
   },
   {
-    "folder_id": "160/2026",
+    "folder_id": "6670/2026",
     "estado": "PUB",
-    "titulo": "Servicio de asistencia técnica al Ayuntamiento de Iznatoraf, para la redacción Plan Básico de Ordenación Municipal (PBOM) y el Plan Especial de Protección del Patrimonio Histórico (PEPPH).",
-    "updated": "2026-07-21T18:24:04.681+02:00",
-    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=CqCs6W%2BKVz%2Fs%2BnLj3vAg5A%3D%3D",
+    "titulo": "Servicio para la dirección facultativa y coordinación de seguridad y salud durante la ejecución de las obras de conservación de la Casa Aragón.",
+    "updated": "2026-07-17T09:06:59.970+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=ctr6l5AVaXe5HQrHoP3G5A%3D%3D",
     "es_andalucia": true,
     "cpv_match": true,
     "cpv_codes": [
-      "71410000"
+      "71520000",
+      "71240000"
     ],
-    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=XVJlwm//LEAdKG06DfrJww85Jz62msPLd4OaUdP0VCDGJC7YSf54JUCUVtpLzf6W3bHTIuDP4Buj4vv6nhWQkObbbmItBhgN9GY0SCPsC1nDdQD9RyhUmzT4jZ2In4zL",
-    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=08s9YCZJxBas%2B039%2BFaIMeyC9QAB6eIlCxFddjp2P6Hp5xLX12DJQIXaLJkirDj2SjbSAVRbS/Gqm/QT9BxuhEKaJOzbhx4/84pYxC8I0qv3GVhXrFFqN7yFncy7YfRK",
-    "organo": "Alcaldía del Ayuntamiento de Iznatoraf",
-    "importe": "120000",
-    "importe_num": 120000.0,
-    "fecha_limite": "2026-08-05",
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=ps8Bg23/KFynhxMp0usm6uZDPTTz3BpAmNwsYEOCV6%2B6sOHIgMt0sby2y3uj/3PAJXK6iqOBInJi3%2BLExweNDgSbZ4Zg1vben0vJf8oT/jOHAj0WEJrB5sP7amrh2jBD",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=/%2BNhtIbkvyV2tiJpGRE1T2rzFFv/m2nmntBmXH5IAyMwrHysUkxNd%2BWBgHacYQuIwEl8gO/pgPgROTqicdqUueoFs37deyFLOZvCN2Cdo9dJOVDbGCDM%2BMigrvuVS7Rv",
+    "organo": "Alcaldia del Ayuntamiento de Aguilar de la Frontera",
+    "importe": "44982",
+    "importe_num": 44982.0,
+    "fecha_limite": "2026-08-03",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
     "revision_ia": {
-      "clasificacion": "Revisión",
-      "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
-      "valoracion_criterios_adjudicacion": "",
-      "fecha_analisis": "2026-07-22T09:51:46.104197+00:00"
+      "clasificacion": "No Apto",
+      "motivo": "Falta de roles exigidos en el equipo técnico, específicamente en dirección de obra y coordinación de seguridad y salud.",
+      "fecha_analisis": "2026-07-18T07:24:33.988922+00:00"
     },
-    "fecha_captura": "2026-07-22"
+    "fecha_captura": "2026-07-18"
   }
 ]
