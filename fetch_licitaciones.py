@@ -120,7 +120,47 @@ PROMPT_SISTEMA_SOLVENCIA = (
 )
 
 
-def extraer_texto_pdf(url, max_chars=10000):
+# Palabras clave para localizar las cláusulas relevantes dentro de un documento largo,
+# en vez de mandar el documento entero o cortarlo a ciegas por los primeros caracteres.
+PALABRAS_CLAVE_PCAP = [
+    "solvencia económica", "solvencia financiera", "solvencia técnica", "solvencia profesional",
+    "clasificación empresarial", "clasificación del contratista", "volumen de negocios",
+    "volumen anual de negocios", "criterios de adjudicación", "criterios de valoración",
+]
+PALABRAS_CLAVE_PPT = [
+    "equipo mínimo", "equipo técnico", "medios personales", "personal adscrito",
+    "composición del equipo", "medios humanos", "equipo de trabajo", "equipo adscrito",
+]
+
+
+def extraer_secciones_relevantes(texto, palabras_clave, ventana=4000, max_total=20000):
+    """Busca cada palabra clave (sin distinguir mayúsculas/acentos exactos) y devuelve el
+    texto alrededor de cada aparición, para capturar la cláusula relevante aunque esté lejos
+    del principio del documento. Si no encuentra ninguna, cae a los primeros max_total
+    caracteres como último recurso."""
+    texto_lower = texto.lower()
+    fragmentos = []
+    posiciones_usadas = []
+    for palabra in palabras_clave:
+        idx = 0
+        while True:
+            pos = texto_lower.find(palabra, idx)
+            if pos == -1:
+                break
+            if not any(abs(pos - p) < ventana for p in posiciones_usadas):
+                inicio = max(0, pos - 300)
+                fin = min(len(texto), pos + ventana)
+                fragmentos.append(texto[inicio:fin])
+                posiciones_usadas.append(pos)
+            idx = pos + len(palabra)
+
+    if not fragmentos:
+        return texto[:max_total]
+
+    return "\n[...]\n".join(fragmentos)[:max_total]
+
+
+def extraer_texto_pdf(url, palabras_clave=None, max_chars_extraccion=200000, max_chars_final=20000):
     if not url:
         return ""
     resp = requests.get(url, headers=HEADERS, timeout=30)
@@ -132,9 +172,13 @@ def extraer_texto_pdf(url, max_chars=10000):
         texto_pagina = pagina.extract_text() or ""
         fragmentos.append(texto_pagina)
         total += len(texto_pagina)
-        if total >= max_chars:
+        if total >= max_chars_extraccion:
             break
-    return "\n".join(fragmentos)[:max_chars]
+    texto_completo = "\n".join(fragmentos)[:max_chars_extraccion]
+
+    if palabras_clave:
+        return extraer_secciones_relevantes(texto_completo, palabras_clave, max_total=max_chars_final)
+    return texto_completo[:max_chars_final]
 
 
 def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organo):
@@ -214,11 +258,11 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
 
 def analizar_solvencia(r, perfil_empresa):
     try:
-        texto_pcap = extraer_texto_pdf(r.get("pcap_url"))
+        texto_pcap = extraer_texto_pdf(r.get("pcap_url"), palabras_clave=PALABRAS_CLAVE_PCAP)
     except Exception:
         texto_pcap = ""
     try:
-        texto_ppt = extraer_texto_pdf(r.get("ppt_url"))
+        texto_ppt = extraer_texto_pdf(r.get("ppt_url"), palabras_clave=PALABRAS_CLAVE_PPT)
     except Exception:
         texto_ppt = ""
 
