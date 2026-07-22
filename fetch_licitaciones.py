@@ -133,7 +133,7 @@ PALABRAS_CLAVE_PPT = [
 ]
 
 
-def extraer_secciones_relevantes(texto, palabras_clave, ventana=4000, max_total=20000):
+def extraer_secciones_relevantes(texto, palabras_clave, ventana=2500, max_total=8000):
     """Busca cada palabra clave (sin distinguir mayúsculas/acentos exactos) y devuelve el
     texto alrededor de cada aparición, para capturar la cláusula relevante aunque esté lejos
     del principio del documento. Si no encuentra ninguna, cae a los primeros max_total
@@ -160,7 +160,7 @@ def extraer_secciones_relevantes(texto, palabras_clave, ventana=4000, max_total=
     return "\n[...]\n".join(fragmentos)[:max_total]
 
 
-def extraer_texto_pdf(url, palabras_clave=None, max_chars_extraccion=200000, max_chars_final=20000):
+def extraer_texto_pdf(url, palabras_clave=None, max_chars_extraccion=200000, max_chars_final=8000):
     if not url:
         return ""
     resp = requests.get(url, headers=HEADERS, timeout=30)
@@ -199,7 +199,7 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     # Tope de seguridad sobre el perfil de la empresa: no controlamos su tamaño (viene de un
     # secret editado a mano) y un perfil demasiado largo podría hacer que la petición a la IA
     # supere el límite de tamaño de GitHub Models (HTTP 413).
-    PERFIL_MAX_CHARS = 6000
+    PERFIL_MAX_CHARS = 3000
     if len(perfil_empresa) > PERFIL_MAX_CHARS:
         print(f"    Aviso: perfil de solvencia truncado de {len(perfil_empresa)} a {PERFIL_MAX_CHARS} caracteres.")
         perfil_empresa = perfil_empresa[:PERFIL_MAX_CHARS]
