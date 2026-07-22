@@ -405,8 +405,8 @@
       "fecha_analisis": "2026-07-22T10:27:55.186194+00:00"
     },
     "fecha_captura": "2026-07-22",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-07-22T10:52:15.467Z"
+    "revisado_humano": false,
+    "revisado_fecha": null
   },
   {
     "folder_id": "160/2026",
@@ -423,7 +423,7 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=08s9YCZJxBas%2B039%2BFaIMeyC9QAB6eIlCxFddjp2P6Hp5xLX12DJQIXaLJkirDj2SjbSAVRbS/Gqm/QT9BxuhEKaJOzbhx4/84pYxC8I0qv3GVhXrFFqN7yFncy7YfRK",
     "organo": "Alcaldía del Ayuntamiento de Iznatoraf",
     "importe": "120000",
-    "importe_num": 120000.0,
+    "importe_num": 120000,
     "fecha_limite": "2026-08-05",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
