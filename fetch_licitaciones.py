@@ -146,6 +146,14 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
             "valoracion_criterios_adjudicacion": "",
         }
 
+    # Tope de seguridad sobre el perfil de la empresa: no controlamos su tamaño (viene de un
+    # secret editado a mano) y un perfil demasiado largo podría hacer que la petición a la IA
+    # supere el límite de tamaño de GitHub Models (HTTP 413).
+    PERFIL_MAX_CHARS = 8000
+    if len(perfil_empresa) > PERFIL_MAX_CHARS:
+        print(f"    Aviso: perfil de solvencia truncado de {len(perfil_empresa)} a {PERFIL_MAX_CHARS} caracteres.")
+        perfil_empresa = perfil_empresa[:PERFIL_MAX_CHARS]
+
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     mensaje_usuario = (
         f"FECHA DE HOY: {fecha_hoy} (usa esta fecha para calcular años de experiencia si el perfil "
@@ -166,8 +174,18 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     }
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
+    # Diagnóstico de tamaños (nunca se imprime el contenido del perfil, es un secret).
+    payload_bytes = len(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
+    print(
+        f"    Tamaños enviados a la IA -> perfil: {len(perfil_empresa)} car., "
+        f"PCAP: {len(texto_pcap or '')} car., PPT: {len(texto_ppt or '')} car., "
+        f"payload total: {payload_bytes} bytes"
+    )
+
     try:
         resp = requests.post(GITHUB_MODELS_ENDPOINT, headers=headers, json=payload, timeout=60)
+        if not resp.ok:
+            print(f"    Respuesta de error de GitHub Models (HTTP {resp.status_code}): {resp.text[:2000]}")
         resp.raise_for_status()
         contenido = resp.json()["choices"][0]["message"]["content"].strip()
         contenido = re.sub(r"^```(json)?|```$", "", contenido, flags=re.MULTILINE).strip()
