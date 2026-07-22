@@ -69,7 +69,7 @@ HEADERS = {
 # SOLVENCIA_EMPRESA está configurada (secret de GitHub Actions). Usa GitHub Models,
 # autenticado con el propio GITHUB_TOKEN del workflow — sin API key ni facturación aparte.
 GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions"
-GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-5")
+GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
 CLASIFICACIONES_VALIDAS = {"Apto", "Apto / UTE", "No Apto", "Revisión"}
 
 PROMPT_SISTEMA_SOLVENCIA = (
@@ -120,7 +120,7 @@ PROMPT_SISTEMA_SOLVENCIA = (
 )
 
 
-def extraer_texto_pdf(url, max_chars=12000):
+def extraer_texto_pdf(url, max_chars=10000):
     if not url:
         return ""
     resp = requests.get(url, headers=HEADERS, timeout=30)
@@ -155,7 +155,7 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     # Tope de seguridad sobre el perfil de la empresa: no controlamos su tamaño (viene de un
     # secret editado a mano) y un perfil demasiado largo podría hacer que la petición a la IA
     # supere el límite de tamaño de GitHub Models (HTTP 413).
-    PERFIL_MAX_CHARS = 8000
+    PERFIL_MAX_CHARS = 6000
     if len(perfil_empresa) > PERFIL_MAX_CHARS:
         print(f"    Aviso: perfil de solvencia truncado de {len(perfil_empresa)} a {PERFIL_MAX_CHARS} caracteres.")
         perfil_empresa = perfil_empresa[:PERFIL_MAX_CHARS]
