@@ -57,7 +57,13 @@ FILTRO_CONFIG_VACIO = {
     "importe_max": None,
 }
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (CAI-Consultores-Monitor/1.0)"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/atom+xml, application/xml, text/xml, */*;q=0.8",
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+    "Referer": "https://contrataciondelestado.es/",
+}
 
 # Revisión de solvencia por IA (opcional): se activa solo si la variable de entorno
 # SOLVENCIA_EMPRESA está configurada (secret de GitHub Actions). Usa GitHub Models,
@@ -491,6 +497,8 @@ def main():
             break
 
         url_actual = get_next_link(root)
+        if url_actual:
+            time.sleep(2)  # pausa entre páginas para no parecer scraping automático agresivo
 
     print(f"Páginas leídas: {pagina}")
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
@@ -539,7 +547,14 @@ def main():
         archivo_historico = ruta_filtro(desc, NOMBRE_HISTORICO)
         if os.path.exists(archivo_historico):
             with open(archivo_historico, "r", encoding="utf-8") as f:
-                historico = json.load(f)
+                try:
+                    historico = json.load(f)
+                except json.JSONDecodeError as e:
+                    raise RuntimeError(
+                        f"{archivo_historico} tiene un error de sintaxis JSON ({e}). "
+                        "No se puede continuar sin arreglarlo a mano (revisa comas sobrantes o "
+                        "corchetes/llaves sin cerrar) para no arriesgarse a perder el histórico."
+                    ) from e
         else:
             historico = []
         historico.extend(resultados)
