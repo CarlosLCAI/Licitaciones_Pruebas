@@ -352,12 +352,15 @@ import time
 
 def fetch_pagina(url, intentos=3):
     for intento in range(1, intentos + 1):
+        resp = None
         try:
             resp = requests.get(url, headers=HEADERS, timeout=30)
             resp.raise_for_status()
             return etree.fromstring(resp.content)
-        except requests.exceptions.RequestException as e:
+        except (requests.exceptions.RequestException, etree.XMLSyntaxError) as e:
             print(f"Intento {intento}/{intentos} fallido para {url}: {e}")
+            if resp is not None:
+                print(f"    HTTP {resp.status_code} | primeros 300 caracteres de la respuesta: {resp.text[:300]!r}")
             if intento == intentos:
                 raise
             time.sleep(5 * intento)  # espera creciente: 5s, 10s, 15s...
