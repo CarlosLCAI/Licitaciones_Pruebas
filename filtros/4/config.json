@@ -1,0 +1,11 @@
+{
+  "nombre": "Nuevo filtro 4",
+  "nuts_prefix": "",
+  "region": "",
+  "cpv_permitidos": [],
+  "estados_permitidos": [],
+  "tipos_contrato_permitidos": [],
+  "procedimientos_permitidos": [],
+  "importe_min": null,
+  "importe_max": null
+}
