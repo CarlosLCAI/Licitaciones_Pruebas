@@ -1,11 +1,17 @@
 {
-  "nombre": "Nuevo filtro 4",
-  "nuts_prefix": "",
-  "region": "",
+  "nombre": "Ingeniería",
+  "region": "Andalucía",
+  "nuts_prefix": "ES61",
   "cpv_permitidos": [],
-  "estados_permitidos": [],
-  "tipos_contrato_permitidos": [],
-  "procedimientos_permitidos": [],
-  "importe_min": null,
+  "estados_permitidos": [
+    "PUB"
+  ],
+  "tipos_contrato_permitidos": [
+    "2"
+  ],
+  "procedimientos_permitidos": [
+    "1"
+  ],
+  "importe_min": 100000,
   "importe_max": null
 }
