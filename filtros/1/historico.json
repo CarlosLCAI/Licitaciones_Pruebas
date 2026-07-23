@@ -435,5 +435,81 @@
       "fecha_analisis": "2026-07-22T13:08:34.256064+00:00"
     },
     "fecha_captura": "2026-07-22"
+  },
+  {
+    "folder_id": "2026/438",
+    "estado": "PUB",
+    "titulo": "Contratación Servicio - Suministro \"Museografía accesible e inclusiva del CEPA",
+    "updated": "2026-07-22T10:16:30.620+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=mRFKMBMnxgKdkQsA7ROvsg%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "32321300",
+      "92111250"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=nKpEWVDmLGEs9S6gbHMrZMSrUgqDM1D3zZBenFvo6YVrCBEH%2BTYvt9j4G8u01Kmns3%2BM5GV84wLQ7EwpJQ22w870yiilYj3ajkDINE9fCUl7QB3HKyQaFUExmUVQCerk",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=LFkZ2H3A8e83H2fnwPwqomN0M3Fi21QtBn6h71R24pjm0CwyzfZVpq2iJZ8PJiYv8BMnxVRfyJsNbYaKXiAMMfOYtCnYVgwMo4orMT6K/L/fdyQgZAdTm3EfcUAC7CJ6",
+    "organo": "Alcaldía del Ayuntamiento de Moclinejo",
+    "importe": "76650",
+    "importe_num": 76650.0,
+    "fecha_limite": "2026-08-06",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "clasificacion": "Revisión",
+      "motivo": "Falta el perfil completo de la empresa: no se han proporcionado ni el equipo técnico disponible (titulaciones/experiencia) ni las obras/servicios similares ejecutados, solo el volumen de negocio, por lo que no puede evaluarse equipo ni solvencia técnica.",
+      "valoracion_criterios_adjudicacion": "El PCAP contempla tres criterios cuantificables por fórmula: A) Ampliación del compromiso de acompañamiento/actualización de contenidos museísticos sin coste (hasta 60 puntos, 1,25 pts/mes), B) Precio (hasta 20 puntos, fórmula proporcional inversa a la oferta más baja) y C) Ampliación del plazo de garantía sobre el mínimo de 24 meses (hasta 20 puntos, 1 punto/mes adicional). Sin conocer la estructura de costes de la empresa, su capacidad de soporte postventa gratuito ni su margen económico, no es posible valorar su posicionamiento competitivo real en A y C, ni su agresividad en precio (B). El criterio A tiene el mayor peso (60/100 puntos) por lo que la capacidad de ofrecer muchos meses de soporte gratuito será determinante; se recomienda evaluar internamente costes de mantenimiento y actualización de contenidos para maximizar esta partida antes de presentar oferta.",
+      "fecha_analisis": "2026-07-23T06:10:23.050247+00:00"
+    },
+    "fecha_captura": "2026-07-23"
+  },
+  {
+    "folder_id": "2024/00024",
+    "estado": "PUB",
+    "titulo": "Establecimiento de un sistema dinámico de adquisición para los servicios habituales de la Universidad de Córdoba",
+    "updated": "2026-07-22T09:46:18.778+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=I57QE9zNpq47u6%2B%2FR7DUoA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "50410000",
+      "71900000",
+      "73100000",
+      "79212000",
+      "71240000",
+      "71600000",
+      "72200000",
+      "50410000",
+      "73100000",
+      "71600000",
+      "71240000",
+      "72200000",
+      "71900000",
+      "79212000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=GetDocumentsById&source=library&DocumentIdParam=f593182f-68c1-40ee-bd74-6d490c6b82dd",
+    "ppt_url": "https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=GetDocumentsById&source=library&DocumentIdParam=75cdf676-fe74-4e1c-926d-5acb215b7b07",
+    "organo": "Rectorado de la Universidad de Córdoba",
+    "importe": "1702000",
+    "importe_num": 3404000.0,
+    "fecha_limite": "2027-09-01",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "2",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "clasificacion": "Revisión",
+      "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
+      "valoracion_criterios_adjudicacion": "",
+      "fecha_analisis": "2026-07-23T06:10:24.553512+00:00"
+    },
+    "fecha_captura": "2026-07-23"
   }
 ]
