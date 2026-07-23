@@ -525,6 +525,16 @@
     </div>
   </div>
 
+  <div id="modal-revision-overlay" class="modal-overlay">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <p class="modal-titulo" id="modal-revision-titulo">Revisión IA</p>
+        <button id="btn-cerrar-modal-revision" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body" id="modal-revision-body"></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -593,6 +603,25 @@ function celdaRevisionIA(revisionIA) {
   }
   return '<span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '" title="' + escapeHtml(titulo) + '">' +
     escapeHtml(revisionIA.clasificacion) + '</span>';
+}
+
+function abrirModalRevisionIA(registro) {
+  const revisionIA = registro.revision_ia;
+  document.getElementById('modal-revision-titulo').textContent = 'Revisión IA — ' + (registro.folder_id || '');
+
+  const fecha = revisionIA.fecha_analisis ? formatearFecha(revisionIA.fecha_analisis) : '—';
+  const cuerpo =
+    '<dl>' +
+    '<dt>Clasificación</dt><dd><span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '">' +
+      escapeHtml(revisionIA.clasificacion || '—') + '</span></dd>' +
+    '<dt>Motivo</dt><dd>' + escapeHtml(revisionIA.motivo || '—') + '</dd>' +
+    '<dt>Criterios de adjudicación</dt><dd>' +
+      escapeHtml(revisionIA.valoracion_criterios_adjudicacion || 'Sin valoración disponible.') + '</dd>' +
+    '<dt>Fecha del análisis</dt><dd>' + fecha + '</dd>' +
+    '</dl>';
+
+  document.getElementById('modal-revision-body').innerHTML = cuerpo;
+  document.getElementById('modal-revision-overlay').classList.add('abierto');
 }
 
 function celdaRevisadoHumano(r) {
@@ -690,6 +719,7 @@ function renderTabla(lista) {
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
         (r.ppt_url ? '<a href="' + r.ppt_url + '" target="_blank" rel="noopener">PPT</a>' : '') +
+        (r.revision_ia ? '<a href="#" class="link-revision-ia" data-folder-id="' + escapeHtml(r.folder_id || '') + '">Revisión IA</a>' : '') +
       '</td>' +
       '<td>' + celdaRevisadoHumano(r) + '</td>' +
     '</tr>';
@@ -707,6 +737,15 @@ function renderTabla(lista) {
 
   cont.querySelectorAll('.check-revisado').forEach(chk => {
     chk.addEventListener('change', () => alCambiarRevisadoHumano(chk));
+  });
+
+  cont.querySelectorAll('.link-revision-ia').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const folderId = a.dataset.folderId;
+      const registro = datos.find(d => d.folder_id === folderId);
+      if (registro) abrirModalRevisionIA(registro);
+    });
   });
 }
 
@@ -1258,9 +1297,20 @@ document.getElementById('modal-overlay').addEventListener('click', (e) => {
   }
 });
 
+document.getElementById('btn-cerrar-modal-revision').addEventListener('click', () => {
+  document.getElementById('modal-revision-overlay').classList.remove('abierto');
+});
+
+document.getElementById('modal-revision-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-revision-overlay') {
+    document.getElementById('modal-revision-overlay').classList.remove('abierto');
+  }
+});
+
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.getElementById('modal-overlay').classList.remove('abierto');
+    document.getElementById('modal-revision-overlay').classList.remove('abierto');
   }
 });
 </script>
