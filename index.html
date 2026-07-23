@@ -1058,20 +1058,25 @@ async function guardarFiltroEnGitHub(nuevoCfg, archivoConfig, intentosMax = 3) {
 
   for (let intento = 1; intento <= intentosMax; intento++) {
     const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras, cache: 'no-store' });
-    if (!actual.ok) {
-      throw new Error(`No se pudo leer ${archivoConfig} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
+    let sha; // sin valor = el archivo no existe todavía, se creará de cero
+    if (actual.status !== 404) {
+      if (!actual.ok) {
+        throw new Error(`No se pudo leer ${archivoConfig} en GitHub (HTTP ${actual.status}). Revisa el token y el nombre del repo.`);
+      }
+      sha = (await actual.json()).sha;
     }
-    const actualData = await actual.json();
+
+    const cuerpoPut = {
+      message: `Actualiza ${archivoConfig} desde el visor`,
+      content: utf8ToBase64(contenido),
+      branch: GH_BRANCH,
+    };
+    if (sha) cuerpoPut.sha = sha;
 
     const resp = await fetch(apiUrl, {
       method: 'PUT',
       headers: cabeceras,
-      body: JSON.stringify({
-        message: `Actualiza ${archivoConfig} desde el visor`,
-        content: utf8ToBase64(contenido),
-        sha: actualData.sha,
-        branch: GH_BRANCH,
-      }),
+      body: JSON.stringify(cuerpoPut),
     });
 
     if (resp.ok) return resp.json();
