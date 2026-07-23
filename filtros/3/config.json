@@ -2,10 +2,29 @@
   "nombre": "Diseño Urbano Madrid",
   "region": "Comunidad de Madrid",
   "nuts_prefix": "ES30",
-  "cpv_permitidos": [],
-  "estados_permitidos": [],
-  "tipos_contrato_permitidos": [],
-  "procedimientos_permitidos": [],
-  "importe_min": null,
+  "cpv_permitidos": [
+    "71400000",
+    "71410000",
+    "71420000",
+    "71222000",
+    "71222100",
+    "71222200",
+    "71240000",
+    "71241000",
+    "71243000",
+    "71245000",
+    "71510000",
+    "90712100"
+  ],
+  "estados_permitidos": [
+    "PUB"
+  ],
+  "tipos_contrato_permitidos": [
+    "2"
+  ],
+  "procedimientos_permitidos": [
+    "1"
+  ],
+  "importe_min": 80000,
   "importe_max": null
 }
