@@ -3,7 +3,7 @@
   "region": "Andalucía",
   "nuts_prefix": "ES61",
   "cpv_permitidos": [
-    "He eliminado todos los códigos de **ejecución de obras** de las familias `451` y `452`.\n\n71322000",
+    "71322000",
     "71311000",
     "71311300",
     "71320000",
