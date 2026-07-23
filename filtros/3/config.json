@@ -1,7 +1,7 @@
 {
-  "nombre": "Nuevo filtro 3",
-  "nuts_prefix": "",
-  "region": "",
+  "nombre": "Diseño Urbano Madrid",
+  "region": "Comunidad de Madrid",
+  "nuts_prefix": "ES30",
   "cpv_permitidos": [],
   "estados_permitidos": [],
   "tipos_contrato_permitidos": [],
