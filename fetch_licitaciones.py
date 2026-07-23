@@ -1,7 +1,6 @@
 import requests
 from lxml import etree
-from pypdf import PdfReader
-from io import BytesIO
+import base64
 import json
 import os
 import re
@@ -67,140 +66,90 @@ HEADERS = {
 
 # Revisión de solvencia por IA (opcional): se activa solo si las variables de entorno
 # SOLVENCIA_EMPRESA y ANTHROPIC_API_KEY están configuradas (secrets de GitHub Actions).
-# Usa la API directa de Anthropic (Claude) — sin los límites de tokens de GitHub Models.
+# Usa la API directa de Anthropic (Claude), mandando los PDF completos como documentos
+# (no texto extraído) para que Claude pueda leer visualmente páginas escaneadas sin capa
+# de texto — pypdf se quedaría en blanco con esos documentos.
 ANTHROPIC_API_ENDPOINT = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
 ANTHROPIC_VERSION = "2023-06-01"
-CLASIFICACIONES_VALIDAS = {"Apto", "Apto / UTE", "No Apto", "Revisión"}
 
-# Herramienta forzada para garantizar una salida JSON con la forma exacta que necesitamos,
-# en vez de depender de que el modelo "recuerde" devolver solo JSON en su respuesta de texto.
-HERRAMIENTA_CLASIFICACION = {
-    "name": "clasificar_solvencia",
-    "description": "Registra la clasificación de aptitud de la empresa para presentarse a esta licitación.",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "clasificacion": {
-                "type": "string",
-                "enum": ["Apto", "Apto / UTE", "No Apto", "Revisión"],
-            },
-            "motivo": {
-                "type": "string",
-                "description": "Frase breve (máximo 50 palabras) con la razón principal.",
-            },
-            "valoracion_criterios_adjudicacion": {
-                "type": "string",
-                "description": (
-                    "Hasta 120 palabras razonando sobre los criterios de adjudicación "
-                    "cuantificables, si existen."
-                ),
-            },
-        },
-        "required": ["clasificacion", "motivo", "valoracion_criterios_adjudicacion"],
-    },
-}
-
-PROMPT_SISTEMA_SOLVENCIA = (
-    "Eres un asistente que evalúa si una empresa de arquitectura/ingeniería puede presentarse a "
-    "una licitación pública española, comparando el perfil de la empresa contra el PCAP y el PPT "
-    "de esa licitación. Razona paso a paso internamente antes de responder, pero en la salida "
-    "final solo debes dar el JSON pedido — no muestres tu razonamiento intermedio.\n\n"
-    "Debes revisar tres cosas, en este orden:\n\n"
-    "1. COMPOSICIÓN DEL EQUIPO (normalmente en el PPT, apartado de equipo mínimo o medios "
-    "personales): compara los roles y titulaciones exigidas contra el \"Equipo técnico disponible\" "
-    "del perfil de la empresa. No te limites a un cruce literal de nombres de titulación: razona si "
-    "un rol exigido podría cubrirlo razonablemente alguien del equipo con una titulación distinta a "
-    "la literal, teniendo en cuenta las atribuciones profesionales reales en España (por ejemplo, un "
-    "Arquitecto Técnico/Aparejador puede asumir dirección de ejecución material pero no la autoría "
-    "de un proyecto que exige Arquitecto superior si así lo fija la LOE; un Ingeniero de Caminos "
-    "puede cubrir roles de obra civil/hidráulica pero no firmar un proyecto de edificación que "
-    "requiera visado de Arquitecto, salvo que el PPT lo permita explícitamente). Si tienes dudas "
-    "razonables sobre si una titulación distinta es legalmente válida para un rol, sé conservador y "
-    "indica ese punto en el motivo en vez de asumir que sí vale.\n"
-    "2. SOLVENCIA ECONÓMICA Y FINANCIERA (en el PCAP, normalmente un volumen de negocios mínimo "
-    "anual o acumulado): compara contra el volumen de negocios del perfil.\n"
-    "3. SOLVENCIA TÉCNICA Y PROFESIONAL (en el PCAP, normalmente trabajos similares ejecutados en "
-    "los últimos años, y a veces clasificación empresarial): compara contra las obras/servicios "
-    "similares del perfil.\n\n"
-    "Además, si el PCAP incluye criterios de adjudicación cuantificables automáticamente o mediante "
-    "fórmulas matemáticas relacionados con experiencia complementaria del equipo, mejoras ofertadas "
-    "o experiencia en trabajos previos, razona con detalle en el campo "
-    "\"valoracion_criterios_adjudicacion\" cómo de bien posicionado parece el perfil de la empresa en "
-    "cada uno de esos criterios (por qué, con qué puntuación relativa podría competir, qué le falta "
-    "para maximizar la puntuación) — esto NO debe cambiar la clasificación de aptitud, es información "
-    "adicional para preparar la oferta.\n\n"
-    "Registra tu conclusión llamando a la herramienta \"clasificar_solvencia\" con los tres campos "
-    "pedidos — no respondas con texto libre.\n\n"
-    "Valores posibles de \"clasificacion\" (exactamente uno de estos, tal cual):\n"
-    "- \"Apto\": la empresa cumple los tres puntos (equipo, solvencia económica, solvencia técnica) "
-    "en solitario.\n"
-    "- \"Apto / UTE\": no cumple en solitario, pero sí lo haría formando una UTE con sus socios "
-    "habituales según su perfil (p. ej. sumando volumen de negocios o completando roles del equipo).\n"
-    "- \"No Apto\": no cumple los requisitos ni en solitario ni en UTE.\n"
-    "- \"Revisión\": no hay información suficiente en el PCAP/PPT o en el perfil para decidir con "
-    "confianza, o los documentos no se han podido leer.\n\n"
-    "El campo \"motivo\" debe ser una frase breve (máximo 50 palabras): qué punto de los tres falla o "
-    "cumple, incluyendo si alguna sustitución de titulación fue determinante.\n"
-    "El campo \"valoracion_criterios_adjudicacion\" puede ser más largo (hasta 120 palabras) y debe "
-    "razonar sobre los criterios de adjudicación cuantificables si existen; si el PCAP no tiene "
-    "criterios de este tipo o no se pudieron leer, indícalo brevemente ahí."
+PROMPT_SISTEMA_INFORME = (
+    "Eres un asistente que analiza el PCAP de una licitación pública española de redacción de "
+    "instrumento urbanístico, para el equipo de CAI Consultores (empresa de "
+    "arquitectura/ingeniería). Si el documento no tiene capa de texto (páginas escaneadas o "
+    "rasterizadas), léelo igualmente mediante reconocimiento visual completo de la página — no "
+    "omitas contenido por esa causa.\n\n"
+    "Estructura tu respuesta en estas 4 secciones, exactamente en este orden, y omite cualquier "
+    "apartado de datos generales del contrato (objeto, presupuesto, plazos administrativos):\n\n"
+    "1. Solvencia económico-financiera\n"
+    "Medios exigidos y forma de acreditación.\n\n"
+    "2. Solvencia técnica / Equipo mínimo\n"
+    "Lista cada perfil exigido con su titulación y su experiencia mínima. Si el PCAP ofrece "
+    "varias alternativas de experiencia para un mismo perfil, preséntalas como una lista de "
+    "opciones unidas por \"o\" (no como texto corrido). Usa este formato exacto:\n"
+    "* Perfil (nº personas): titulación\n"
+    "   * Experiencia opción A, o\n"
+    "   * Experiencia opción B\n\n"
+    "3. Criterios de adjudicación\n"
+    "Desglosa todos los criterios automáticos y de juicio de valor con su puntuación. Si existe "
+    "un criterio o subapartado de \"mejora de la experiencia del equipo\" / \"experiencia adicional "
+    "del equipo\" distinto del mínimo de solvencia, márcalo explícitamente al final de ese bloque "
+    "con \"⚠ REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia\", sin "
+    "desarrollarlo salvo que se pida expresamente.\n\n"
+    "4. Valoración para CAI Consultores\n"
+    "Puntos a favor y puntos a verificar internamente, en relación con el perfil de la empresa que "
+    "se te proporciona (equipo, experiencia LISTA/LOUA, capacidad de subcontratar perfiles no "
+    "cubiertos).\n\n"
+    "Responde en español, en Markdown legible, usando los encabezados y viñetas indicados. No "
+    "incluyas ningún comentario fuera de estas 4 secciones."
 )
 
 
-def extraer_texto_pdf(url, max_chars=150000):
-    """Extrae el texto completo del PDF hasta max_chars. Con Claude (200.000 tokens de
-    contexto) no hace falta recortar agresivamente ni buscar secciones por palabras clave:
-    este tope es solo una salvaguarda para PDFs verdaderamente extremos."""
+def descargar_pdf_base64(url, max_bytes=32 * 1024 * 1024):
+    """Descarga el PDF y lo devuelve codificado en base64, para mandarlo entero a Claude
+    como documento (no como texto extraído) — así Claude puede leer visualmente páginas
+    escaneadas sin capa de texto. max_bytes es el límite de tamaño de documento de la API."""
     if not url:
-        return ""
-    resp = requests.get(url, headers=HEADERS, timeout=30)
+        return None
+    resp = requests.get(url, headers=HEADERS, timeout=60)
     resp.raise_for_status()
-    lector = PdfReader(BytesIO(resp.content))
-    fragmentos = []
-    total = 0
-    for pagina in lector.pages:
-        texto_pagina = pagina.extract_text() or ""
-        fragmentos.append(texto_pagina)
-        total += len(texto_pagina)
-        if total >= max_chars:
-            break
-    return "\n".join(fragmentos)[:max_chars]
+    contenido = resp.content
+    if len(contenido) > max_bytes:
+        print(f"    Aviso: PDF de {len(contenido)} bytes supera el máximo de {max_bytes}; se omite.")
+        return None
+    return base64.b64encode(contenido).decode("ascii")
 
 
-def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organo):
+def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
-        return {
-            "clasificacion": "Revisión",
-            "motivo": "No hay ANTHROPIC_API_KEY configurada para llamar a Claude.",
-            "valoracion_criterios_adjudicacion": "",
-        }
-    if not texto_pcap and not texto_ppt:
-        return {
-            "clasificacion": "Revisión",
-            "motivo": "No se pudo obtener texto del PCAP ni del PPT.",
-            "valoracion_criterios_adjudicacion": "",
-        }
+        return {"informe": "No hay ANTHROPIC_API_KEY configurada para llamar a Claude."}
+    if not pcap_b64:
+        return {"informe": "No se pudo descargar el PCAP."}
 
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    mensaje_usuario = (
-        f"FECHA DE HOY: {fecha_hoy} (usa esta fecha para calcular años de experiencia si el perfil "
-        f"indica un año de titulación en vez de un número de años ya calculado)\n"
+    texto_intro = (
+        f"FECHA DE HOY: {fecha_hoy}\n"
         f"LICITACIÓN: {titulo}\n"
         f"ÓRGANO: {organo}\n\n"
-        f"PERFIL DE SOLVENCIA DE LA EMPRESA:\n{perfil_empresa}\n\n"
-        f"EXTRACTO DEL PCAP (requisitos de solvencia y otros):\n{texto_pcap or '(no disponible)'}\n\n"
-        f"EXTRACTO DEL PPT (objeto y alcance técnico):\n{texto_ppt or '(no disponible)'}"
+        f"PERFIL DE LA EMPRESA (CAI Consultores):\n{perfil_empresa}\n\n"
+        f"A continuación se adjunta el PCAP de esta licitación como documento PDF. "
+        f"Genera el informe según las instrucciones del sistema."
     )
+
+    contenido_mensaje = [
+        {"type": "text", "text": texto_intro},
+        {
+            "type": "document",
+            "source": {"type": "base64", "media_type": "application/pdf", "data": pcap_b64},
+        },
+    ]
 
     payload = {
         "model": ANTHROPIC_MODEL,
-        "max_tokens": 1024,
-        "system": PROMPT_SISTEMA_SOLVENCIA,
-        "messages": [{"role": "user", "content": mensaje_usuario}],
-        "tools": [HERRAMIENTA_CLASIFICACION],
-        "tool_choice": {"type": "tool", "name": "clasificar_solvencia"},
+        "max_tokens": 4096,
+        "system": PROMPT_SISTEMA_INFORME,
+        "messages": [{"role": "user", "content": contenido_mensaje}],
     }
     headers = {
         "x-api-key": api_key,
@@ -209,48 +158,30 @@ def clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, titulo, organ
     }
 
     # Diagnóstico de tamaños (nunca se imprime el contenido del perfil, es un secret).
-    payload_bytes = len(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
     print(
         f"    Tamaños enviados a la IA -> perfil: {len(perfil_empresa)} car., "
-        f"PCAP: {len(texto_pcap or '')} car., PPT: {len(texto_ppt or '')} car., "
-        f"payload total: {payload_bytes} bytes"
+        f"PCAP: {len(pcap_b64)} car. base64"
     )
 
     try:
-        resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=120)
+        resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=180)
         if not resp.ok:
             print(f"    Respuesta de error de Anthropic (HTTP {resp.status_code}): {resp.text[:2000]}")
         resp.raise_for_status()
         data = resp.json()
-        bloque_tool = next(b for b in data["content"] if b.get("type") == "tool_use")
-        resultado = bloque_tool["input"]
-        clasificacion = resultado.get("clasificacion", "Revisión")
-        if clasificacion not in CLASIFICACIONES_VALIDAS:
-            clasificacion = "Revisión"
-        return {
-            "clasificacion": clasificacion,
-            "motivo": resultado.get("motivo", ""),
-            "valoracion_criterios_adjudicacion": resultado.get("valoracion_criterios_adjudicacion", ""),
-        }
+        bloque_texto = next(b["text"] for b in data["content"] if b.get("type") == "text")
+        return {"informe": bloque_texto.strip()}
     except Exception as e:
-        return {
-            "clasificacion": "Revisión",
-            "motivo": f"Error al analizar con IA: {e}",
-            "valoracion_criterios_adjudicacion": "",
-        }
+        return {"informe": f"Error al generar el informe con IA: {e}"}
 
 
-def analizar_solvencia(r, perfil_empresa):
+def analizar_licitacion_ia(r, perfil_empresa):
     try:
-        texto_pcap = extraer_texto_pdf(r.get("pcap_url"))
+        pcap_b64 = descargar_pdf_base64(r.get("pcap_url"))
     except Exception:
-        texto_pcap = ""
-    try:
-        texto_ppt = extraer_texto_pdf(r.get("ppt_url"))
-    except Exception:
-        texto_ppt = ""
+        pcap_b64 = None
 
-    resultado = clasificar_solvencia_ia(perfil_empresa, texto_pcap, texto_ppt, r.get("titulo"), r.get("organo"))
+    resultado = generar_informe_licitacion_ia(perfil_empresa, pcap_b64, r.get("titulo"), r.get("organo"))
     resultado["fecha_analisis"] = datetime.now(timezone.utc).isoformat()
     return resultado
 
@@ -544,8 +475,8 @@ def main():
 
         if perfil_empresa:
             for r in resultados:
-                r["revision_ia"] = analizar_solvencia(r, perfil_empresa)
-                print(f"    -> Revisión IA [{r['folder_id']}]: {r['revision_ia']['clasificacion']}")
+                r["revision_ia"] = analizar_licitacion_ia(r, perfil_empresa)
+                print(f"    -> Informe IA generado para [{r['folder_id']}] ({len(r['revision_ia']['informe'])} caracteres)")
 
         total_entries_acumulado = ctx["total_entries_acumulado_previo"] + total_entries_leidas
         guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {

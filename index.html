@@ -110,16 +110,15 @@
     font-size: 13.5px;
   }
   th:nth-child(1), td:nth-child(1) { width: 60px; }
-  th:nth-child(2), td:nth-child(2) { width: 26%; }
-  th:nth-child(3), td:nth-child(3) { width: 13%; }
+  th:nth-child(2), td:nth-child(2) { width: 28%; }
+  th:nth-child(3), td:nth-child(3) { width: 14%; }
   th:nth-child(4), td:nth-child(4) { width: 9%; }
   th:nth-child(5), td:nth-child(5) { width: 60px; }
-  th:nth-child(6), td:nth-child(6) { width: 95px; }
-  th:nth-child(7), td:nth-child(7) { width: 90px; }
-  th:nth-child(8), td:nth-child(8) { width: 100px; }
-  th:nth-child(9), td:nth-child(9) { width: 80px; }
-  th:nth-child(10), td:nth-child(10) { width: 70px; }
-  th:nth-child(11), td:nth-child(11) { width: 65px; text-align: center; }
+  th:nth-child(6), td:nth-child(6) { width: 90px; }
+  th:nth-child(7), td:nth-child(7) { width: 100px; }
+  th:nth-child(8), td:nth-child(8) { width: 80px; }
+  th:nth-child(9), td:nth-child(9) { width: 70px; }
+  th:nth-child(10), td:nth-child(10) { width: 65px; text-align: center; }
   .check-revisado { width: 16px; height: 16px; cursor: pointer; }
   .check-revisado:disabled { cursor: wait; opacity: 0.5; }
   thead th {
@@ -235,7 +234,7 @@
   }
   .stats-columnas {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 340px);
     gap: 24px;
     margin-top: 20px;
   }
@@ -300,6 +299,13 @@
     flex-direction: column;
   }
   .modal-body { overflow-y: auto; }
+  .modal-panel-ancho { width: 720px; }
+  .informe-ia {
+    font-size: 13.5px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    font-family: 'JetBrains Mono', monospace;
+  }
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -526,7 +532,7 @@
   </div>
 
   <div id="modal-revision-overlay" class="modal-overlay">
-    <div class="modal-panel">
+    <div class="modal-panel modal-panel-ancho">
       <div class="modal-header">
         <p class="modal-titulo" id="modal-revision-titulo">Revisión IA</p>
         <button id="btn-cerrar-modal-revision" aria-label="Cerrar">✕</button>
@@ -595,14 +601,14 @@ function badgeClassIA(clasificacion) {
   return mapa[clasificacion] || 'badge-ia-revision';
 }
 
-function celdaRevisionIA(revisionIA) {
-  if (!revisionIA || !revisionIA.clasificacion) return '<span class="mono">—</span>';
-  let titulo = revisionIA.motivo || '';
-  if (revisionIA.valoracion_criterios_adjudicacion) {
-    titulo += '\n\nCriterios de adjudicación: ' + revisionIA.valoracion_criterios_adjudicacion;
-  }
-  return '<span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '" title="' + escapeHtml(titulo) + '">' +
-    escapeHtml(revisionIA.clasificacion) + '</span>';
+function formatearInformeIA(texto) {
+  // El informe viene en Markdown sencillo (encabezados "N. Título", negrita **texto**,
+  // viñetas con *). Escapamos HTML por seguridad y damos formato mínimo, preservando el
+  // resto de la estructura (saltos de línea, sangría de viñetas) tal cual la escribe la IA.
+  let html = escapeHtml(texto);
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/^(\d\.\s.+)$/gm, '<strong>$1</strong>');
+  return html;
 }
 
 function abrirModalRevisionIA(registro) {
@@ -610,15 +616,25 @@ function abrirModalRevisionIA(registro) {
   document.getElementById('modal-revision-titulo').textContent = 'Revisión IA — ' + (registro.folder_id || '');
 
   const fecha = revisionIA.fecha_analisis ? formatearFecha(revisionIA.fecha_analisis) : '—';
-  const cuerpo =
-    '<dl>' +
-    '<dt>Clasificación</dt><dd><span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '">' +
-      escapeHtml(revisionIA.clasificacion || '—') + '</span></dd>' +
-    '<dt>Motivo</dt><dd>' + escapeHtml(revisionIA.motivo || '—') + '</dd>' +
-    '<dt>Criterios de adjudicación</dt><dd>' +
-      escapeHtml(revisionIA.valoracion_criterios_adjudicacion || 'Sin valoración disponible.') + '</dd>' +
-    '<dt>Fecha del análisis</dt><dd>' + fecha + '</dd>' +
-    '</dl>';
+  let cuerpo;
+  if (revisionIA.informe) {
+    cuerpo =
+      '<div class="informe-ia">' + formatearInformeIA(revisionIA.informe) + '</div>' +
+      '<p class="ayuda" style="margin-top:14px;">Análisis generado el ' + fecha + '.</p>';
+  } else if (revisionIA.clasificacion) {
+    // Compatibilidad con análisis generados antes de cambiar al formato de informe.
+    cuerpo =
+      '<dl>' +
+      '<dt>Clasificación</dt><dd><span class="badge ' + badgeClassIA(revisionIA.clasificacion) + '">' +
+        escapeHtml(revisionIA.clasificacion || '—') + '</span></dd>' +
+      '<dt>Motivo</dt><dd>' + escapeHtml(revisionIA.motivo || '—') + '</dd>' +
+      '<dt>Criterios de adjudicación</dt><dd>' +
+        escapeHtml(revisionIA.valoracion_criterios_adjudicacion || 'Sin valoración disponible.') + '</dd>' +
+      '<dt>Fecha del análisis</dt><dd>' + fecha + '</dd>' +
+      '</dl>';
+  } else {
+    cuerpo = '<p class="ayuda">Sin datos de revisión disponibles.</p>';
+  }
 
   document.getElementById('modal-revision-body').innerHTML = cuerpo;
   document.getElementById('modal-revision-overlay').classList.add('abierto');
@@ -697,7 +713,6 @@ function renderTabla(lista) {
     '<th data-col="organo">Órgano</th>' +
     '<th data-col="importe">Importe</th>' +
     '<th data-col="estado">Estado</th>' +
-    '<th data-col="revision_ia">Revisión IA</th>' +
     '<th data-col="updated">Fecha licitación</th>' +
     '<th data-col="fecha_limite">Fecha límite</th>' +
     '<th data-col="fecha_captura">Detectada el</th>' +
@@ -711,7 +726,6 @@ function renderTabla(lista) {
       '<td>' + (r.organo || '—') + '</td>' +
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td><span class="badge ' + badgeClass(r.estado) + '">' + (r.estado || '—') + '</span></td>' +
-      '<td>' + celdaRevisionIA(r.revision_ia) + '</td>' +
       '<td class="mono">' + formatearFecha(r.updated) + '</td>' +
       '<td class="mono">' + celdaFechaLimite(r.fecha_limite) + '</td>' +
       '<td class="mono">' + (r.fecha_captura || '—') + '</td>' +
@@ -781,10 +795,6 @@ function aplicarFiltros() {
       va = parseFloat(va) || 0;
       vb = parseFloat(vb) || 0;
     }
-    if (ordenColumna === 'revision_ia') {
-      va = (a.revision_ia && a.revision_ia.clasificacion) || '';
-      vb = (b.revision_ia && b.revision_ia.clasificacion) || '';
-    }
     if (ordenColumna === 'revisado_humano') {
       va = a.revisado_humano ? 1 : 0;
       vb = b.revisado_humano ? 1 : 0;
@@ -822,15 +832,7 @@ function renderEstadisticas() {
     porEstado[k] = (porEstado[k] || 0) + 1;
   });
 
-  const clasificacionesIA = ['Apto', 'Apto / UTE', 'No Apto', 'Revisión'];
-  const porRevisionIA = {};
-  clasificacionesIA.forEach(c => { porRevisionIA[c] = 0; });
-  let sinAnalizar = 0;
-  datos.forEach(d => {
-    const c = d.revision_ia && d.revision_ia.clasificacion;
-    if (c && Object.prototype.hasOwnProperty.call(porRevisionIA, c)) porRevisionIA[c]++;
-    else sinAnalizar++;
-  });
+  const conInformeIA = datos.filter(d => d.revision_ia).length;
 
   const revisadas = datos.filter(d => d.revisado_humano).length;
   const pctRevisadas = total ? Math.round((revisadas / total) * 100) : 0;
@@ -863,15 +865,12 @@ function renderEstadisticas() {
     statTile('En plazo ahora mismo', enPlazo) +
     statTile('Plazo vencido', vencidas) +
     statTile('Revisadas por el equipo', revisadas + ' / ' + total + ' (' + pctRevisadas + '%)') +
+    statTile('Informes IA generados', conInformeIA + ' / ' + total) +
     '</div>';
 
   html += '<div class="stats-columnas">';
   html += '<div class="stats-columna"><h4>Por estado</h4>' +
     Object.entries(porEstado).sort((a, b) => b[1] - a[1]).map(([k, v]) => filaEstadistica(k, v)).join('') +
-    '</div>';
-  html += '<div class="stats-columna"><h4>Por revisión IA</h4>' +
-    clasificacionesIA.map(c => filaEstadistica(c, porRevisionIA[c])).join('') +
-    filaEstadistica('Sin analizar', sinAnalizar) +
     '</div>';
   html += '</div></div>';
 
