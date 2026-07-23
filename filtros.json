@@ -1,6 +1,8 @@
 {
   "filtros": [
     { "id": "1", "carpeta": "filtros/1" },
-    { "id": "2", "carpeta": "filtros/2" }
+    { "id": "2", "carpeta": "filtros/2" },
+    { "id": "3", "carpeta": "filtros/3" },
+    { "id": "4", "carpeta": "filtros/4" }
   ]
 }
