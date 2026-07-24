@@ -1,7 +1,7 @@
 {
   "nombre": "Diseño Urbano Madrid",
   "region": "Comunidad de Madrid",
-  "nuts_prefix": "ES30",
+  "nuts_prefix": "ES3",
   "cpv_permitidos": [
     "71400000",
     "71410000",
