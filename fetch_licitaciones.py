@@ -16,7 +16,7 @@ NS = {
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
 VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
-VENTANA_HORAS = 30
+VENTANA_HORAS = 48
 MAX_PAGINAS = 30
 FILTROS_MANIFEST_FILE = "filtros.json"
 FILTROS_CARPETA_BASE = "filtros"
