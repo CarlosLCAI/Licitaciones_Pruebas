@@ -1,5 +1,7 @@
 import requests
 from lxml import etree
+from pypdf import PdfReader
+from io import BytesIO
 import base64
 import json
 import os
@@ -105,26 +107,46 @@ PROMPT_SISTEMA_INFORME = (
 )
 
 
-def descargar_pdf_base64(url, max_bytes=32 * 1024 * 1024):
-    """Descarga el PDF y lo devuelve codificado en base64, para mandarlo entero a Claude
-    como documento (no como texto extraído) — así Claude puede leer visualmente páginas
-    escaneadas sin capa de texto. max_bytes es el límite de tamaño de documento de la API."""
+def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=150000, max_bytes_documento=32 * 1024 * 1024):
+    """Descarga el PCAP y decide cómo se mandará a la IA:
+    - Si tiene una capa de texto razonable (documento generado digitalmente, el caso normal),
+      se extrae el texto con pypdf — mucho más barato en tokens que mandar el PDF entero
+      (Claude convierte cada página de un "documento" en una imagen, ~1.500-3.000+ tokens
+      por página; un PCAP de 50 páginas así puede costar 100.000-250.000+ tokens).
+    - Si el texto extraído es casi nulo (indicio de páginas escaneadas/rasterizadas), se manda
+      el PDF completo en base64 como documento, para que Claude lo lea visualmente — esto sí
+      es caro, pero solo ocurre cuando de verdad hace falta OCR.
+    Devuelve (tipo, contenido) con tipo en {"texto", "documento", None}.
+    """
     if not url:
-        return None
+        return None, None
     resp = requests.get(url, headers=HEADERS, timeout=60)
     resp.raise_for_status()
-    contenido = resp.content
-    if len(contenido) > max_bytes:
-        print(f"    Aviso: PDF de {len(contenido)} bytes supera el máximo de {max_bytes}; se omite.")
-        return None
-    return base64.b64encode(contenido).decode("ascii")
+    contenido_bytes = resp.content
+
+    try:
+        lector = PdfReader(BytesIO(contenido_bytes))
+        num_paginas = len(lector.pages)
+        texto_completo = "\n".join(pagina.extract_text() or "" for pagina in lector.pages)
+    except Exception:
+        num_paginas = 1
+        texto_completo = ""
+
+    promedio_por_pagina = len(texto_completo) / max(num_paginas, 1)
+    if promedio_por_pagina >= min_chars_por_pagina:
+        return "texto", texto_completo[:max_chars_texto]
+
+    if len(contenido_bytes) > max_bytes_documento:
+        print(f"    Aviso: PCAP de {len(contenido_bytes)} bytes supera el máximo de {max_bytes_documento}; se omite.")
+        return None, None
+    return "documento", base64.b64encode(contenido_bytes).decode("ascii")
 
 
-def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
+def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, titulo, organo):
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         return {"informe": "No hay ANTHROPIC_API_KEY configurada para llamar a Claude."}
-    if not pcap_b64:
+    if not pcap_tipo:
         return {"informe": "No se pudo descargar el PCAP."}
 
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -133,17 +155,19 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
         f"LICITACIÓN: {titulo}\n"
         f"ÓRGANO: {organo}\n\n"
         f"PERFIL DE LA EMPRESA (CAI Consultores):\n{perfil_empresa}\n\n"
-        f"A continuación se adjunta el PCAP de esta licitación como documento PDF. "
+        f"A continuación se adjunta el PCAP de esta licitación. "
         f"Genera el informe según las instrucciones del sistema."
     )
 
-    contenido_mensaje = [
-        {"type": "text", "text": texto_intro},
-        {
+    if pcap_tipo == "documento":
+        bloque_pcap = {
             "type": "document",
-            "source": {"type": "base64", "media_type": "application/pdf", "data": pcap_b64},
-        },
-    ]
+            "source": {"type": "base64", "media_type": "application/pdf", "data": pcap_contenido},
+        }
+    else:
+        bloque_pcap = {"type": "text", "text": f"TEXTO COMPLETO DEL PCAP:\n{pcap_contenido}"}
+
+    contenido_mensaje = [{"type": "text", "text": texto_intro}, bloque_pcap]
 
     payload = {
         "model": ANTHROPIC_MODEL,
@@ -160,7 +184,7 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
     # Diagnóstico de tamaños (nunca se imprime el contenido del perfil, es un secret).
     print(
         f"    Tamaños enviados a la IA -> perfil: {len(perfil_empresa)} car., "
-        f"PCAP: {len(pcap_b64)} car. base64"
+        f"PCAP: modo '{pcap_tipo}', {len(pcap_contenido)} caracteres"
     )
 
     try:
@@ -170,6 +194,8 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
         resp.raise_for_status()
         data = resp.json()
         bloque_texto = next(b["text"] for b in data["content"] if b.get("type") == "text")
+        uso = data.get("usage", {})
+        print(f"    Tokens usados -> entrada: {uso.get('input_tokens')}, salida: {uso.get('output_tokens')}")
         return {"informe": bloque_texto.strip()}
     except Exception as e:
         return {"informe": f"Error al generar el informe con IA: {e}"}
@@ -177,11 +203,11 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_b64, titulo, organo):
 
 def analizar_licitacion_ia(r, perfil_empresa):
     try:
-        pcap_b64 = descargar_pdf_base64(r.get("pcap_url"))
+        pcap_tipo, pcap_contenido = obtener_pcap(r.get("pcap_url"))
     except Exception:
-        pcap_b64 = None
+        pcap_tipo, pcap_contenido = None, None
 
-    resultado = generar_informe_licitacion_ia(perfil_empresa, pcap_b64, r.get("titulo"), r.get("organo"))
+    resultado = generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, r.get("titulo"), r.get("organo"))
     resultado["fecha_analisis"] = datetime.now(timezone.utc).isoformat()
     return resultado
 
