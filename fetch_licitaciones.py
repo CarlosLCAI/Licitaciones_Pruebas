@@ -107,12 +107,41 @@ PROMPT_SISTEMA_INFORME = (
 )
 
 
-def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=150000, max_bytes_documento=32 * 1024 * 1024):
+# Patrones para localizar el Anexo I / Anexo III dentro del texto del PCAP — es donde suelen
+# vivir los requisitos concretos de solvencia económica/técnica cuando el cuerpo de cláusulas
+# se limita a remitir a ellos. \b evita que "anexo i" case dentro de "anexo iii".
+PATRONES_ANEXO = [r'anexo\s+i\b', r'anexo\s+1\b', r'anexo\s+iii\b', r'anexo\s+3\b']
+
+
+def recortar_preservando_anexos(texto, max_chars):
+    """Si el texto cabe entero, no se toca. Si hay que recortar, en vez de cortar a ciegas
+    por los primeros caracteres (arriesgándose a perder el Anexo I/III, que suele estar pasada
+    la página 50), se localiza dónde empieza y se preserva ese bloque completo, recortando de
+    en medio si hace falta."""
+    if len(texto) <= max_chars:
+        return texto
+
+    texto_lower = texto.lower()
+    posiciones = [m.start() for patron in PATRONES_ANEXO for m in re.finditer(patron, texto_lower)]
+    if not posiciones:
+        return texto[:max_chars]
+
+    inicio_anexo = min(posiciones)
+    presupuesto_inicio = max_chars // 3
+    inicio_doc = texto[:presupuesto_inicio]
+    separador = "\n[...]\n"
+    espacio_restante = max(max_chars - len(inicio_doc) - len(separador), 0)
+    return inicio_doc + separador + texto[inicio_anexo:inicio_anexo + espacio_restante]
+
+
+def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=350000, max_bytes_documento=32 * 1024 * 1024):
     """Descarga el PCAP y decide cómo se mandará a la IA:
     - Si tiene una capa de texto razonable (documento generado digitalmente, el caso normal),
       se extrae el texto con pypdf — mucho más barato en tokens que mandar el PDF entero
       (Claude convierte cada página de un "documento" en una imagen, ~1.500-3.000+ tokens
-      por página; un PCAP de 50 páginas así puede costar 100.000-250.000+ tokens).
+      por página; un PCAP de 50 páginas así puede costar 100.000-250.000+ tokens). Con 350.000
+      caracteres de tope (~87.000 tokens, muy por debajo del contexto real de Claude) casi
+      ningún PCAP real necesita recortarse.
     - Si el texto extraído es casi nulo (indicio de páginas escaneadas/rasterizadas), se manda
       el PDF completo en base64 como documento, para que Claude lo lea visualmente — esto sí
       es caro, pero solo ocurre cuando de verdad hace falta OCR.
@@ -134,7 +163,9 @@ def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=150000, max_byte
 
     promedio_por_pagina = len(texto_completo) / max(num_paginas, 1)
     if promedio_por_pagina >= min_chars_por_pagina:
-        return "texto", texto_completo[:max_chars_texto]
+        if len(texto_completo) > max_chars_texto:
+            print(f"    Aviso: PCAP de {len(texto_completo)} caracteres supera el tope de {max_chars_texto}; se recorta preservando el Anexo I/III si se localiza.")
+        return "texto", recortar_preservando_anexos(texto_completo, max_chars_texto)
 
     if len(contenido_bytes) > max_bytes_documento:
         print(f"    Aviso: PCAP de {len(contenido_bytes)} bytes supera el máximo de {max_bytes_documento}; se omite.")
