@@ -536,5 +536,36 @@
     "fecha_captura": "2026-07-27",
     "revisado_humano": false,
     "revisado_fecha": null
+  },
+  {
+    "folder_id": "23707/2026",
+    "estado": "PUB",
+    "titulo": "Redacción de Proyecto, Dirección de Obra, Coordinación de Seguridad y Salud, Topográfico para Acondicionamiento Ambiental y Recreativo en el Entorno de la Ermita San Miguel de Torremolinos, Programa de Ayuda a Inversiones (PAI), cofinanciado por la Unión Europea – Fondo Europeo de Desarrollo Regional (FEDER) en el Marco del Programa operativo Plurirregional de España POPE 2021-2027.",
+    "updated": "2026-07-29T16:02:20.333+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=mTUc%2BL8kRqNSYrkJkLlFdw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71317210",
+      "71240000",
+      "71317210"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=ueoMBtG2CZGZFfdvMUPY3nwBkDgFepUKUxZjYxoVTJWZG4DxvvYpr/M9ixcAPg2X4Au7stIfIhRieM7X5vhPXA/gOjEbBaBiYqZIJs9uynT6CYyL7SIrUOBFfNf52ZqA",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=nPpmRVih%2Bx1eZV5mnxInp%2B%2BtyauROtqDW0LE2VzGOzFyTQzVj%2Bc9uUPWIKq88w3%2B0wJyqYVSqjRU29PjWTBA34chmD6Cs4sFSpqnnLiHeCK1aXEvq3KHa/AEHgtDrQw0",
+    "organo": "Concejalía Delegada en Materia de Contratación del Ayuntamiento de Torremolinos",
+    "importe": "20661.16",
+    "importe_num": 20661.16,
+    "fecha_limite": "2026-08-13",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# 1. Solvencia económico-financiera\n\n**Medios exigidos:**\n- Volumen anual de negocio del licitador, referido al año de mayor volumen de los 3 últimos ejercicios cerrados, que deberá ser **igual o superior al valor anual medio del contrato** (art. 87 LCSP).\n- No se exige clasificación empresarial (Clasificación en servicios: NO).\n- Para empresas de nueva creación (antigüedad inferior a 5 años): acreditación mediante informe de institución financiera.\n\n**Forma de acreditación:**\n- Cuentas anuales aprobadas y depositadas en el Registro Mercantil (o Registro Oficial correspondiente).\n- Empresarios individuales no inscritos: libros de inventario y cuentas anuales legalizadas.\n- Personas físicas: IRPF (modelo 100).\n- Sociedades/entidades sujetas al Impuesto de Sociedades: modelo 200.\n\n**Nota de cálculo orientativo:** dado el reducido valor estimado del contrato (Lote 1: 17.561,98 €; Lote 2: 3.099,18 €, ambos IVA excluido) y un plazo total estimado de 18 meses, el valor anual medio exigible resulta muy inferior a la cifra de negocio anual de CAI Consultores (1.100.000 €), por lo que el umbral de solvencia económica no supone dificultad alguna.\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\n⚠ El PCAP **no exige experiencia mínima (años) como requisito de solvencia técnica** para ninguno de los perfiles; la solvencia técnica se acredita únicamente mediante declaración de adscripción del equipo con la titulación indicada y de los medios materiales necesarios. La experiencia del equipo se valora exclusivamente como **criterio de adjudicación** (ver sección 3), no como umbral de solvencia.\n\n**LOTE 1 — Levantamiento topográfico, geotécnico, proyecto y dirección facultativa**\n\n* Redactor/a de proyecto (1): Técnico/a competente con titulación universitaria oficial habilitante para la redacción del proyecto, conforme a la normativa vigente\n   * No se exige experiencia mínima como requisito de solvencia\n\n* Técnico/a de instalaciones (1): Ingeniero/a Técnico/a Industrial, Graduado/a en Ingeniería del ámbito industrial o titulación equivalente habilitante\n   * No se exige experiencia mínima como requisito de solvencia\n\n* Redactor/a de documentos de seguridad y salud (1): Técnico/a competente (puede coincidir con otro perfil del equipo si reúne la competencia exigible)\n   * No se exige experiencia mínima como requisito de solvencia\n\n* Director/a de Obra (1): Técnico/a competente con titulación universitaria oficial habilitante, conforme a la normativa vigente\n   * No se exige experiencia mínima como requisito de solvencia\n\n* Director/a de la ejecución material (1): Técnico/a competente con titulación universitaria oficial habilitante, conforme a la normativa vigente\n   * No se exige experiencia mínima como requisito de solvencia\n\n**LOTE 2 — Coordinación de Seguridad y Salud**\n\n* Coordinador/a de seguridad y salud en obra (1): Técnico/a competente con titulación universitaria oficial habilitante, conforme a la normativa vigente\n   * No se exige experiencia mínima como requisito de solvencia\n\n**Observaciones generales:**\n- Una misma persona puede asumir varias funciones si es legalmente compatible, no compromete la ejecución y queda justificado.\n- Si se licita a ambos lotes, debe acreditarse disponer de medios suficientes para atenderlos simultáneamente.\n- La composición del equipo tiene carácter de **obligación esencial** (art. 76.2 y 211.1.f LCSP): su incumplimiento (cambio no autorizado) puede dar lugar a resolución contractual.\n\n---",
+      "fecha_analisis": "2026-07-30T05:54:11.123315+00:00"
+    },
+    "fecha_captura": "2026-07-30"
   }
 ]
