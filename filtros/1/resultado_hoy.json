@@ -1,1 +1,79 @@
-[]
+[
+  {
+    "folder_id": "SDA33/2026",
+    "estado": "PUB",
+    "titulo": "Servicio de asistencia, consultoría y asesoramiento técnico, redacción de proyectos, direcciones de obras y trabajos de apoyo técnico para el seguimiento de obras y servicios de EMACSA",
+    "updated": "2026-08-03T20:07:13.947+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=OdtanW6p1rM%2B1TMyIiZmzw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71200000",
+      "71242000",
+      "72100000",
+      "73200000",
+      "71300000",
+      "71400000",
+      "71530000",
+      "71243000",
+      "90490000",
+      "71210000",
+      "71241000",
+      "71500000",
+      "71310000",
+      "71318000",
+      "71520000",
+      "71351914",
+      "71540000",
+      "71600000",
+      "71200000",
+      "71200000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=7YGCYRaSc7uCPBPmCXmOM2OoeDTJX5CeRi0gwgqjBB9jKoYA/peqv9dtRxi1qUKP4Glh3BFonrRjcLY6px7h8XfwWd1uoNlA%2BfrXCTevg3W1aXEvq3KHa/AEHgtDrQw0",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=jj616VC7YhA7qEsdNMqdMxXIBFjovd9FjOdX8P1bsIXcN5yzgZMEfjczPS2W6okybmf4ZPauetaEmyNpELilJAfRIyuZMEn9ewkgLo9rzfP6CYyL7SIrUOBFfNf52ZqA",
+    "organo": "Consejo de Administración de la Empresa Municipal de Aguas de Córdoba, S.A. (EMACSA)",
+    "importe": "297000",
+    "importe_num": 297000.0,
+    "fecha_limite": "2031-09-08",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "2",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "No es posible generar el informe solicitado.\n\nEl documento aportado corresponde al **Pliego Modelo de Cláusulas Administrativas Particulares para la tramitación de Sistemas Dinámicos de Adquisición de Suministros (SDA)** de EMACSA (Empresa Municipal de Aguas de Córdoba, S.A.).\n\nEste documento **no se corresponde con el objeto de licitación indicado** (\"Servicio de asistencia, consultoría y asesoramiento técnico, redacción de proyectos, direcciones de obras y trabajos de apoyo técnico para el seguimiento de obras y servicios de EMACSA\"), sino que regula un procedimiento distinto: la adquisición de **suministros** (productos de uso corriente) mediante un sistema dinámico de adquisición, no un contrato de servicios de consultoría/asistencia técnica de arquitectura o ingeniería.\n\nAdemás, el texto es un **pliego \"modelo\" genérico**, sin Cuadro de Características Particulares (CCP) cumplimentado, que es el documento donde constarían los datos específicos de esta licitación en concreto: no contiene:\n\n- Solvencia económico-financiera concreta (remite todo a \"lo que se indique en el CCP\").\n- Equipo mínimo, perfiles, titulaciones ni experiencia exigida (no aplica a un SDA de suministros; y aquí tampoco se ha aportado el PPT ni el CCP correspondientes).\n- Criterios de adjudicación con puntuaciones concretas (el pliego modelo solo regula la naturaleza y reglas generales de los criterios, remitiendo su ponderación y contenido al CCP de cada SDA/contrato específico).\n\n**Recomendación:** Verificar que se ha adjuntado el PCAP correcto correspondiente a la licitación de \"redacción de instrumento urbanístico\"/servicios de asistencia técnica y consultoría de EMACSA, junto con su Cuadro de Características Particulares (CCP) y Pliego de Prescripciones Técnicas (PPT), que son los documentos que contendrían la información necesaria (solvencia, equipo técnico exigido, criterios de adjudicación) para elaborar el análisis solicitado por CAI Consultores.",
+      "fecha_analisis": "2026-08-04T05:57:44.370553+00:00"
+    }
+  },
+  {
+    "folder_id": "63-26 (5316)",
+    "estado": "PUB",
+    "titulo": "Servicio de redacción del estudio de alternativas, estudios ambientales y anteproyecto de la remodelación de la E.D.A.R. Cerro del Águila (Fuengirola - Mijas) para ACOSOL, S.A.",
+    "updated": "2026-08-03T09:00:00.000+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=EFuDWPmaJjQ2wEhQbcAqug%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71300000",
+      "71311300",
+      "71322000",
+      "71311000",
+      "71243000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=GZ8R%2Br9UHn2E4p81DuxY/f%2BBp6s4cDyyAg/3ZthSODpzdW/%2B1WEykCgMaZKkRZCjHY8pgR8kPqCvQJFdMqs6J9h0LQzT2MOtgcsmaThFF4q1aXEvq3KHa/AEHgtDrQw0",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=wFn/HXmwel1VUcHCFrtxajlMGpyL8L6CeSirky4m/etvQ77anPhIQGCTNBbS77ga/GZHY6dSu3GPELR2MWORYei%2Bi3Ll4MgyH2teiczv6wDVTD3T98KC0nSgQFM0q%2B5s",
+    "organo": "Consejería delegada de ACOSOL, S.A.U.",
+    "importe": "490348.91",
+    "importe_num": 490348.91,
+    "fecha_limite": "2026-09-15",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# 1. Solvencia económico-financiera\n\nSe exige acreditar, de forma acumulativa, los siguientes tres requisitos:\n\n* **Volumen anual de negocio**, referido al mejor ejercicio de los tres últimos disponibles, por importe mínimo de **una vez y media el valor estimado del contrato** (VEC = 490.348,91 € → mínimo exigido ≈ **735.523,37 €**).\n  * Acreditación: cuentas anuales depositadas en el Registro Mercantil (o registro oficial equivalente); alternativamente, certificado de importe neto de la cifra de negocios expedido por la AEAT o modelo 390 de IVA.\n\n* **Seguro de responsabilidad civil por riesgos profesionales**, por un importe mínimo igual al VEC (**490.348,91 €**).\n  * Acreditación: certificado de la aseguradora indicando importes, riesgos cubiertos y vencimiento, junto con compromiso de renovación/prórroga durante la ejecución del contrato (o compromiso vinculante de suscripción).\n\n* **Patrimonio neto**, según balance del último ejercicio de las cuentas anuales aprobadas, superior a **una vez y media el VEC** (≈ **735.523,37 €**).\n  * Acreditación: mismo medio que el volumen de negocio (cuentas anuales depositadas en Registro Mercantil o registro oficial equivalente).\n\nNo se exige clasificación empresarial ni inscripción en ROLECE.\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\nAdicionalmente a la solvencia técnica general (relación de servicios similares — EDAR con eliminación de nutrientes y digestión anaerobia — con importe anual acumulado en el año de mayor ejecución ≥ 70% de la anualidad del contrato, en los últimos 5 años), se exige adscripción de un equipo mínimo:\n\n* Autor del Proyecto (1 persona): Ingeniero/a superior con experiencia en redacción de proyectos de depuración similares (proyectos constructivos o anteproyectos de EDAR con procesos de eliminación de nutrientes y digestión anaerobia)\n   * Autor de mínimo 1 proyecto de similares características durante los últimos 10 años\n\n* Técnico de Medio Ambiente (1 persona): Graduado/a en Biología, Ciencias Ambientales, Ciencias del Mar o titulación equivalente\n   * 5 o más años de experiencia en estudios ambientales y estudios de impacto ambiental en trabajos relacionados con el objeto del contrato\n\n⚠ El pliego indica expresamente que el adjudicatario deberá adscribir, además, el **equipo técnico completo** exigido en el **Capítulo 3 del PPTP** (no incluido en el texto analizado), por lo que estos dos perfiles son solo el mínimo verificable en el Sobre \"A\"; es necesario revisar el PPTP para conocer el resto de perfiles obligatorios (posible ingeniero de procesos, delineante, especialista en tramitación urbanística/expropiaciones, etc.).\n\n---\n\n# 3. Criterios de adjudicación\n\n**Sobre B — Hasta 51 puntos:**\n\n* **Memoria técnica / desarrollo metodológico (juicio de valor) — hasta 41 puntos**, desglosado en 8 subapartados:\n  * Desglose de trabajos y asignación de responsables — 6 pts\n  * Trabajos preliminares (recopilación/análisis información e instalaciones actuales) — 5 pts\n  * Desarrollo del estudio de alternativas — 5 pts\n  * Selección de tipología de procesos en la EDAR — 5 pts\n  * Estudios de tramitación ambiental y anejos asociados — 6 pts\n  * Redacción del anteproyecto — 5 pts\n  * Programa de trabajos — 5 pts\n  * Cumplimiento de plazo — 4 pts\n\n* **Experiencia del Autor del Proyecto (por encima de la mínima de solvencia) — hasta 7 puntos**, según fórmula P = 7 × (N/10), máximo 10 referencias valorables.\n  ⚠ REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia.\n\n* **Certificaciones de sistemas de gestión (automático) — hasta 3 puntos**: ISO 9001 (1 pt), ISO 14001 (1 pt), ISO 45001 (1 pt).\n\n**Sobre C — Hasta 49 puntos:**\n\n* **Propuesta económica (fórmula matemática)** — hasta 49 puntos, proporcional a la oferta más baja (Pi = 49 × Ob/Oi).\n\nNo hay criterio único relacionado con el coste. Se prevén parámetros de baja anormal conforme al art. 149 LCSP, sin umbral numérico predefinido en el Anexo I.\n\n---\n\n# 4. Valoración para CAI Consultores\n\n**Puntos a favor:**\n* El volumen de negocio anual de CAI (1.100.000 €/año) supera holgadamente el umbral exigido (≈735.523 €), tanto en el criterio de \"mejor ejercicio\" como en términos acumulados.\n* Al no exigirse clasificación empresarial ni inscripción en ROLECE, la vía de acceso mediante solvencia declarada es más ágil para CAI.\n* El plazo ampliado de 5 años para acreditar solvencia técnica (frente a los 3 habituales) amplía las posibilidades de aportar referencias de CAI.\n* El objeto del contrato (redacción de estudio de alternativas, estudios ambientales y anteproyecto de EDAR) es un servicio de ingeniería civil/ambiental que encaja con el perfil de despacho de arquitectura/ingeniería, permitiendo su ejecución con equipo propio complementado por subcontratación puntual.\n* Se permite expresamente la subcontratación parcial (declarando importe y perfil del subcontratista), lo que facilita cubrir perfiles no disponibles internamente (p.ej. Técnico de Medio Ambiente si no se dispone de biólogo/ambientólogo en plantilla).\n\n**Puntos a verificar internamente:**\n* ⚠ **Este contrato NO es un instrumento urbanístico (LISTA/LOUA)**, sino un servicio de ingeniería de depuración de aguas residuales (EDAR) con estudio de alternativas y tramitación ambiental. La experiencia en LISTA/LOUA del perfil de CAI **no es directamente aplicable** como mérito o solvencia en esta licitación; debe revisarse si CAI dispone de referencias reales en proyectos de EDAR con eliminación de nutrientes y digestión anaerobia (requisito de solvencia técnica y también objeto de valoración con hasta 7 puntos adicionales).\n* Verificar que el importe asegurado del seguro de RC de CAI cubre como mínimo el VEC (490.348,91 €); el dato de la póliza no se ha concretado en el perfil proporcionado.\n* Verificar que el patrimonio neto de CAI supera 1,5 × VEC (≈735.523 €), dato no incluido en el perfil de la empresa",
+      "fecha_analisis": "2026-08-04T05:58:34.095657+00:00"
+    }
+  }
+]
