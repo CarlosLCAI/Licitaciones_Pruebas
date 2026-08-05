@@ -583,5 +583,40 @@ def main():
     return resultados_por_filtro
 
 
+def notificar_fallo_teams(mensaje_error):
+    webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
+    if not webhook_url:
+        return
+
+    ahora = datetime.now(timezone.utc).strftime("%H:%M UTC")
+    texto = (
+        f"**⚠ Lectura PLACSP fallida** ({ahora})\n\n"
+        f"La ejecución de hoy no ha podido completarse:\n\n"
+        f"`{mensaje_error}`\n\n"
+        f"No se han detectado licitaciones nuevas en esta ejecución. "
+        f"Se reintentará en la próxima ejecución programada."
+    )
+    adaptive_card = {
+        "type": "AdaptiveCard",
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "version": "1.4",
+        "body": [{"type": "TextBlock", "text": texto, "wrap": True}],
+    }
+    payload = {
+        "attachments": [
+            {"contentType": "application/vnd.microsoft.card.adaptive", "content": adaptive_card}
+        ]
+    }
+    try:
+        requests.post(webhook_url, json=payload, timeout=15).raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Error notificando el fallo a Teams: {e}")
+
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"Fallo la ejecucion: {e}")
+        notificar_fallo_teams(str(e))
+        raise
