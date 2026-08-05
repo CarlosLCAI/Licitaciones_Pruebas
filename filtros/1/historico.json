@@ -646,5 +646,56 @@
       "fecha_analisis": "2026-08-04T05:58:34.095657+00:00"
     },
     "fecha_captura": "2026-08-04"
+  },
+  {
+    "folder_id": "79-26",
+    "estado": "PUB",
+    "titulo": "Contratación del Servicio de \"Redacción del Proyecto constructivo, Dirección de Obra y Coordinación de Seguridad y Salud para la mejora de la interconexión de los sistemas campo de Gibraltar y Costa del Sol. Ramal este, tramo Marbella-Fuengirola (Málaga). Fase 1.",
+    "updated": "2026-08-04T09:15:12.611+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=b0fR2SAYhnrzAq95uGTrDQ%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71310000",
+      "71311000",
+      "71520000",
+      "71300000",
+      "71240000",
+      "71000000",
+      "71240000",
+      "71520000",
+      "71311000",
+      "71310000",
+      "71300000",
+      "71000000",
+      "71520000",
+      "71300000",
+      "71240000",
+      "71310000",
+      "71311000",
+      "71000000",
+      "71310000",
+      "71300000",
+      "71240000",
+      "71520000",
+      "71311000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=PmNFld%2BHKE3L2b%2BPb9qtQbOw7XxFjc7tkKPdQ6rZakWJUzvDIALpt3JH1jzvxBFDoP9PpRSxNKUkUivhe2GzRhgxrAFSK2otztY0RpkasxXDdQD9RyhUmzT4jZ2In4zL",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=LLnxppnArHP6SVoQfd8eAKqdcuLjQ0Fc6boFvf1hdE4sZjce0NjfqXxpYuMNE7q56SkCkvz42XQ5Xd6BdIKy/hhpoenzh9eLh6tJXYERz9n3GVhXrFFqN7yFncy7YfRK",
+    "organo": "Consejería delegada de ACOSOL, S.A.U.",
+    "importe": "1522527.31",
+    "importe_num": 1522527.31,
+    "fecha_limite": "2026-09-18",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# Informe de Análisis PCAP — Redacción Proyecto Constructivo, DO y CSS. Ramal Este Marbella-Fuengirola (Fase 1) — ACOSOL\n\n## 1. Solvencia económico-financiera\n\nLos requisitos se aplican **por cada lote** al que se concurra (cada lote constituye un contrato independiente), no de forma acumulada salvo que se licite a varios lotes conjuntamente sin previsión expresa de acumulación:\n\n* **Volumen anual de negocios**: referido al mejor ejercicio de los tres últimos disponibles, por importe mínimo de **1,5 veces el valor estimado del contrato (lote)**.\n  * Acreditación: cuentas anuales depositadas en el Registro Mercantil (o libros de inventario/cuentas legalizadas si no está inscrito), o certificado de cifra de negocios de la AEAT, o resumen del modelo 390 de IVA.\n* **Seguro de responsabilidad civil por riesgos profesionales**: importe mínimo igual al **valor estimado del contrato (lote)**.\n  * Acreditación: certificado de la aseguradora con importes, riesgos y vencimiento, más compromiso de renovación/prórroga durante la ejecución.\n* **Patrimonio neto**: según balance del último ejercicio, deberá superar **1,5 veces el valor estimado del contrato (lote)**.\n  * Acreditación: cuentas anuales depositadas en Registro Mercantil (o registro oficial correspondiente).\n\nValores estimados de referencia por lote (sin IVA):\n\n| Lote | Valor estimado | Volumen negocio exigido (x1,5) | Seguro RC exigido (x1) |\n|---|---|---|---|\n| Lote 1 | 360.189,21 € | 540.283,82 € | 360.189,21 € |\n| Lote 2 | 487.522,80 € | 731.284,20 € | 487.522,80 € |\n| Lote 3 | 674.815,30 € | 1.012.222,95 € | 674.815,30 € |\n\nNo se exige clasificación empresarial (no es exigible en contratos de servicios conforme al art. 77.1.b LCSP) ni inscripción en ROLECE.\n\n## 2. Solvencia técnica / Equipo mínimo\n\n**Requisito previo de solvencia técnica (a nivel de empresa, no de personas concretas):**\nPresentación de al menos **3 certificados** de participación en proyectos de construcción iguales o similares al objeto del contrato, ejecutados en los **últimos 5 años**, indicando importe, fecha y destinatario.\n\n**Compromiso de adscripción de medios personales mínimos** (obligación esencial art. 211.1.f LCSP), por cada lote:\n\n* Autor del Proyecto Constructivo (1 persona por lote, distinta si se adjudican varios lotes): titulación habilitante para redacción de proyectos\n   * Experiencia en proyectos de infraestructuras hidráulicas, conducciones a presión, redes de abastecimiento o actuaciones técnicamente equivalentes (el PCAP **no fija un número mínimo de años ni de proyectos** como requisito de solvencia; la cuantificación se traslada al criterio de adjudicación técnico)\n\n* Director de Obra (1 persona por lote, distinta si se adjudican varios lotes): técnico competente habilitado para asumir la Dirección de Obra\n   * No se fija experiencia mínima cuantificada como requisito de solvencia (igual observación que el perfil anterior)\n\n* Coordinador de Seguridad y Salud (1 persona por lote, distinta si se adjudican varios lotes): técnico competente conforme al RD 1627/1997\n   * No se fija experiencia mínima cuantificada; solo habilitación normativa exigida\n\n* Técnico de apoyo a la Dirección Facultativa / Vigilante de Obra (según PPTP): perfil técnico de apoyo\n   * Requisitos remitidos al PPTP (no incluido en el documento analizado) ⚠ REVISAR — verificar PPTP para condiciones concretas\n\n* Responsables de disciplinas técnicas (sin número mínimo fijado, \"equipo deberá contar con especialistas\"): ingeniería hidráulica, trazado, geotecnia, estructuras, topografía, servicios afectados, expropiaciones, medio ambiente, seguridad y salud, instrumentación/control/telemando, control de calidad, planificación y presupuesto\n   * Sin requisitos de experiencia cuantificados en el PCAP; se remite al PPTP\n\nAdemás, se exige compromiso de medios materiales su",
+      "fecha_analisis": "2026-08-05T06:19:24.239046+00:00"
+    },
+    "fecha_captura": "2026-08-05"
   }
 ]
