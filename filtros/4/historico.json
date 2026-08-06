@@ -290,5 +290,67 @@
       "fecha_analisis": "2026-08-05T06:20:18.347907+00:00"
     },
     "fecha_captura": "2026-08-05"
+  },
+  {
+    "folder_id": "2026/D31000/006-302/00008",
+    "estado": "PUB",
+    "titulo": "Redacción de proyecto, direcc de obras y coord de seg y salud de obras a realizar por la Diputación Provincial de Almería en ejecución de las op que resulten selecc en el Plan de Actuación Integrado del Levante Almeriense con asignación de SENDA FINANCIERA FEDER en el marco del desarrollo sostenible, con cargo al Fondo de Desarrollo Regional en el periodo de programación 2021-2027. 5 LOTES",
+    "updated": "2026-08-05T11:51:44.572+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=FEE5PBb%2F6B7LIx6q1oPaMg%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71300000",
+      "71300000",
+      "71300000",
+      "71300000",
+      "71300000",
+      "71300000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=14P9NM4WzKz8akLH%2BpngvXwhbQyz6mM5Pr/ippWi8y9dthas1JlJOFjPVN2b/t/aFrleQ71NSF5klPfHUN3QTUtA/Wf2SbIgPijC%2BLHhbf21aXEvq3KHa/AEHgtDrQw0",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=79T%2B5sdVdhEMujkd6m7bv4Df5eDGzRyMKPsaEOn5nXmGbEuwssjjahLMxAcPHcqECRw4J7a/MuKgYOi3Pat5UlHyL9abIcIODikBFuIHloZJOVDbGCDM%2BMigrvuVS7Rv",
+    "organo": "Junta de Gobierno de la Diputación Provincial de Almería",
+    "importe": "434737.19",
+    "importe_num": 434737.19,
+    "fecha_limite": "2026-09-03",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# 1. Solvencia económico-financiera\n\n**Medio exigido:** Cifra anual de negocios de los tres (3) últimos años.\n\n**Umbral de solvencia:** La anualidad de mayor importe debe ser, al menos, el 70% del valor estimado del contrato, **calculado de forma independiente por cada lote**:\n\n| Lote | Valor estimado | 70% exigido |\n|---|---|---|\n| L1 – Geoda de Pulpí | 145.785,12 € | 102.049,59 € |\n| L2 – Mejoras Infraestructuras Consorcio | 9.719,01 € | 6.803,31 € |\n| L3 – Dinamización Turística | 204.545,45 € | 143.181,82 € |\n| L4 – Mejora Eje AL-5107 Mojácar | 66.942,15 € | 46.859,55 € |\n| L5 – Reto del Agua | 7.745,45 € | 5.421,82 € |\n\n**Forma de acreditación:**\n- Declaración de cifra de negocios global de los 3 últimos años.\n- Cuentas anuales depositadas en el Registro Mercantil (o registro oficial equivalente); autónomos no inscritos: libros de inventario y cuentas legalizados.\n- Alternativamente, certificado AEAT de Importe Neto de la Cifra de Negocio o declaración de IVA (autónomos).\n\n**Adicionalmente**, con carácter de documentación previa a la adjudicación (no de solvencia, pero exigible al propuesto adjudicatario): póliza de seguro de Responsabilidad Civil vigente durante toda la ejecución, por lote:\n\n| Lote | Importe RC exigido |\n|---|---|\n| L1 | 150.000,00 € |\n| L2 | 10.000,00 € |\n| L3 | 250.000,00 € |\n| L4 | 90.000,00 € |\n| L5 | 10.000,00 € |\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\n**Solvencia técnica de la empresa (Anexo III, distinta del equipo):** relación de trabajos de igual naturaleza ejecutados en los últimos 3 años; el año de mayor ejecución debe ser ≥70% del valor estimado del contrato (mismos importes de la tabla anterior, por lote). Se acredita mediante certificados de buena ejecución del destinatario público/privado.\n\n**Equipo mínimo obligatorio (compromiso de adscripción, Anexo VII)** — el pliego **no fija experiencia mínima individual** por perfil, solo exige titulación y, en su caso, colegiación/habilitación:\n\n* Arquitecto (1) — L1, L2, L3: Título de Arquitecto\n   * No se exige experiencia mínima individual, solo colegiación\n* Arquitecto Técnico o Grado en Ing. Edificación o equivalente (1) — L1, L2, L3: Titulación indicada\n   * No se exige experiencia mínima individual, solo colegiación\n* Arqueólogo (1) — solo L1: Titulación habilitante en Arqueología\n   * No se exige experiencia mínima individual\n* Paisajista (1) — solo L1: Arquitectura Paisajística\n   * No se exige experiencia mínima individual\n* Ingeniero de Minas (1) — solo L1: Ingeniería de Minas\n   * No se exige experiencia mínima individual\n* Ingeniero de Caminos, Canales y Puertos (1) — L1, L3, L4: ICCP\n   * No se exige experiencia mínima individual\n* Ingeniero Industrial o Grado Ing. Industrial o I.T.I. o equivalente (1) — L1, L2, L3: Titulación indicada\n   * No se exige experiencia mínima individual\n* Grado en Ing. Civil o I.T.O.P. o equivalente (1) — L1, L3, L4: Titulación indicada\n   * No se exige experiencia mínima individual\n* Técnico en Prevención de Riesgos Laborales (Coordinador SS): L1(1), L2(1), L3(2), L4(1), L5(1): Arquitecto/Arquitecto Técnico/Ingeniero/Ingeniero Técnico + Técnico Superior en PRL + inscripción en Registro de Coordinadores de la Junta de Andalucía\n   * No se exige experiencia mínima individual, solo titulación/registro\n\n**Tamaño de equipo mínimo total por lote:** L1: 9 técnicos | L2: 4 técnicos | L3: 7 técnicos | L4: 3 técnicos | L5: 1 técnico.\n\n**Acreditación:** compromiso de adscripción en el Sobre A (obligación esencial, causa de resolución si se incumple); la titulación solo debe acreditarse (copia de título) por el licitador que resulte propuesto adjudicatario.\n\n⚠️ Nota: existe además un criterio de adjudicación denominado \"Experiencia del equipo\" (ver sección 3) que sí exige experiencia concreta del personal, pero es un criterio de puntuación, no un requisito mínimo de solvencia/equipo.\n\n---\n\n# 3. Criterios de adjudicación\n\n**Total: 100 puntos**, con reparto: Calidad 60% (Experiencia equipo 14 + Oferta técnica 46) / Precio 40%.\n\n### A) Evaluables mediante fórmulas — 54 puntos\n\n**A.1) Precio (% baja lineal): 40 puntos**\n- Fórmula no lineal con exponente 1/6: xi = 40 × ((PBL-PO)/(PBL-PMIN))^(1/6)\n- Sistema de detección de anormalidad específico (reglas A/B/C según nº de licitadores) y umbral adicional del 95% de la puntuación total.\n\n**A.2) Experiencia del equipo: 14 puntos** — varía por lote, ej. Lote 1:\n- Redacción proyectos restauración edificación minera",
+      "fecha_analisis": "2026-08-06T06:13:02.526979+00:00"
+    },
+    "fecha_captura": "2026-08-06"
+  },
+  {
+    "folder_id": "11515/2026 PROYECTO ARQUILLA AGUA",
+    "estado": "PUB",
+    "titulo": "Servicios para la redacción del proyecto de construcción del parque de Arquilla del Agua. está cofinanciado por la Unión Europea a través del fondo europeo de desarrollo regional (feder) en el marco del programa operativo plurirregional de España (2021-2027)”",
+    "updated": "2026-08-05T10:01:01.016+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=wX0Enc6mVqo2wEhQbcAqug%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71420000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=wmM2qPx8/n2dhM5045uvctUWkQcfNWtxgN9nTeFx3RYRG6cM0GPFC7Cl0Y4ZJh3uWcdZq/x/%2Bhn7e%2BxCjy/NEoBRVTLbWUvdaBwkI0JVhWc//q7NB2iMZvNyf0xrJmjt",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=unsp0xUgmQhRwc65fbiJaOkKCNefpjWPJMqJYFOhwXSIvGSrFg2ggZ08rPEzLpZ92S7utQYkuJghv/9x9vYfAMRwNl76jYyN2G6B3Nq2o%2B21aXEvq3KHa/AEHgtDrQw0",
+    "organo": "Alcaldía del Ayuntamiento de Alhaurín el Grande",
+    "importe": "205003.89",
+    "importe_num": 205003.89,
+    "fecha_limite": "2026-08-20",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# Informe de Análisis PCAP — Redacción del Proyecto de Construcción del Parque de Arquilla del Agua\n**Ayuntamiento de Alhaurín el Grande** | Expte. 11515/2026\n\n---\n\n## 1. Solvencia económico-financiera\n\nEl PCAP admite dos vías alternativas de acreditación (Anexo I, apdo. 3.1):\n\n- **Volumen anual de negocios**, referido al mejor ejercicio de los tres últimos disponibles, que deberá ser **al menos igual al valor estimado del contrato: 205.003,89 €**.\n  - Acreditación: cuentas anuales depositadas en el Registro Mercantil, libros de inventario, declaraciones de IVA o certificado de la AEAT, según la naturaleza jurídica del licitador.\n\n- **Alternativa (por tratarse de servicios profesionales):** disponer de un **seguro de indemnización por riesgos profesionales**, vigente hasta el fin del plazo de presentación de ofertas, por importe **no inferior al valor estimado del contrato (205.003,89 €)**, con compromiso de renovación/prórroga durante toda la ejecución.\n  - Acreditación: certificado de la aseguradora (importes, riesgos y vencimiento) + compromiso vinculante de suscripción/renovación.\n\n*(Adicionalmente, como condición de ejecución —no de solvencia— se exige antes de la formalización un seguro de RC Profesional y RC General por importe igual o superior a 248.054,70 €, con cobertura de reclamaciones hasta 10 años tras la recepción de la obra).*\n\n---\n\n## 2. Solvencia técnica / Equipo mínimo\n\n* Director/a de los trabajos (1 persona): Arquitecto/a con titulación habilitante, experiencia profesional mínima de 3 años\n   * 2 actuaciones en los últimos 3 años de redacción de Proyectos Básicos y de Ejecución y Dirección de Obras de espacios públicos, plazas, parques y jardines o equivalentes, mediante contratos de servicios con PEM igual o superior a 936.946,50 €\n\n* Redactor/a de Proyecto y Director/a de Obra (puede coincidir con el Director de los trabajos): Arquitecto/a con titulación habilitante\n   * Experiencia profesional mínima de 3 años (sin exigencia adicional de nº de actuaciones)\n\n* Director/a de la Ejecución de las Obras (1 persona, puede coincidir con el Coordinador de SS): Arquitecto/a Técnico/a, Aparejador/a o Graduado/a en Ingeniería de la Edificación con titulación habilitante\n   * Experiencia profesional mínima de 3 años\n\n* Coordinador/a de Seguridad y Salud en fase de ejecución (1 persona, puede coincidir con el anterior): Arquitecto/a, Arquitecto/a Técnico/a, Aparejador/a, Graduado/a en Ingeniería de la Edificación, Ingeniero/a Técnico/a Superior o Ingeniero/a Técnico/a de Obras Públicas\n   * Experiencia profesional mínima de 3 años\n\n**Notas del pliego:**\n- Las funciones de Dirección de los trabajos + redacción de proyecto + Dirección de Obra pueden recaer en una misma persona.\n- Las funciones de Dirección de Ejecución de Obras + Coordinación de SS pueden recaer en un mismo técnico.\n- Acreditación: certificados de buena ejecución (público) o certificado del cliente/visado colegial (privado), con indicación expresa del técnico, título, emplazamiento, fecha y PEM. Titulación mediante copia simple + certificado de colegiación (o declaración responsable si no es obligatoria).\n- **No cabe integrar solvencia técnica de titulación/experiencia con medios externos**, salvo que esas entidades ejecuten directamente la prestación para la que se requiere la capacidad (art. 75.4 LCSP).\n\n---\n\n## 3. Criterios de adjudicación\n\n**A) Criterios evaluables mediante fórmulas — 65 puntos**\n\n- **Proposición económica — 40 puntos.** Fórmula proporcional con umbral de saciedad (CB = 24.805,47 € IVA incluido, 10% del PBL).\n- **Incorporación de un Técnico Paisajista al equipo redactor — hasta 15 puntos.** Compromiso firmado de incorporación (Grado en Paisajismo, Técnico Superior en Paisajismo y Medio Rural, o titulación en Arquitectura/Ing. Agronómica-Forestal/Biología con especialización en paisajismo).\n- **Experiencia en redacción y dirección de proyectos similares — hasta 10 puntos.** Se valora la experiencia adicional del Director de los trabajos que exceda la exigida como solvencia (1 punto por actuación de redacción o dirección; 2 puntos si incluye ambas conjuntamente, en obras de espacios públicos/parques/jardines con PEM ≥ 936.946,50 €).\n  ⚠ REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia.\n\n**B) Criterios dependientes de juicio de valor — 35 puntos**\n\n- **Memoria Ambiental y Constructiva — hasta 30 puntos**, desglosada en:\n  - Propuestas de reducción de impacto ambiental / conservación del valor ecológico: hasta 15 puntos (Bien 15 / Básico 10 / Deficiente 5)\n  - Conocimiento de la zona y condicionantes (niveles freáticos, escorrentías, inundabilidad, etc.): hasta 15 puntos (misma escala)\n- **Participación ciudadana — hasta 5 puntos** (memoria máx. 10 páginas): Bien 5 / Básico 2 / Deficiente 1.\n\nExtensión máxima total de la Memoria (Sobre nº 2): 50 folios A-4 + hasta 10 planos/diagramas A-3 (no computan en el límite de páginas).\n\n---\n\n## 4. Valoración para CAI",
+      "fecha_analisis": "2026-08-06T06:13:48.327309+00:00"
+    },
+    "fecha_captura": "2026-08-06"
   }
 ]
