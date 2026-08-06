@@ -726,7 +726,7 @@
       "fecha_analisis": "2026-08-06T06:10:59.422237+00:00"
     },
     "fecha_captura": "2026-08-06",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-08-06T07:20:30.964Z"
+    "revisado_humano": false,
+    "revisado_fecha": null
   }
 ]
