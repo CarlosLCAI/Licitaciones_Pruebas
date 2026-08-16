@@ -681,5 +681,34 @@
       "fecha_analisis": "2026-08-15T04:01:37.325989+00:00"
     },
     "fecha_captura": "2026-08-15"
+  },
+  {
+    "folder_id": "26-752",
+    "estado": "PUB",
+    "titulo": "Contratación de los servicios de Coordinación de Seguridad y Salud de las obras de la Empresa Municipal de Aguas de Málaga, S.A. (EMASA)",
+    "updated": "2026-08-15T14:56:20.856+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=gJ3Bpds5CIk%2FbjW6njtWLw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71317210",
+      "71317200"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=2tQk63KZRb7Df03%2BaajcbRBqsn7wtUVZZ07X7yZsWo9gnwAuqqM1hrv9m5kP9YQO1/uMIR%2BDuRMCRLGzAUgBsPk6HUFbhMncKOuZDBlyaXL3GVhXrFFqN7yFncy7YfRK",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=VUKqo7OifTj2hf7R%2BSe0ycQPt%2BiTbBlz3jnfwRVtEcZJ1Wud%2BrmaGjXOSVSgbZPTK9FgD5SEFGrRMWLlmVb94pQUItlZP3PPW/y/OeD1aKfVTD3T98KC0nSgQFM0q%2B5s",
+    "organo": "Consejero Delegado de la Empresa Municipal de Aguas de Málaga S.A.",
+    "importe": "894093.75",
+    "importe_num": 1668975.0,
+    "fecha_limite": "2026-09-14",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "No se pudo descargar el PCAP.",
+      "fecha_analisis": "2026-08-16T03:57:19.938731+00:00"
+    },
+    "fecha_captura": "2026-08-16"
   }
 ]
