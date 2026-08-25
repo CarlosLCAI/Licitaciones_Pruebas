@@ -1,1 +1,64 @@
-[]
+[
+  {
+    "folder_id": "55/2026",
+    "estado": "PUB",
+    "titulo": "Servicio asistencia técnica destinado a disponer de un equipo técnico cualificado para redacción de Proyectos Básicos y de Ejecución, elaboración de Estudios Básicos de Seguridad y Salud, y realización de los trabajos, correspondientes a actuaciones de mejora de accesibilidad e instalación de ascensores en edificios residenciales de vivienda colectiva beneficiarios ayudas Municipal 2024.",
+    "updated": "2026-08-24T12:35:29.309+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=VVaCe715rqCAAM7L03kM8A%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=sVqBlYMlKsauQqGljSFvLZ8IvKme1DkRdpBPgKv1UmElDyuhl5kYlPgcuZE4rtKPiMKiDf98Uq%2Bbaj69R0UFZxgUWP/BnzExnIFyUFUwvoo//q7NB2iMZvNyf0xrJmjt",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=gnbrxHkvRuMheGylkbAURA5uE7SnLXq8sZSw3EkaLRDEmgClgmKR%2B/oTDbPoOh79aNv0XZtafO5cA1RTTc5X6LGANV9srim0AL0pSthnWgc//q7NB2iMZvNyf0xrJmjt",
+    "organo": "Comisión Ejecutiva de la Gerencia de Urbanismo de Sevilla",
+    "importe": "198347.11",
+    "importe_num": 198347.11,
+    "fecha_limite": "2026-09-08",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+      "fecha_analisis": "2026-08-25T03:55:52.711452+00:00"
+    }
+  },
+  {
+    "folder_id": "453/2026",
+    "estado": "PUB",
+    "titulo": "Contrato de servicios de redacción de proyecto básico y de ejecución, estudio de seguridad y salud, dirección de obra y de ejecución, y coordinación de seguridad y salud para la conservación de las casas consistoriales altas de Baeza para uso de colección museográfica, en el marco del plan de actuación integrado Úbeda–Baeza (plan edil), (FEDER) 2021-2027",
+    "updated": "2026-08-24T11:20:35.539+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=ppijV97X90J%2FP7lJ7Fu0SA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71251000",
+      "71242000",
+      "92522000",
+      "71221000",
+      "71351914",
+      "71200000",
+      "71245000",
+      "71220000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=DT/317gkyqqH5i1BnSHL81Hdsh%2BIQtzeuLxJoIz%2BKWuFE2fqS169wr%2BUV1n2k4Wullq5Q8l3//lnsaF3Vwa4TjQP4ruXtsVa40kMKwIsPv5t/o8fNevwsujgRzaBbugn",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=r0Bo1jwLmmJLf0zLG09%2Bdhkfb3DC88QVR/L9gjMBBIgEiRYF2Yxy3GHhOOzzf5ZSLUvFSkc8e/wFxhVCH0RO5AB1ayjIT/H9HWaV/C5VmGS1aXEvq3KHa/AEHgtDrQw0",
+    "organo": "Alcaldía del Ayuntamiento de Baeza",
+    "importe": "95331.87",
+    "importe_num": 95331.87,
+    "fecha_limite": "2026-08-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+      "fecha_analisis": "2026-08-25T03:55:57.984008+00:00"
+    }
+  }
+]
