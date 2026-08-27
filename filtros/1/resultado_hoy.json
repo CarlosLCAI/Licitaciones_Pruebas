@@ -1,29 +1,33 @@
 [
   {
-    "folder_id": "2026-071",
+    "folder_id": "P4103400J-2026/000307-PEAS",
     "estado": "PUB",
-    "titulo": "Asistencia técnica para la redacción de los proyectos de refuerzo para la mejora de calado del Muelle Juan Carlos I Norte y Este del Puerto de Algeciras",
-    "updated": "2026-08-25T14:15:26.317+02:00",
-    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=CjRX4Cq8xRKOUi78BmzhOQ%3D%3D",
+    "titulo": "Servicio de redacción, elaboración y realización de los documentos necesarios para la futura licitación del contrato de obra de concesión de obra pública.",
+    "updated": "2026-08-26T12:33:40.268+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=EowHwHpzCXDE6P%2FuLemXRw%3D%3D",
     "es_andalucia": true,
     "cpv_match": true,
     "cpv_codes": [
-      "71240000"
+      "71242000",
+      "71243000",
+      "71351810",
+      "71241000",
+      "71220000"
     ],
-    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Oh/OihX3VWVq/KZGhmKjIGwiNyWN%2BjORDxfjWLTgRYKCMtpSuzotZ461hnGMsMT/1iGbWooS2iiwHiwX40F8QjIrPkwPaLLEvPtRAIsIXv2Cx2e6p7hqtlp2aFupgHMr",
-    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=r%2B2dswhcGnTOElI3V1QblmEm6Jxd4ci1PJsf4cilNDevI4uApn1cHeDy8VLhcdcpx5CVMipnA3CqI9C0tuy7TeQVnC13VVPONulV6Y615UcC1/zDIE0Kw/PWNnLS0Z0z",
-    "organo": "Presidencia de la Autoridad Portuaria de la Bahía de Algeciras",
-    "importe": "279650",
-    "importe_num": 279650.0,
-    "fecha_limite": "2026-09-22",
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=/jLrSZyLveo/0M6XqTnoxR/cNJsFneMAp4fVLTqci3FNtPfYecHWb3RswKuFHz5IVbgAgYsLa%2BNvIDDM3f37KoTNT/nIQXIDofztFWEgqvVJOVDbGCDM%2BMigrvuVS7Rv",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=9q2s50Ejik/GrJMALVbd5jiEInVDyi8mcSnj9rySbBFCkgD6AuCkU%2BGuRdszF3Wwf7Z47OOJOqMHVtpDwwlDazes9%2BjnIvW3YE295rI7DG6Cx2e6p7hqtlp2aFupgHMr",
+    "organo": "Alcaldía del Ayuntamiento de Coria del Río",
+    "importe": "70245",
+    "importe_num": 70245.0,
+    "fecha_limite": "2026-09-10",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
-    "procedimiento": "1",
+    "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
     "revision_ia": {
       "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
-      "fecha_analisis": "2026-08-26T04:05:29.042081+00:00"
+      "fecha_analisis": "2026-08-27T14:06:30.371285+00:00"
     }
   }
 ]
