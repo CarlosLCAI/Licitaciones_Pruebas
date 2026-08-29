@@ -1132,5 +1132,33 @@
       "fecha_analisis": "2026-08-27T14:07:45.040452+00:00"
     },
     "fecha_captura": "2026-08-27"
+  },
+  {
+    "folder_id": "4162/2026 EDIL RECONECTANDO ALHAURIN",
+    "estado": "PUB",
+    "titulo": "Servicios de asistencia técnica general de gestión y de información y la comunicación del plan de actuación integrado de la estrategia de desarrollo integrado local de la EDIL Reconectando Alhaurín",
+    "updated": "2026-08-28T13:08:21.284+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=%2BWAfsNN72i8%2Bk2oCbDosIw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71356200"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=jkDWO0l9/jkDd9cgXWQYmaFgMzGLFwS2vu0zvc/3ZkZJopXU7Hi7R3F0SMQMIEWSCubBcpCye5jgWoi4b/rjtQG4SU3SoztJWKZWTMbMSj76CYyL7SIrUOBFfNf52ZqA",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=qTcZQRse66VICs8sQxxvSJlR3gy0FEsPgPCaKEnozAKpFXcYYa/pjFAbtzcn0zL3jYXgT6T7uxFGQ9dqfbBrO7z6c5uJ9jjXqzsZfUkJEH9t/o8fNevwsujgRzaBbugn",
+    "organo": "Alcaldía del Ayuntamiento de Alhaurín el Grande",
+    "importe": "136145.52",
+    "importe_num": 247284.72,
+    "fecha_limite": "2026-10-01",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+      "fecha_analisis": "2026-08-29T09:59:41.380626+00:00"
+    },
+    "fecha_captura": "2026-08-29"
   }
 ]
