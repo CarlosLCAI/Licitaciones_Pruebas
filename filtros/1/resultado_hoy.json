@@ -1,1 +1,63 @@
-[]
+[
+  {
+    "folder_id": "AYAL-2026000175",
+    "estado": "PUB",
+    "titulo": "Contratación de servicios de Asistencia técnica para la redacción del proyecto básico y estudios estratégicos para el diseño integral de los espacios públicos de las barriadas de San Miguel de Cabo de Gata, La Almadraba de Monteleva y La Fabriquilla, Almería",
+    "updated": "2026-09-01T11:50:38.088+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=t9JvK1ovpXDyoM4us5k4vw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71400000",
+      "71241000",
+      "90712100",
+      "71311200",
+      "71318000",
+      "79320000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Nq1oQ8S/6ER7u3AFIJM1xOKEQ/NZxVBPhhUvSL%2BL8xhXHbsklsYPVH86VNpmqTYQpWxn/6ySyQP8K0G5LY4feOTBdaDsDKdCE2otQdyxhmAZyAJWGsSt0OzTSTyw9JAs",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=/2py3wOjUu3xDAha%2BPLLp0r0ceXvwFRz14im1myT7UZKjHutLtyWhMpFT/9AewdD6MBYUlMoW58F3cBWAwEN%2Bio4G5Lny19wNTwc5uJokR/3GVhXrFFqN7yFncy7YfRK",
+    "organo": "Junta de Gobierno del Ayuntamiento de Almería",
+    "importe": "192664.8",
+    "importe_num": 192664.8,
+    "fecha_limite": "2026-09-16",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+      "fecha_analisis": "2026-09-02T07:55:05.434377+00:00"
+    }
+  },
+  {
+    "folder_id": "14926/2026",
+    "estado": "PUB",
+    "titulo": "Elaboración de la Cartografía digital urbana de Torremolinos, para el Ayuntamiento, Plan de Actuación Integrado (PAI) de Torremolinos, transformando el paraíso, cofinanciado por Unión Europea a través FEDER en el marco POPE 2021-2027",
+    "updated": "2026-08-31T21:25:31.367+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=mk3M3hiab0GFQ%2FlhRK79lA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71317210"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=mO%2BhHwqWRodb9pwTWhAjYqFcqKBw7fnMeAlFeG%2BGFSdv7JAxc/lqyLDcKC7Xt78UthqY/wlkfeC0pzzILpwstvgQ%2BtLeGikIJU70m3RONnlt/o8fNevwsujgRzaBbugn",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=pVKSPGSLR6suma3x/IjSnMqhUmQuOZK7f1Jx3iIPBQQz/Uvfoa3QQLM6JvNLrj5MWSWxt8NB9%2BAUO434an2LhYHYDdtL8EDXY3G3O6IEW9iHAj0WEJrB5sP7amrh2jBD",
+    "organo": "Concejalía Delegada en Materia de Contratación del Ayuntamiento de Torremolinos",
+    "importe": "63000",
+    "importe_num": 63000.0,
+    "fecha_limite": "2026-09-15",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
+      "fecha_analisis": "2026-09-02T07:55:12.213277+00:00"
+    }
+  }
+]
