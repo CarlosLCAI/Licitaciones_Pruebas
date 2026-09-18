@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitor Licitaciones · CAI Consultores</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --teal: #07AAAA;
     --teal-dark: #055f5f;
-    --navy: #18303C;
+    --antracita: #2E2E2E;
     --pink: #ED2E63;
-    --paper: #F7F6F2;
+    --paper: #F5F5F5;
     --ink: #1a1a1a;
-    --ink-soft: #565650;
-    --border: #d7d5cc;
+    --ink-soft: #5A5A5A;
+    --border: #DADADA;
   }
   * { box-sizing: border-box; }
   body {
@@ -32,7 +33,7 @@
   .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
   .cajetin {
     background: #fff;
-    border: 1.5px solid var(--navy);
+    border: 1.5px solid var(--antracita);
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     margin-bottom: 28px;
@@ -54,15 +55,16 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
     font-size: 17px;
-    color: var(--navy);
+    color: var(--antracita);
     margin: 0;
   }
   .cajetin .value.teal { color: var(--teal-dark); }
+  .logo-cai { display: block; height: 26px; width: auto; margin-bottom: 8px; }
   .tabs {
     display: flex;
     gap: 2px;
     margin-bottom: 16px;
-    border-bottom: 2px solid var(--navy);
+    border-bottom: 2px solid var(--antracita);
   }
   .tab {
     font-family: 'Barlow Condensed', sans-serif;
@@ -71,13 +73,13 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
     padding: 9px 18px;
-    background: #ece9e1;
+    background: #EAEAEA;
     color: var(--ink-soft);
     border: none;
     cursor: pointer;
   }
   .tab.active {
-    background: var(--navy);
+    background: var(--teal);
     color: #fff;
   }
   .tab .count {
@@ -129,7 +131,7 @@
     text-transform: uppercase;
     text-align: left;
     color: #fff;
-    background: var(--navy);
+    background: var(--teal);
     padding: 10px 12px;
     cursor: pointer;
     user-select: none;
@@ -176,19 +178,19 @@
     border-bottom: 1px dotted var(--teal-dark);
     width: fit-content;
   }
-  .links a:hover { color: var(--pink); border-color: var(--pink); }
+  .links a:hover { color: var(--teal); border-color: var(--teal); }
   .empty {
     text-align: center;
     padding: 60px 20px;
     color: var(--ink-soft);
     font-size: 14px;
   }
-  .empty strong { display: block; font-size: 16px; color: var(--navy); margin-bottom: 6px; }
+  .empty strong { display: block; font-size: 16px; color: var(--antracita); margin-bottom: 6px; }
   .resumen-lectura {
     display: none;
     margin-top: 24px;
     padding-top: 14px;
-    border-top: 1px solid var(--navy);
+    border-top: 1px solid var(--antracita);
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
     color: var(--ink-soft);
@@ -201,8 +203,8 @@
     font-size: 13px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--navy);
-    border-bottom: 2px solid var(--navy);
+    color: var(--antracita);
+    border-bottom: 2px solid var(--antracita);
     padding-bottom: 6px;
     margin: 26px 0 12px;
   }
@@ -229,7 +231,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
     font-size: 20px;
-    color: var(--navy);
+    color: var(--antracita);
     margin: 0;
   }
   .stats-columnas {
@@ -271,7 +273,7 @@
     font-size: 16px;
     line-height: 1;
     color: var(--ink-soft);
-    background: #ece9e1;
+    background: #EAEAEA;
     border: 1px solid var(--border);
     width: 26px;
     height: 26px;
@@ -283,7 +285,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(24, 48, 60, 0.55);
+    background: rgba(46, 46, 46, 0.55);
     z-index: 100;
     align-items: center;
     justify-content: center;
@@ -291,7 +293,7 @@
   .modal-overlay.abierto { display: flex; }
   .modal-panel {
     background: #fff;
-    border: 1.5px solid var(--navy);
+    border: 1.5px solid var(--antracita);
     width: 480px;
     max-width: 90vw;
     max-height: 88vh;
@@ -311,7 +313,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 18px;
-    background: var(--navy);
+    background: var(--teal);
   }
   .modal-titulo {
     font-family: 'Barlow Condensed', sans-serif;
@@ -374,7 +376,7 @@
     overflow-y: auto;
     border: 1px solid var(--border);
     padding: 8px 10px;
-    background: #fbfaf7;
+    background: #FAFAFA;
   }
   .checkbox-grid label {
     display: flex;
@@ -414,14 +416,14 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
     padding: 8px 16px;
-    border: 1px solid var(--navy);
+    border: 1px solid var(--antracita);
     cursor: pointer;
   }
-  .btn-primario { background: var(--navy); color: #fff; }
+  .btn-primario { background: var(--teal); border-color: var(--teal); color: #fff; }
   .btn-primario:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primario:disabled { background: #b9c3c8; border-color: #b9c3c8; cursor: not-allowed; }
-  .btn-secundario { background: #fff; color: var(--navy); }
-  .btn-secundario:hover { background: #ece9e1; }
+  .btn-secundario { background: #fff; color: var(--antracita); }
+  .btn-secundario:hover { background: #EAEAEA; }
   #guardar-estado { font-size: 12px; }
   #guardar-estado.ok { color: var(--teal-dark); }
   #guardar-estado.error { color: var(--pink); }
@@ -432,6 +434,7 @@
 
   <div class="cajetin">
     <div>
+      <img src="logo-cai.png" alt="CAI Consultores" class="logo-cai">
       <p class="label">Monitor</p>
       <p class="value teal">CAI Consultores</p>
     </div>
@@ -953,6 +956,7 @@ const REGIONES_ESPANA = [
   { nuts: 'ES51', nombre: 'Cataluña' },
   { nuts: 'ES52', nombre: 'Comunidad Valenciana' },
   { nuts: 'ES53', nombre: 'Illes Balears' },
+  { nuts: 'ES6', nombre: 'Sur (Andalucía, Murcia, Ceuta y Melilla)' },
   { nuts: 'ES61', nombre: 'Andalucía' },
   { nuts: 'ES62', nombre: 'Región de Murcia' },
   { nuts: 'ES63', nombre: 'Ciudad Autónoma de Ceuta' },
