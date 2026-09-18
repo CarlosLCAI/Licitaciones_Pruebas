@@ -146,5 +146,33 @@
       "fecha_analisis": "2026-09-17T08:53:32.131218+00:00"
     },
     "fecha_captura": "2026-09-17"
+  },
+  {
+    "folder_id": "IC-2026000015",
+    "estado": "PUB",
+    "titulo": "Servicio de Redacción de Proyecto de Ejecución, Dirección Facultativa y Coordinación de Seguridad y Salud de las Obras de Restauración de la Envolvente del edificio de la Sede Central del Instituto Cervantes en Madrid, en la calle Alcalá número 49.",
+    "updated": "2026-09-17T12:22:53.339+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Fyzip8xCiGx9Zh%2FyRJgM8w%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=o5t6G95y7ftVTkhfQTmWOgntufl3m%2BmbuZMOxgd9gvKJtHuJBSdEssMmTBfbPtOiAoHFJgF6R4RESPoPaXrvqC2JLdyrhWdnZ9q55vLAWF6Cx2e6p7hqtlp2aFupgHMr",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=NWffnacyQGtRG0DH/Nt0xN%2ByNHPTRDSIuqY9Sm3qiKvU5jCChk/EW2%2Bcb%2BflRj15bL4Gr%2BOuiFlJV1cRTtDYKK/1wnfuoshNn/S33nRA/CrfdyQgZAdTm3EfcUAC7CJ6",
+    "organo": "Dirección del Instituto Cervantes",
+    "importe": "124550",
+    "importe_num": 124550.0,
+    "fecha_limite": "2026-10-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "revision_ia": {
+      "informe": "# 1. Solvencia económico-financiera\n\nEl PCAP exige acreditar la solvencia económica y financiera mediante **dos medios acumulativos** (art. 87.1.a y 87.1.b LCSP):\n\n- **Volumen anual de negocio**: referido al mejor ejercicio dentro de los tres últimos disponibles, por un importe mínimo de **una vez y media el valor estimado del contrato**, es decir, **186.825,00 € (IVA excluido)**.\n  - Acreditación: cuentas anuales aprobadas y depositadas en el Registro Mercantil (o libros de inventario y cuentas anuales legalizados, en el caso de empresarios individuales no inscritos).\n\n- **Seguro de responsabilidad civil por riesgos profesionales**: importe no inferior a **300.000,00 € por siniestro**, que debe cubrir las responsabilidades derivadas de la ejecución del contrato y mantenerse vigente durante toda su duración.\n  - Acreditación: certificado de la aseguradora o copia de la póliza, más justificante de estar al corriente en el pago de la prima (o certificado de vigencia).\n\nEn fase de licitación basta con declarar en el DEUC el cumplimiento de ambos umbrales; solo el licitador propuesto como adjudicatario deberá aportar la documentación justificativa.\n\nNo se exige clasificación empresarial (art. 77.1.b LCSP).\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\n⚠ **REVISAR** — El PPT (Pliego de Prescripciones Técnicas), y en concreto su **apartado 4** (que es el que fija las titulaciones y experiencia mínima exigida para cada perfil: Director de Proyecto, Director de Obra, Director de Ejecución de Obra y Coordinador de Seguridad y Salud), **no forma parte del texto del PCAP facilitado**. El PCAP se remite expresamente a dicho apartado 4 del PPT para la concreción de la solvencia técnica (art. 90.1.e LCSP) y para la adscripción de medios (art. 76.2 LCSP), por lo que es imprescindible solicitar y revisar el PPT completo antes de preparar la oferta.\n\nNo obstante, de las referencias indirectas contenidas en el Anexo III (criterios de adjudicación, que hablan de valorar la experiencia \"adicional a la mínima exigida en el Apartado 4 del PPT\") pueden deducirse **parcialmente** los siguientes umbrales mínimos de solvencia técnica:\n\n* Director/a de Proyecto: titulación no especificada en el texto disponible (pendiente de PPT)\n   * Mínimo de experiencia no especificado en el texto disponible (pendiente de PPT)\n* Director/a de Obra: titulación no especificada en el texto disponible (pendiente de PPT)\n   * Mínimo de 10 años de experiencia con al menos 2 direcciones de obra de restauración de fachadas de piedra natural en edificios protegidos arquitectónicamente (deducido del criterio B.3)\n* Director/a de Ejecución de Obra: titulación no especificada en el texto disponible (pendiente de PPT)\n   * Mínimo de 5 años de experiencia con al menos 2 direcciones de ejecución de obra de restauración de fachadas de piedra natural en edificios protegidos arquitectónicamente (deducido del criterio B.4)\n* Coordinador/a de Seguridad y Salud: titulación y experiencia mínima no especificadas en el texto disponible (pendiente de PPT)\n\n⚠ **REVISAR** — Es imprescindible obtener el PPT completo para confirmar titulaciones exigidas y umbrales mínimos exactos, ya que la falta de acreditación de estos perfiles en el Archivo 1 (Anexo VI, compromiso de adscripción de medios) es obligación esencial cuyo incumplimiento da lugar a resolución contractual (art. 211.1.f LCSP).\n\n---\n\n# 3. Criterios de adjudicación\n\n**Puntuación máxima total: 100 puntos**\n\n## Criterios de valoración automática (70 puntos)\n\n- **A. Oferta económica: 40 puntos**\n  - Fórmula: PE = 40 × (Oferta más económica / Oferta a valorar)\n\n- **B. Experiencia del equipo: 30 puntos**\n  - B.1 Experiencia del Director de Proyecto en redacción de proyectos de restauración y conservación de edificios protegidos (≥1.000 m²): 5 puntos (2/3/5 puntos según tramos de 1-3, 4-6, 7-10 experiencias adicionales)\n  - B.2 Experiencia del Director de Proyecto en redacción de proyectos de restauración de fachadas de piedra en edificios protegidos (≥1.000 m²): 10 puntos (3/6/10 puntos según tramos)\n  - B.3 Experiencia del Director de Obra en obras de restauración de fachadas de piedra en edificios protegidos: 10",
+      "fecha_analisis": "2026-09-18T08:38:35.460035+00:00"
+    },
+    "fecha_captura": "2026-09-18"
   }
 ]
