@@ -16,7 +16,9 @@
     "71510000",
     "90712100"
   ],
-  "estados_permitidos": [],
+  "estados_permitidos": [
+    "EV"
+  ],
   "tipos_contrato_permitidos": [
     "2"
   ],
