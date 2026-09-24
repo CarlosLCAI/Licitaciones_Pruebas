@@ -1375,8 +1375,8 @@
       "fecha_analisis": "2026-09-18T08:39:30.070676+00:00"
     },
     "fecha_captura": "2026-09-18",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-09-18T11:14:00.331Z"
+    "revisado_humano": false,
+    "revisado_fecha": null
   },
   {
     "folder_id": "35453/2026",
@@ -1461,7 +1461,7 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=hazpoJfWY4uv7JBm9RX4Cu1wMNKMqJOuuWHdFlb7XiDWM8fK9n8qzV4sXETUHTAlg9jF2h4z1dVF2DZWvw8DDzBPFDw1Mg2OItyYme28psBt/o8fNevwsujgRzaBbugn",
     "organo": "Alcaldia del Ayuntamiento de Beas de Granada",
     "importe": "127300",
-    "importe_num": 127300.0,
+    "importe_num": 127300,
     "fecha_limite": "2026-10-05",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
