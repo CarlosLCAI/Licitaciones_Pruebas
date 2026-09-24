@@ -61,7 +61,8 @@
     "2"
   ],
   "procedimientos_permitidos": [
-    "1"
+    "1",
+    "9"
   ],
   "importe_min": 20000,
   "importe_max": null
