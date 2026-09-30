@@ -73,38 +73,189 @@ HEADERS = {
 # de texto — pypdf se quedaría en blanco con esos documentos.
 ANTHROPIC_API_ENDPOINT = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
+# Modelo barato usado solo para localizar en qué páginas del PCAP está cada apartado, antes de
+# mandarle el documento completo al modelo caro — ver localizar_paginas_relevantes().
+ANTHROPIC_MODEL_LOCALIZADOR = os.environ.get("ANTHROPIC_MODEL_LOCALIZADOR", "claude-haiku-4-5-20251001")
 ANTHROPIC_VERSION = "2023-06-01"
 
 PROMPT_SISTEMA_INFORME = (
-    "Eres un asistente que analiza el PCAP de una licitación pública española de redacción de "
-    "instrumento urbanístico, para el equipo de CAI Consultores (empresa de "
-    "arquitectura/ingeniería). Si el documento no tiene capa de texto (páginas escaneadas o "
-    "rasterizadas), léelo igualmente mediante reconocimiento visual completo de la página — no "
-    "omitas contenido por esa causa.\n\n"
-    "Estructura tu respuesta en estas 4 secciones, exactamente en este orden, y omite cualquier "
-    "apartado de datos generales del contrato (objeto, presupuesto, plazos administrativos):\n\n"
-    "1. Solvencia económico-financiera\n"
-    "Medios exigidos y forma de acreditación.\n\n"
-    "2. Solvencia técnica / Equipo mínimo\n"
-    "Lista cada perfil exigido con su titulación y su experiencia mínima. Si el PCAP ofrece "
-    "varias alternativas de experiencia para un mismo perfil, preséntalas como una lista de "
-    "opciones unidas por \"o\" (no como texto corrido). Usa este formato exacto:\n"
-    "* Perfil (nº personas): titulación\n"
-    "   * Experiencia opción A, o\n"
-    "   * Experiencia opción B\n\n"
-    "3. Criterios de adjudicación\n"
-    "Desglosa todos los criterios automáticos y de juicio de valor con su puntuación. Si existe "
-    "un criterio o subapartado de \"mejora de la experiencia del equipo\" / \"experiencia adicional "
-    "del equipo\" distinto del mínimo de solvencia, márcalo explícitamente al final de ese bloque "
-    "con \"⚠ REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia\", sin "
-    "desarrollarlo salvo que se pida expresamente.\n\n"
-    "4. Valoración para CAI Consultores\n"
-    "Puntos a favor y puntos a verificar internamente, en relación con el perfil de la empresa que "
-    "se te proporciona (equipo, experiencia LISTA/LOUA, capacidad de subcontratar perfiles no "
-    "cubiertos).\n\n"
-    "Responde en español, en Markdown legible, usando los encabezados y viñetas indicados. No "
-    "incluyas ningún comentario fuera de estas 4 secciones."
+    "Eres un asistente técnico especializado en licitaciones públicas españolas de obra civil, "
+    "edificación e infraestructuras, para el equipo de CAI Consultores (arquitectura/ingeniería). "
+    "Analizas el PCAP (pliego de cláusulas administrativas particulares) de una licitación y "
+    "extraes la información clave en un informe estructurado en 6 bloques, en este orden. Genera "
+    "los 6 bloques completos en una sola respuesta: esto se ejecuta de forma automática, sin "
+    "nadie revisando ni validando entre bloques.\n\n"
+    "El texto del PCAP que recibes puede venir recortado a las páginas más relevantes (verás "
+    "marcas \"--- Página N ---\"); si no encuentras algo, no asumas que no existe en el documento "
+    "completo — indícalo como no localizado en vez de darlo por ausente.\n\n"
+    "FORMATO: responde en Markdown. Usa exactamente '## Bloque N – Título' para cada uno de los "
+    "6 títulos de bloque, y '### ' para los subtítulos interiores de cada bloque. Usa **negrita** "
+    "para resaltar cifras y datos clave, viñetas '- ' o listas numeradas '1. ' donde corresponda, "
+    "y tablas Markdown (fila de cabecera + fila separadora '---') para cualquier dato tabular "
+    "(presupuestos por lote, baremos de puntuación, etc.). No uses HTML ni describas colores o "
+    "tipografías — el formato visual lo aplica el visor, tú solo estructuras el contenido.\n\n"
+    "## Bloque 1 – Características Principales del Contrato\n"
+    "### Objeto de la licitación\n"
+    "Descripción precisa (50-70 palabras) y lista de objetivos.\n"
+    "### División en lotes\n"
+    "Lista numerada de lotes, o indica que no hay división en lotes.\n"
+    "### Características del contrato\n"
+    "Presupuesto base (por lote si aplica), duración, plazo/lugar/forma de presentación de "
+    "ofertas, y trabajos específicos obligatorios (arqueología, topografía, geotecnia, trámites "
+    "ambientales…).\n\n"
+    "## Bloque 2 – Solvencia\n"
+    "### Económica y financiera\n"
+    "Solvencia económica mínima exigida, cifra de negocio solicitada, y seguros u otra "
+    "acreditación requerida.\n"
+    "### Técnica y profesional\n"
+    "Titulación exigida por perfil, experiencia mínima y su forma de acreditación, y proyectos de "
+    "referencia exigidos (tipología, importe). Indica el equipo mínimo por lote y qué puestos "
+    "pueden subcontratarse. Si existe un criterio de mejora por experiencia adicional del equipo "
+    "distinto del mínimo de solvencia, márcalo aparte con \"⚠ REVISAR — criterio de mejora de "
+    "equipo, no confundir con el mínimo de solvencia\".\n\n"
+    "## Bloque 3 – Criterios de Adjudicación\n"
+    "### Automáticos (fórmulas)\n"
+    "Detalla la fórmula económica y cualquier otro criterio automático.\n"
+    "### Juicio de valor\n"
+    "Desglose y subapartados de metodología, con su puntuación.\n"
+    "### Umbrales mínimos de puntuación\n"
+    "Indica si existen, o que no los hay.\n\n"
+    "## Bloque 4 – Forma de Pago\n"
+    "Valoración de trabajos, certificaciones y facturación, y condiciones adicionales "
+    "(penalizaciones, revisión de precios, etc.).\n\n"
+    "## Bloque 5 – Documentación a Presentar\n"
+    "Desglosa en lista el número de sobres y, dentro de cada uno ('### Sobre 1', '### Sobre 2', "
+    "etc.), qué información debe presentarse (también en lista). Si el PCAP no detalla esto, "
+    "indícalo como no localizado en vez de inventarlo.\n\n"
+    "## Bloque 6 – Conclusiones / Análisis Preliminar\n"
+    "Analiza el precio de licitación en relación con la duración del contrato. Compara los "
+    "requisitos de solvencia económica y técnica de los Bloques 2 y 3 contra el perfil de la "
+    "empresa que se te facilita en el mensaje (equipo, experiencia, cifra de negocio), y valora "
+    "si CAI Consultores cumple los mínimos o qué le faltaría acreditar.\n\n"
+    "Reglas generales: responde en español técnico, basándote solo en el PCAP proporcionado "
+    "(nunca extrapoles de otros pliegos), sé riguroso con baremos y limitaciones de formato, y "
+    "ante cualquier duda o incoherencia en el documento, no la inventes — indícalo y sugiere "
+    "revisar ese punto concreto del PCAP."
 )
+
+# --- Localización de secciones relevantes (paso barato con Haiku) ------------------------------
+# En vez de mandar el PCAP entero al modelo caro, primero se le pasa a un modelo barato un
+# resumen (solo el inicio de cada página) para que diga en qué páginas está cada apartado del
+# informe. Con eso se construye un documento reducido con solo esas páginas (+ margen), que es
+# lo que de verdad se manda a generar el informe. Si esta llamada falla por lo que sea, se cae
+# al recorte por Anexo I/III de siempre (ver recortar_preservando_anexos).
+
+PROMPT_SISTEMA_LOCALIZADOR = (
+    "Eres un asistente que localiza en qué páginas de un PCAP (pliego de cláusulas "
+    "administrativas particulares) de una licitación pública española aparece cada uno de los "
+    "apartados indicados en la herramienta. Se te da, página por página, solo el inicio del "
+    "texto de cada una, no el documento completo. Devuelve los números de página (empezando en "
+    "1) donde aparece cada apartado; una misma página puede repetirse en varios apartados, y "
+    "deja la lista vacía si no la localizas. No inventes páginas que no veas en el texto "
+    "proporcionado."
+)
+
+HERRAMIENTA_LOCALIZADOR = {
+    "name": "localizar_secciones",
+    "description": "Registra en qué páginas del PCAP aparece cada apartado del informe.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "objeto_y_caracteristicas": {
+                "type": "array", "items": {"type": "integer"},
+                "description": "Objeto, lotes, presupuesto, duración, plazos y trabajos "
+                               "específicos obligatorios (arqueología, topografía, geotecnia, "
+                               "trámites ambientales…).",
+            },
+            "solvencia": {
+                "type": "array", "items": {"type": "integer"},
+                "description": "Solvencia económica/financiera y técnica/profesional, equipo "
+                               "mínimo, titulaciones y experiencia exigida.",
+            },
+            "criterios_adjudicacion": {
+                "type": "array", "items": {"type": "integer"},
+                "description": "Criterios de adjudicación automáticos (fórmulas) y de juicio de "
+                               "valor.",
+            },
+            "forma_pago": {
+                "type": "array", "items": {"type": "integer"},
+                "description": "Forma de pago, valoración de trabajos, certificaciones, "
+                               "facturación, penalizaciones, revisión de precios.",
+            },
+            "documentacion_a_presentar": {
+                "type": "array", "items": {"type": "integer"},
+                "description": "Sobres y documentación que hay que presentar para licitar.",
+            },
+        },
+        "required": [
+            "objeto_y_caracteristicas", "solvencia", "criterios_adjudicacion", "forma_pago",
+            "documentacion_a_presentar",
+        ],
+    },
+}
+
+
+def localizar_paginas_relevantes(paginas_texto, api_key):
+    """Llamada barata (Haiku) que decide qué páginas hacen falta leer para cada apartado del
+    informe, a partir de un resumen de cada página (no el documento entero). Lanza una excepción
+    si algo falla; el llamador cae entonces al recorte por Anexo I/III de siempre."""
+    indice = "\n".join(
+        f"[Página {i + 1}] {(texto or '').strip()[:220]}"
+        for i, texto in enumerate(paginas_texto)
+    )
+    indice = indice[:60000]  # tope de seguridad para documentos con muchísimas páginas
+
+    payload = {
+        "model": ANTHROPIC_MODEL_LOCALIZADOR,
+        "max_tokens": 1024,
+        # Sin cache_control aquí: Haiku 4.5 exige 4.096 tokens mínimo para cachear, y este
+        # prompt del sistema (~130 tokens) más la herramienta no se acercan a eso — cachearlo
+        # no haría nada (la API lo ignora sin más), así que no lo declaramos.
+        "system": PROMPT_SISTEMA_LOCALIZADOR,
+        "tools": [HERRAMIENTA_LOCALIZADOR],
+        "tool_choice": {"type": "tool", "name": "localizar_secciones"},
+        "messages": [{
+            "role": "user",
+            "content": f"Documento de {len(paginas_texto)} páginas:\n\n{indice}",
+        }],
+    }
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": ANTHROPIC_VERSION,
+        "Content-Type": "application/json",
+    }
+    resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=60)
+    resp.raise_for_status()
+    data = resp.json()
+    bloque = next(b for b in data["content"] if b.get("type") == "tool_use")
+    return bloque["input"]
+
+
+def construir_texto_reducido(paginas_texto, secciones, margen=1, max_chars=200000):
+    """A partir de las páginas que ha localizado la IA (+ 1 página de margen a cada lado),
+    construye el texto reducido que se manda a generar el informe. Siempre incluye las primeras
+    páginas (portada/índice/objeto) y cualquier página con Anexo I/III, aunque el localizador no
+    las haya marcado, por si el localizador se equivoca."""
+    total_paginas = len(paginas_texto)
+    incluidas = set(range(1, min(3, total_paginas) + 1))
+
+    for paginas in secciones.values():
+        for p in paginas:
+            for pp in range(p - margen, p + margen + 1):
+                if 1 <= pp <= total_paginas:
+                    incluidas.add(pp)
+
+    for i, texto in enumerate(paginas_texto):
+        if any(re.search(patron, (texto or "").lower()) for patron in PATRONES_ANEXO):
+            for pp in range(i + 1 - margen, i + 1 + margen + 1):
+                if 1 <= pp <= total_paginas:
+                    incluidas.add(pp)
+
+    paginas_ordenadas = sorted(incluidas)
+    texto = "\n\n".join(f"--- Página {p} ---\n{paginas_texto[p - 1]}" for p in paginas_ordenadas)
+    if len(texto) > max_chars:
+        texto = texto[:max_chars]
+    return texto, paginas_ordenadas
 
 
 # Patrones para localizar el Anexo I / Anexo III dentro del texto del PCAP — es donde suelen
@@ -134,17 +285,18 @@ def recortar_preservando_anexos(texto, max_chars):
     return inicio_doc + separador + texto[inicio_anexo:inicio_anexo + espacio_restante]
 
 
-def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=350000, max_bytes_documento=32 * 1024 * 1024):
+def obtener_pcap(url, api_key=None, min_chars_por_pagina=100, max_chars_texto=350000, max_bytes_documento=32 * 1024 * 1024):
     """Descarga el PCAP y decide cómo se mandará a la IA:
-    - Si tiene una capa de texto razonable (documento generado digitalmente, el caso normal),
-      se extrae el texto con pypdf — mucho más barato en tokens que mandar el PDF entero
-      (Claude convierte cada página de un "documento" en una imagen, ~1.500-3.000+ tokens
-      por página; un PCAP de 50 páginas así puede costar 100.000-250.000+ tokens). Con 350.000
-      caracteres de tope (~87.000 tokens, muy por debajo del contexto real de Claude) casi
-      ningún PCAP real necesita recortarse.
+    - Si tiene una capa de texto razonable (documento generado digitalmente, el caso normal), se
+      extrae el texto con pypdf — mucho más barato en tokens que mandar el PDF entero (Claude
+      convierte cada página de un "documento" en una imagen, ~1.500-3.000+ tokens por página).
+      Con la clave de la API disponible, primero se localizan (con Haiku, barato) las páginas
+      relevantes para cada apartado del informe y solo esas se mandan al modelo caro — un PCAP de
+      50+ páginas puede quedar reducido a un puñado de páginas reales. Si la localización falla
+      por lo que sea, se cae al recorte por Anexo I/III de siempre (350.000 caracteres de tope).
     - Si el texto extraído es casi nulo (indicio de páginas escaneadas/rasterizadas), se manda
-      el PDF completo en base64 como documento, para que Claude lo lea visualmente — esto sí
-      es caro, pero solo ocurre cuando de verdad hace falta OCR.
+      el PDF completo en base64 como documento, para que Claude lo lea visualmente — esto sí es
+      caro, pero solo ocurre cuando de verdad hace falta OCR.
     Devuelve (tipo, contenido) con tipo en {"texto", "documento", None}.
     """
     if not url:
@@ -155,14 +307,29 @@ def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=350000, max_byte
 
     try:
         lector = PdfReader(BytesIO(contenido_bytes))
-        num_paginas = len(lector.pages)
-        texto_completo = "\n".join(pagina.extract_text() or "" for pagina in lector.pages)
+        paginas_texto = [pagina.extract_text() or "" for pagina in lector.pages]
+        num_paginas = len(paginas_texto)
+        texto_completo = "\n".join(paginas_texto)
     except Exception:
         num_paginas = 1
+        paginas_texto = []
         texto_completo = ""
 
     promedio_por_pagina = len(texto_completo) / max(num_paginas, 1)
     if promedio_por_pagina >= min_chars_por_pagina:
+        if api_key and num_paginas > 1:
+            try:
+                secciones = localizar_paginas_relevantes(paginas_texto, api_key)
+                texto_reducido, paginas_incluidas = construir_texto_reducido(
+                    paginas_texto, secciones, max_chars=max_chars_texto
+                )
+                print(
+                    f"    Localizador: usando {len(paginas_incluidas)}/{num_paginas} páginas "
+                    f"({len(texto_reducido)} caracteres) en vez del documento completo."
+                )
+                return "texto", texto_reducido
+            except Exception as e:
+                print(f"    Aviso: falló la localización de secciones ({e}); se usa el recorte por Anexo I/III de siempre.")
         if len(texto_completo) > max_chars_texto:
             print(f"    Aviso: PCAP de {len(texto_completo)} caracteres supera el tope de {max_chars_texto}; se recorta preservando el Anexo I/III si se localiza.")
         return "texto", recortar_preservando_anexos(texto_completo, max_chars_texto)
@@ -173,21 +340,28 @@ def obtener_pcap(url, min_chars_por_pagina=100, max_chars_texto=350000, max_byte
     return "documento", base64.b64encode(contenido_bytes).decode("ascii")
 
 
-def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, titulo, organo):
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, titulo, organo, api_key):
     if not api_key:
         return {"informe": "No hay ANTHROPIC_API_KEY configurada para llamar a Claude."}
     if not pcap_tipo:
         return {"informe": "No se pudo descargar el PCAP."}
 
     fecha_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    texto_intro = (
+    # El perfil de empresa es idéntico en todas las licitaciones de una misma ejecución: se manda
+    # como bloque cacheable aparte (cache_control) para que, a partir de la segunda licitación
+    # analizada en el mismo día, ese bloque (y el prompt del sistema) salgan con el descuento de
+    # caché de Anthropic en vez de pagarse entero en cada llamada.
+    bloque_perfil = {
+        "type": "text",
+        "text": f"PERFIL DE LA EMPRESA (CAI Consultores):\n{perfil_empresa}",
+        "cache_control": {"type": "ephemeral"},
+    }
+    texto_variable = (
         f"FECHA DE HOY: {fecha_hoy}\n"
         f"LICITACIÓN: {titulo}\n"
         f"ÓRGANO: {organo}\n\n"
-        f"PERFIL DE LA EMPRESA (CAI Consultores):\n{perfil_empresa}\n\n"
-        f"A continuación se adjunta el PCAP de esta licitación. "
-        f"Genera el informe según las instrucciones del sistema."
+        f"A continuación se adjunta el PCAP (o el fragmento relevante ya localizado) de esta "
+        f"licitación. Genera el informe según las instrucciones del sistema."
     )
 
     if pcap_tipo == "documento":
@@ -196,14 +370,17 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, tit
             "source": {"type": "base64", "media_type": "application/pdf", "data": pcap_contenido},
         }
     else:
-        bloque_pcap = {"type": "text", "text": f"TEXTO COMPLETO DEL PCAP:\n{pcap_contenido}"}
+        bloque_pcap = {"type": "text", "text": f"TEXTO DEL PCAP:\n{pcap_contenido}"}
 
-    contenido_mensaje = [{"type": "text", "text": texto_intro}, bloque_pcap]
+    contenido_mensaje = [bloque_perfil, {"type": "text", "text": texto_variable}, bloque_pcap]
 
     payload = {
         "model": ANTHROPIC_MODEL,
         "max_tokens": 4096,
-        "system": PROMPT_SISTEMA_INFORME,
+        "system": [{
+            "type": "text", "text": PROMPT_SISTEMA_INFORME,
+            "cache_control": {"type": "ephemeral"},
+        }],
         "messages": [{"role": "user", "content": contenido_mensaje}],
     }
     headers = {
@@ -226,19 +403,25 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, tit
         data = resp.json()
         bloque_texto = next(b["text"] for b in data["content"] if b.get("type") == "text")
         uso = data.get("usage", {})
-        print(f"    Tokens usados -> entrada: {uso.get('input_tokens')}, salida: {uso.get('output_tokens')}")
+        print(
+            f"    Tokens usados -> entrada: {uso.get('input_tokens')}, salida: {uso.get('output_tokens')}, "
+            f"caché escrita: {uso.get('cache_creation_input_tokens')}, caché leída: {uso.get('cache_read_input_tokens')}"
+        )
         return {"informe": bloque_texto.strip()}
     except Exception as e:
         return {"informe": f"Error al generar el informe con IA: {e}"}
 
 
 def analizar_licitacion_ia(r, perfil_empresa):
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
     try:
-        pcap_tipo, pcap_contenido = obtener_pcap(r.get("pcap_url"))
+        pcap_tipo, pcap_contenido = obtener_pcap(r.get("pcap_url"), api_key=api_key)
     except Exception:
         pcap_tipo, pcap_contenido = None, None
 
-    resultado = generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, r.get("titulo"), r.get("organo"))
+    resultado = generar_informe_licitacion_ia(
+        perfil_empresa, pcap_tipo, pcap_contenido, r.get("titulo"), r.get("organo"), api_key
+    )
     resultado["fecha_analisis"] = datetime.now(timezone.utc).isoformat()
     return resultado
 

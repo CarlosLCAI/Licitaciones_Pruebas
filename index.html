@@ -315,9 +315,34 @@
   .informe-ia {
     font-size: 13.5px;
     line-height: 1.6;
-    white-space: pre-wrap;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Barlow', sans-serif;
+    color: var(--ink);
   }
+  .informe-h1 {
+    background: var(--teal);
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 7px 12px;
+    margin: 20px 0 8px;
+  }
+  .informe-h1:first-child { margin-top: 0; }
+  .informe-h2 {
+    background: var(--teal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 12px;
+    margin: 12px 0 6px;
+  }
+  .informe-parrafo { margin: 6px 0; }
+  .informe-aviso { color: var(--pink); font-weight: 600; margin: 6px 0; }
+  .informe-ia ul, .informe-ia ol { margin: 4px 0 10px; padding-left: 22px; }
+  .informe-ia li { margin-bottom: 3px; }
+  .informe-tabla { width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12.5px; }
+  .informe-tabla td { padding: 5px 8px; border: 1px solid var(--border); text-align: left; }
+  .informe-tabla-cab td { font-weight: 600; }
+  .informe-tabla tr:nth-child(even):not(.informe-tabla-cab) { background: #F5F5F5; }
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -616,12 +641,72 @@ function badgeClassIA(clasificacion) {
 }
 
 function formatearInformeIA(texto) {
-  // El informe viene en Markdown sencillo (encabezados "N. Título", negrita **texto**,
-  // viñetas con *). Escapamos HTML por seguridad y damos formato mínimo, preservando el
-  // resto de la estructura (saltos de línea, sangría de viñetas) tal cual la escribe la IA.
-  let html = escapeHtml(texto);
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/^(\d\.\s.+)$/gm, '<strong>$1</strong>');
+  // El informe viene en Markdown (## bloques, ### subtítulos, **negrita**, viñetas/listas,
+  // tablas). Todo el texto se escapa con escapeHtml antes de meterlo en una etiqueta: la IA
+  // nunca puede inyectar HTML, como mucho decide qué texto (ya escapado) cae dentro de qué
+  // etiqueta nuestra.
+  function enLinea(t) {
+    return escapeHtml(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  const lineas = String(texto).split(/\r?\n/);
+  let html = '';
+  let listaAbierta = null; // 'ul' | 'ol' | null
+  let filasTabla = null;
+
+  function cerrarLista() {
+    if (listaAbierta) { html += '</' + listaAbierta + '>'; listaAbierta = null; }
+  }
+  function cerrarTabla() {
+    if (!filasTabla) return;
+    html += '<table class="informe-tabla"><tbody>' +
+      filasTabla.map((fila, i) =>
+        '<tr' + (i === 0 ? ' class="informe-tabla-cab"' : '') + '>' +
+        fila.map(celda => '<td>' + enLinea(celda.trim()) + '</td>').join('') +
+        '</tr>'
+      ).join('') +
+      '</tbody></table>';
+    filasTabla = null;
+  }
+
+  for (const linea of lineas) {
+    const esFilaTabla = /^\s*\|.*\|\s*$/.test(linea);
+    if (esFilaTabla) {
+      const esSeparador = /^[\s:|-]+$/.test(linea) && linea.includes('-');
+      if (esSeparador && filasTabla) continue;
+      const celdas = linea.trim().replace(/^\|/, '').replace(/\|$/, '').split('|');
+      if (!filasTabla) filasTabla = [];
+      filasTabla.push(celdas);
+      continue;
+    }
+    if (filasTabla) cerrarTabla();
+
+    const m1 = linea.match(/^##\s+(.*)$/);
+    const m2 = linea.match(/^###\s+(.*)$/);
+    if (m1) { cerrarLista(); html += '<p class="informe-h1">' + enLinea(m1[1]) + '</p>'; continue; }
+    if (m2) { cerrarLista(); html += '<p class="informe-h2">' + enLinea(m2[1]) + '</p>'; continue; }
+
+    const mBullet = linea.match(/^\s*[-*]\s+(.*)$/);
+    const mNum = linea.match(/^\s*\d+\.\s+(.*)$/);
+    if (mBullet) {
+      if (listaAbierta !== 'ul') { cerrarLista(); html += '<ul>'; listaAbierta = 'ul'; }
+      html += '<li>' + enLinea(mBullet[1]) + '</li>';
+      continue;
+    }
+    if (mNum) {
+      if (listaAbierta !== 'ol') { cerrarLista(); html += '<ol>'; listaAbierta = 'ol'; }
+      html += '<li>' + enLinea(mNum[1]) + '</li>';
+      continue;
+    }
+    cerrarLista();
+
+    if (!linea.trim()) continue; // línea en blanco: solo separa párrafos
+
+    const esAviso = linea.includes('⚠ REVISAR');
+    html += '<p class="' + (esAviso ? 'informe-aviso' : 'informe-parrafo') + '">' + enLinea(linea) + '</p>';
+  }
+  cerrarLista();
+  cerrarTabla();
   return html;
 }
 
