@@ -1442,7 +1442,7 @@
       "fecha_analisis": "2026-10-01T10:24:55.842179+00:00"
     },
     "fecha_captura": "2026-10-01",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-10-02T10:43:09.410Z"
+    "revisado_humano": false,
+    "revisado_fecha": null
   }
 ]
