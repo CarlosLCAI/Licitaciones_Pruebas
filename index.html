@@ -610,7 +610,7 @@ function formatearFecha(v) {
   return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
-function celdaFechaLimite(v, estado) {
+function celdaFechaLimite(v) {
   if (!v) return '—';
   const limite = new Date(v);
   if (isNaN(limite)) return v;
@@ -618,7 +618,7 @@ function celdaFechaLimite(v, estado) {
   hoy.setHours(0, 0, 0, 0);
   const dias = Math.round((limite - hoy) / (1000 * 60 * 60 * 24));
   const texto = formatearFecha(v);
-  if (dias < 0 || (estado && estado !== 'PUB')) return texto;
+  if (dias < 0) return texto;
   if (dias <= 5) return '<span style="color: var(--pink); font-weight: 500;">' + texto + ' (' + dias + 'd)</span>';
   return texto + ' (' + dias + 'd)';
 }
@@ -770,7 +770,6 @@ function celdaRevisadoHumano(r) {
 
 function esVigente(d) {
   if (!d.fecha_limite) return false;
-  if (d.estado && d.estado !== 'PUB') return false;
   const limite = new Date(d.fecha_limite);
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
@@ -848,7 +847,7 @@ function renderTabla(lista) {
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td>' + celdaEstado(r) + '</td>' +
       '<td class="mono">' + formatearFecha(r.updated) + '</td>' +
-      '<td class="mono">' + celdaFechaLimite(r.fecha_limite, r.estado) + '</td>' +
+      '<td class="mono">' + celdaFechaLimite(r.fecha_limite) + '</td>' +
       '<td class="links">' +
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
