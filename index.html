@@ -1270,12 +1270,57 @@ async function guardarRevisionHumana(folderId, valor, intentosMax = 3) {
   }
 }
 
+// GitHub Pages tarda 1-2 min en publicar un commit y cachea los archivos hasta ~10 min, así
+// que al recargar justo después de marcar un check el histórico publicado aún es el antiguo.
+// Para que la marca no "desaparezca", se recuerda en este navegador y se superpone a lo cargado
+// hasta que el histórico publicado ya la refleje (o pasen 30 min).
+const REVISIONES_PENDIENTES_KEY = 'monitorLicitaciones.revisionesPendientes';
+const REVISION_PENDIENTE_TTL_MS = 30 * 60 * 1000;
+
+function leerRevisionesPendientes() {
+  try { return JSON.parse(localStorage.getItem(REVISIONES_PENDIENTES_KEY)) || {}; } catch (e) { return {}; }
+}
+
+function escribirRevisionesPendientes(todas) {
+  try { localStorage.setItem(REVISIONES_PENDIENTES_KEY, JSON.stringify(todas)); } catch (e) { /* sin almacenamiento: se pierde solo el respaldo */ }
+}
+
+function recordarRevisionPendiente(filtroId, folderId, valor, fecha) {
+  const todas = leerRevisionesPendientes();
+  (todas[filtroId] = todas[filtroId] || {})[folderId] = { valor, fecha: fecha || null, guardadoEn: Date.now() };
+  escribirRevisionesPendientes(todas);
+}
+
+function aplicarRevisionesPendientes(filtroId, historico) {
+  const todas = leerRevisionesPendientes();
+  const delFiltro = todas[filtroId];
+  if (!delFiltro) return historico;
+  const ahora = Date.now();
+  for (const [folderId, p] of Object.entries(delFiltro)) {
+    const reg = historico.find(r => r.folder_id === folderId);
+    const caducada = ahora - p.guardadoEn > REVISION_PENDIENTE_TTL_MS;
+    const yaPublicada = reg && !!reg.revisado_humano === p.valor;
+    const hayOtraMasReciente = reg && reg.revisado_fecha && p.fecha && reg.revisado_fecha > p.fecha;
+    if (!reg || caducada || yaPublicada || hayOtraMasReciente) {
+      delete delFiltro[folderId];
+      continue;
+    }
+    reg.revisado_humano = p.valor;
+    reg.revisado_fecha = p.fecha;
+  }
+  if (!Object.keys(delFiltro).length) delete todas[filtroId];
+  escribirRevisionesPendientes(todas);
+  return historico;
+}
+
 async function alCambiarRevisadoHumano(checkbox) {
   const folderId = checkbox.dataset.folderId;
   const valor = checkbox.checked;
   checkbox.disabled = true;
   try {
     const historicoActualizado = await guardarRevisionHumana(folderId, valor);
+    const guardado = historicoActualizado.find(r => r.folder_id === folderId);
+    recordarRevisionPendiente(filtroActivoId, folderId, valor, guardado && guardado.revisado_fecha);
     cacheFiltros[filtroActivoId].historico = historicoActualizado;
     datos = historicoActualizado;
     aplicarFiltros();
@@ -1304,11 +1349,11 @@ function rutaFiltro(desc, nombreArchivo) {
 
 async function cargarDatosFiltro(desc) {
   const [hist, meta, cfg] = await Promise.all([
-    fetch('./' + rutaFiltro(desc, 'historico.json')).then(r => r.ok ? r.json() : []).catch(() => []),
-    fetch('./' + rutaFiltro(desc, 'ultima_lectura.json')).then(r => r.ok ? r.json() : null).catch(() => null),
-    fetch('./' + rutaFiltro(desc, 'config.json')).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./' + rutaFiltro(desc, 'historico.json'), { cache: 'no-cache' }).then(r => r.ok ? r.json() : []).catch(() => []),
+    fetch('./' + rutaFiltro(desc, 'ultima_lectura.json'), { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./' + rutaFiltro(desc, 'config.json'), { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
   ]);
-  return { historico: hist, meta, cfg };
+  return { historico: aplicarRevisionesPendientes(desc.id, hist), meta, cfg };
 }
 
 function aplicarDatosFiltro(datosCargados) {
