@@ -1408,7 +1408,9 @@
     "estado_anterior": "PUB",
     "resultado": null,
     "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-10-01T14:29:33.310+02:00"
+    "estado_updated": "2026-10-01T14:29:33.310+02:00",
+    "revisado_humano": true,
+    "revisado_fecha": "2026-10-02T10:50:37.404Z"
   },
   {
     "folder_id": "SE-19/26",
