@@ -125,7 +125,7 @@
   th:nth-child(2), td:nth-child(2) { width: 28%; }
   th:nth-child(3), td:nth-child(3) { width: 14%; }
   th:nth-child(4), td:nth-child(4) { width: 9%; }
-  th:nth-child(5), td:nth-child(5) { width: 60px; }
+  th:nth-child(5), td:nth-child(5) { width: 100px; }
   th:nth-child(6), td:nth-child(6) { width: 110px; }
   th:nth-child(7), td:nth-child(7) { width: 145px; }
   th:nth-child(8), td:nth-child(8) { width: 95px; }
@@ -175,6 +175,7 @@
   .badge-EV { background: #e6f1fb; color: #0c447c; }
   .badge-ADJ { background: #fbeaf0; color: #72243e; }
   .badge-other { background: #f1efe8; color: #444441; }
+  .badge-baja { background: #fde8e8; color: #8a1c1c; }
   .badge-ia-apto { background: #e1f5ee; color: #085041; }
   .badge-ia-apto-ute { background: #e6f1fb; color: #0c447c; }
   .badge-ia-no-apto { background: #fbeaf0; color: #72243e; }
@@ -320,7 +321,8 @@
   }
   .informe-h1 {
     background: var(--teal);
-    color: #000;
+    color: #fff;
+    text-transform: uppercase;
     font-weight: 700;
     font-size: 15px;
     padding: 7px 12px;
@@ -608,7 +610,7 @@ function formatearFecha(v) {
   return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
-function celdaFechaLimite(v) {
+function celdaFechaLimite(v, estado) {
   if (!v) return '—';
   const limite = new Date(v);
   if (isNaN(limite)) return v;
@@ -616,13 +618,33 @@ function celdaFechaLimite(v) {
   hoy.setHours(0, 0, 0, 0);
   const dias = Math.round((limite - hoy) / (1000 * 60 * 60 * 24));
   const texto = formatearFecha(v);
-  if (dias < 0) return texto;
+  if (dias < 0 || (estado && estado !== 'PUB')) return texto;
   if (dias <= 5) return '<span style="color: var(--pink); font-weight: 500;">' + texto + ' (' + dias + 'd)</span>';
   return texto + ' (' + dias + 'd)';
 }
 
-function badgeClass(estado) {
-  return ['PUB', 'EV', 'ADJ'].includes(estado) ? 'badge-' + estado : 'badge-other';
+function infoEstado(d) {
+  // Texto y color de la etiqueta de estado. Cuando el feed trae el resultado (adjudicada,
+  // desierta...), manda sobre el código genérico ADJ/RES.
+  if (d.estado === 'ADJ' || d.estado === 'RES') {
+    const porResultado = {
+      formalizada: ['Formalizada', 'badge-ADJ'],
+      adjudicada: ['Adjudicada', 'badge-ADJ'],
+      desierta: ['Desierta', 'badge-baja'],
+      desistida: ['Desistida', 'badge-baja'],
+    };
+    if (porResultado[d.resultado]) return { texto: porResultado[d.resultado][0], clase: porResultado[d.resultado][1] };
+  }
+  const porEstado = {
+    PUB: ['Publicada', 'badge-PUB'],
+    EV: ['Evaluación', 'badge-EV'],
+    ADJ: ['Adjudicada', 'badge-ADJ'],
+    RES: ['Resuelta', 'badge-other'],
+    ANUL: ['Anulada', 'badge-baja'],
+    PRE: ['Anuncio previo', 'badge-other'],
+  };
+  if (porEstado[d.estado]) return { texto: porEstado[d.estado][0], clase: porEstado[d.estado][1] };
+  return { texto: d.estado || '—', clase: 'badge-other' };
 }
 
 function escapeHtml(str) {
@@ -748,6 +770,7 @@ function celdaRevisadoHumano(r) {
 
 function esVigente(d) {
   if (!d.fecha_limite) return false;
+  if (d.estado && d.estado !== 'PUB') return false;
   const limite = new Date(d.fecha_limite);
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
@@ -823,9 +846,9 @@ function renderTabla(lista) {
       '<td class="titulo">' + (r.titulo || '—') + '</td>' +
       '<td>' + (r.organo || '—') + '</td>' +
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
-      '<td><span class="badge ' + badgeClass(r.estado) + '">' + (r.estado || '—') + '</span></td>' +
+      '<td>' + celdaEstado(r) + '</td>' +
       '<td class="mono">' + formatearFecha(r.updated) + '</td>' +
-      '<td class="mono">' + celdaFechaLimite(r.fecha_limite) + '</td>' +
+      '<td class="mono">' + celdaFechaLimite(r.fecha_limite, r.estado) + '</td>' +
       '<td class="links">' +
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
@@ -860,10 +883,18 @@ function renderTabla(lista) {
   });
 }
 
+function celdaEstado(r) {
+  const info = infoEstado(r);
+  const titulo = r.estado_anterior
+    ? ' title="Antes: ' + escapeHtml(r.estado_anterior) + (r.estado_cambiado_el ? ' · cambio detectado el ' + escapeHtml(r.estado_cambiado_el) : '') + '"'
+    : '';
+  return '<span class="badge ' + info.clase + '"' + titulo + '>' + escapeHtml(info.texto) + '</span>';
+}
+
 function poblarFiltroEstado() {
   const select = document.getElementById('filtro-estado');
   select.innerHTML = '<option value="">Todos los estados</option>';
-  const estados = [...new Set(datos.map(d => d.estado).filter(Boolean))];
+  const estados = [...new Set(datos.map(d => infoEstado(d).texto).filter(Boolean))];
   for (const e of estados) {
     const opt = document.createElement('option');
     opt.value = e;
@@ -881,7 +912,7 @@ function aplicarFiltros() {
       (d.titulo && d.titulo.toLowerCase().includes(texto)) ||
       (d.organo && d.organo.toLowerCase().includes(texto)) ||
       (d.folder_id && d.folder_id.toLowerCase().includes(texto));
-    const coincideEstado = !estado || d.estado === estado;
+    const coincideEstado = !estado || infoEstado(d).texto === estado;
     return coincideTexto && coincideEstado;
   });
 
@@ -925,7 +956,7 @@ function renderEstadisticas() {
 
   const porEstado = {};
   datos.forEach(d => {
-    const k = d.estado || 'Sin estado';
+    const k = d.estado ? infoEstado(d).texto : 'Sin estado';
     porEstado[k] = (porEstado[k] || 0) + 1;
   });
 

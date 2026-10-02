@@ -72,11 +72,13 @@ HEADERS = {
 # (no texto extraído) para que Claude pueda leer visualmente páginas escaneadas sin capa
 # de texto — pypdf se quedaría en blanco con esos documentos.
 ANTHROPIC_API_ENDPOINT = "https://api.anthropic.com/v1/messages"
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5-5")
 # Modelo barato usado solo para localizar en qué páginas del PCAP está cada apartado, antes de
 # mandarle el documento completo al modelo caro — ver localizar_paginas_relevantes().
 ANTHROPIC_MODEL_LOCALIZADOR = os.environ.get("ANTHROPIC_MODEL_LOCALIZADOR", "claude-haiku-4-5-20251001")
 ANTHROPIC_VERSION = "2023-06-01"
+
+MARCA_INFORME_CORTADO = "⚠ REVISAR — informe cortado por límite de longitud de la IA, puede estar incompleto."
 
 PROMPT_SISTEMA_INFORME = (
     "Eres un asistente técnico especializado en licitaciones públicas españolas de obra civil, "
@@ -234,8 +236,8 @@ def localizar_paginas_relevantes(paginas_texto, api_key):
 def construir_texto_reducido(paginas_texto, secciones, margen=1, max_chars=200000):
     """A partir de las páginas que ha localizado la IA (+ 1 página de margen a cada lado),
     construye el texto reducido que se manda a generar el informe. Siempre incluye las primeras
-    páginas (portada/índice/objeto) y cualquier página con Anexo I/III, aunque el localizador no
-    las haya marcado, por si el localizador se equivoca."""
+    páginas (portada/índice/objeto) y cualquier anexo I/III (su encabezado + 3 páginas siguientes),
+    aunque el localizador no lo haya marcado, por si el localizador se equivoca."""
     total_paginas = len(paginas_texto)
     incluidas = set(range(1, min(3, total_paginas) + 1))
 
@@ -246,8 +248,8 @@ def construir_texto_reducido(paginas_texto, secciones, margen=1, max_chars=20000
                     incluidas.add(pp)
 
     for i, texto in enumerate(paginas_texto):
-        if any(re.search(patron, (texto or "").lower()) for patron in PATRONES_ANEXO):
-            for pp in range(i + 1 - margen, i + 1 + margen + 1):
+        if PATRON_CABECERA_ANEXO.search(texto or ""):
+            for pp in range(i + 1, i + 2 + PAGINAS_POSTERIORES_ANEXO):
                 if 1 <= pp <= total_paginas:
                     incluidas.add(pp)
 
@@ -262,6 +264,14 @@ def construir_texto_reducido(paginas_texto, secciones, margen=1, max_chars=20000
 # vivir los requisitos concretos de solvencia económica/técnica cuando el cuerpo de cláusulas
 # se limita a remitir a ellos. \b evita que "anexo i" case dentro de "anexo iii".
 PATRONES_ANEXO = [r'anexo\s+i\b', r'anexo\s+1\b', r'anexo\s+iii\b', r'anexo\s+3\b']
+
+
+# Solo cuenta como Anexo I/III la página cuyo texto tiene una línea que EMPIEZA por "ANEXO I/III":
+# contar cualquier mención en el cuerpo ("véase Anexo I") metía en algunos PCAP más de la mitad
+# de las páginas. Un anexo ocupa varias páginas y las siguientes no repiten el encabezado, por
+# eso construir_texto_reducido incluye también las 3 páginas posteriores a cada encabezado.
+PATRON_CABECERA_ANEXO = re.compile(r'^\s*anexo\s+(i|1|iii|3)\b', re.IGNORECASE | re.MULTILINE)
+PAGINAS_POSTERIORES_ANEXO = 3
 
 
 def recortar_preservando_anexos(texto, max_chars):
@@ -374,9 +384,16 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, tit
 
     contenido_mensaje = [bloque_perfil, {"type": "text", "text": texto_variable}, bloque_pcap]
 
+    # Un informe de 6 bloques con tablas ronda los 6.000-9.000 tokens de salida. Con el tope
+    # anterior (4.096) se cortaba a mitad de frase. Además, el razonamiento de Sonnet cuenta
+    # contra max_tokens, así que con poco margen podía comerse casi todo el cupo (incluso dejar la
+    # respuesta sin texto). Por eso: tope amplio, razonamiento adaptativo y esfuerzo medio para
+    # acotar cuánto razona sin renunciar a que cruce cláusulas y revise cifras.
     payload = {
         "model": ANTHROPIC_MODEL,
-        "max_tokens": 4096,
+        "max_tokens": 16000,
+        "thinking": {"type": "adaptive"},
+        "output_config": {"effort": "medium"},
         "system": [{
             "type": "text", "text": PROMPT_SISTEMA_INFORME,
             "cache_control": {"type": "ephemeral"},
@@ -396,20 +413,26 @@ def generar_informe_licitacion_ia(perfil_empresa, pcap_tipo, pcap_contenido, tit
     )
 
     try:
-        resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=180)
+        resp = requests.post(ANTHROPIC_API_ENDPOINT, headers=headers, json=payload, timeout=600)
         if not resp.ok:
             print(f"    Respuesta de error de Anthropic (HTTP {resp.status_code}): {resp.text[:2000]}")
         resp.raise_for_status()
         data = resp.json()
-        bloque_texto = next(b["text"] for b in data["content"] if b.get("type") == "text")
+        stop_reason = data.get("stop_reason")
         uso = data.get("usage", {})
         print(
             f"    Tokens usados -> entrada: {uso.get('input_tokens')}, salida: {uso.get('output_tokens')}, "
-            f"caché escrita: {uso.get('cache_creation_input_tokens')}, caché leída: {uso.get('cache_read_input_tokens')}"
+            f"caché escrita: {uso.get('cache_creation_input_tokens')}, caché leída: {uso.get('cache_read_input_tokens')}, "
+            f"fin: {stop_reason}"
         )
-        return {"informe": bloque_texto.strip()}
+        texto = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text").strip()
+        if not texto:
+            return {"informe": f"Error al generar el informe con IA: la respuesta no contiene texto (stop_reason={stop_reason})."}
+        if stop_reason == "max_tokens":
+            texto += "\n\n" + MARCA_INFORME_CORTADO
+        return {"informe": texto}
     except Exception as e:
-        return {"informe": f"Error al generar el informe con IA: {e}"}
+        return {"informe": f"Error al generar el informe con IA: {e!r}"}
 
 
 def analizar_licitacion_ia(r, perfil_empresa):
@@ -466,6 +489,74 @@ def cargar_filtro_config(archivo, config_por_defecto):
     return dict(config_por_defecto)
 
 
+def calcular_resultado(codigos):
+    """Resume los ResultCode (uno por lote, lista oficial TenderResultCode) en una etiqueta:
+    formalizada / adjudicada / desierta / desistida, o None si aún no hay resultado."""
+    codigos = [c for c in codigos if c]
+    if not codigos:
+        return None
+    if "9" in codigos:
+        return "formalizada"
+    if any(c in ("1", "2", "8", "10") for c in codigos):
+        return "adjudicada"
+    if any(c in ("3", "6", "7") for c in codigos):
+        return "desierta"
+    if any(c in ("4", "5") for c in codigos):
+        return "desistida"
+    return None
+
+
+def aplicar_cambio_estado(registro, data, hoy):
+    """Si el feed trae una versión más reciente de una licitación ya guardada y su estado (o
+    resultado) ha cambiado, actualiza el registro. No toca 'updated' (que es la fecha de la
+    licitación que muestra el visor) sino 'estado_updated'. Devuelve True si hubo cambio."""
+    nuevo_estado = data.get("estado")
+    if not nuevo_estado:
+        return False
+
+    version_nueva = data.get("updated")
+    version_actual = registro.get("estado_updated") or registro.get("updated")
+    try:
+        if version_nueva and version_actual and datetime.fromisoformat(version_nueva) <= datetime.fromisoformat(version_actual):
+            return False  # versión igual o más antigua: no puede revertir un estado ya actualizado
+    except ValueError:
+        pass
+
+    if nuevo_estado == registro.get("estado") and data.get("resultado") == registro.get("resultado"):
+        return False
+
+    registro["estado_anterior"] = registro.get("estado")
+    registro["estado"] = nuevo_estado
+    registro["resultado"] = data.get("resultado")
+    registro["estado_cambiado_el"] = hoy
+    registro["estado_updated"] = version_nueva
+    return True
+
+
+def cargar_historico(archivo):
+    if not os.path.exists(archivo):
+        return []
+    with open(archivo, "r", encoding="utf-8") as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError as e:
+            raise RuntimeError(
+                f"{archivo} tiene un error de sintaxis JSON ({e}). "
+                "No se puede continuar sin arreglarlo a mano (revisa comas sobrantes o "
+                "corchetes/llaves sin cerrar) para no arriesgarse a perder el histórico."
+            ) from e
+
+
+def informe_ia_valido(revision):
+    """True si es un informe real (no un mensaje de error) que merece reutilizarse."""
+    if not isinstance(revision, dict):
+        return False
+    informe = revision.get("informe")
+    return bool(informe) and MARCA_INFORME_CORTADO not in informe and not informe.startswith(
+        ("Error al generar", "No hay ANTHROPIC", "No se pudo descargar")
+    )
+
+
 def parse_entry(entry, filtro_cfg):
     def find_text(path):
         el = entry.find(path, NS)
@@ -506,6 +597,7 @@ def parse_entry(entry, filtro_cfg):
 
     tipo_contrato = find_text('.//cac:ProcurementProject/cbc:TypeCode')
     procedimiento = find_text('.//cac:TenderingProcess/cbc:ProcedureCode')
+    resultado = calcular_resultado([e.text for e in entry.findall('.//cac:TenderResult/cbc:ResultCode', NS)])
 
     importe_num = None
     importe_el = entry.find('.//cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount', NS)
@@ -533,6 +625,7 @@ def parse_entry(entry, filtro_cfg):
     return {
         "folder_id": folder_id,
         "estado": estado_code,
+        "resultado": resultado,
         "titulo": titulo,
         "updated": updated,
         "link": link,
@@ -644,18 +737,27 @@ def main():
         config_por_defecto = FILTRO_CONFIG_POR_DEFECTO if desc["id"] == "1" else FILTRO_CONFIG_VACIO
         cfg = cargar_filtro_config(ruta_filtro(desc, NOMBRE_CONFIG), config_por_defecto)
         estado = cargar_estado(ruta_filtro(desc, NOMBRE_ESTADO))
+        # El histórico se carga ya (no al final) para poder actualizar el estado de
+        # licitaciones ya guardadas cuando vuelvan a aparecer en el feed con otro estado.
+        historico = cargar_historico(ruta_filtro(desc, NOMBRE_HISTORICO))
         contextos.append({
             "desc": desc,
             "cfg": cfg,
             "ids_vistos": set(estado.get("ids_vistos", [])),
             "total_entries_acumulado_previo": estado.get("total_entries_acumulado", 0),
             "resultados": [],
+            "historico": historico,
+            "historico_idx": {r["folder_id"]: r for r in historico if r.get("folder_id")},
+            "cambios_estado": [],
         })
 
+    fecha_hora_iso = datetime.now(timezone.utc).isoformat()
+    fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     limite_fecha = datetime.now(timezone.utc) - timedelta(hours=VENTANA_HORAS)
     url_actual = FEED_URL
     pagina = 0
     total_entries_leidas = 0
+    versiones_vistas = set()
 
     while url_actual and pagina < MAX_PAGINAS:
         pagina += 1
@@ -676,9 +778,30 @@ def main():
                 parar = True
                 break
 
+            # El feed va de más reciente a más antiguo: si una licitación aparece varias veces,
+            # la primera es su versión actual y las demás son estados ya superados.
+            folder_id_entry = entry.findtext('.//cbc:ContractFolderID', namespaces=NS)
+            if folder_id_entry:
+                if folder_id_entry in versiones_vistas:
+                    continue
+                versiones_vistas.add(folder_id_entry)
+
             for ctx in contextos:
                 cfg = ctx["cfg"]
                 data = parse_entry(entry, cfg)
+
+                # Licitación ya guardada que reaparece en el feed: si ha cambiado de estado
+                # (adjudicada, desierta, anulada...) se actualiza su registro, aunque el nuevo
+                # estado ya no entre en los estados permitidos del filtro.
+                existente = ctx["historico_idx"].get(data["folder_id"])
+                if existente is not None:
+                    estado_previo = existente.get("estado")
+                    if aplicar_cambio_estado(existente, data, fecha_captura_hoy):
+                        ctx["cambios_estado"].append(data["folder_id"])
+                        print(f"    Cambio de estado [{data['folder_id']}]: {estado_previo} -> {data['estado']}"
+                              f"{' (' + data['resultado'] + ')' if data['resultado'] else ''}")
+                    continue
+
                 cpv_permitidos = cfg.get("cpv_permitidos") or []
                 estados_permitidos = cfg.get("estados_permitidos") or []
 
@@ -702,20 +825,35 @@ def main():
     print(f"Páginas leídas: {pagina}")
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
 
-    fecha_hora_iso = datetime.now(timezone.utc).isoformat()
-    fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     perfil_empresa = os.environ.get("SOLVENCIA_EMPRESA")
 
     resultados_por_filtro = {}
+    # Una licitación puede estar en varios filtros (hoy o en días distintos): el informe se
+    # genera una sola vez y se reutiliza, en vez de pagar otra vez PCAP + Haiku + Sonnet. Se parte
+    # de los informes válidos que ya hay en el histórico de cualquier filtro.
+    informes_ia = {}
+    for ctx in contextos:
+        for registro in ctx["historico"]:
+            if registro.get("folder_id") and informe_ia_valido(registro.get("revision_ia")):
+                informes_ia.setdefault(registro["folder_id"], registro["revision_ia"])
+
     for ctx in contextos:
         desc = ctx["desc"]
         resultados = ctx["resultados"]
         nombre_filtro = ctx["cfg"].get("nombre") or f"Filtro {desc['id']}"
-        print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}")
+        print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}"
+              f" | cambios de estado: {len(ctx['cambios_estado'])}")
 
         if perfil_empresa:
             for r in resultados:
+                clave_informe = r.get("folder_id")
+                if clave_informe and clave_informe in informes_ia:
+                    r["revision_ia"] = dict(informes_ia[clave_informe])
+                    print(f"    -> Informe IA reutilizado para [{r['folder_id']}] (ya generado antes para otro filtro)")
+                    continue
                 r["revision_ia"] = analizar_licitacion_ia(r, perfil_empresa)
+                if clave_informe and informe_ia_valido(r["revision_ia"]):
+                    informes_ia[clave_informe] = r["revision_ia"]
                 print(f"    -> Informe IA generado para [{r['folder_id']}] ({len(r['revision_ia']['informe'])} caracteres)")
 
         total_entries_acumulado = ctx["total_entries_acumulado_previo"] + total_entries_leidas
@@ -744,18 +882,7 @@ def main():
             r["fecha_captura"] = fecha_captura_hoy
 
         archivo_historico = ruta_filtro(desc, NOMBRE_HISTORICO)
-        if os.path.exists(archivo_historico):
-            with open(archivo_historico, "r", encoding="utf-8") as f:
-                try:
-                    historico = json.load(f)
-                except json.JSONDecodeError as e:
-                    raise RuntimeError(
-                        f"{archivo_historico} tiene un error de sintaxis JSON ({e}). "
-                        "No se puede continuar sin arreglarlo a mano (revisa comas sobrantes o "
-                        "corchetes/llaves sin cerrar) para no arriesgarse a perder el histórico."
-                    ) from e
-        else:
-            historico = []
+        historico = ctx["historico"]
         historico.extend(resultados)
         with open(archivo_historico, "w", encoding="utf-8") as f:
             json.dump(historico, f, ensure_ascii=False, indent=2)
