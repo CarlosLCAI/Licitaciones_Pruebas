@@ -916,7 +916,7 @@
   },
   {
     "folder_id": "2026-071",
-    "estado": "PUB",
+    "estado": "ADJ",
     "titulo": "Asistencia técnica para la redacción de los proyectos de refuerzo para la mejora de calado del Muelle Juan Carlos I Norte y Este del Puerto de Algeciras",
     "updated": "2026-08-25T14:15:26.317+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=CjRX4Cq8xRKOUi78BmzhOQ%3D%3D",
@@ -940,7 +940,11 @@
       "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
       "fecha_analisis": "2026-08-26T04:05:40.985780+00:00"
     },
-    "fecha_captura": "2026-08-26"
+    "fecha_captura": "2026-08-26",
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-04",
+    "estado_updated": "2026-10-03T09:07:39.307+02:00"
   },
   {
     "folder_id": "78-26",
