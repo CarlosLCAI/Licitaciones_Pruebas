@@ -98,7 +98,7 @@
   },
   {
     "folder_id": "300/2026/00445",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Inspección y seguimiento de actuaciones en los pasos a distinto nivel y estructuras del Ayuntamiento de Madrid",
     "updated": "2026-09-07T09:00:00.000+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Kuj%2FDKqiAaXkY6rls5tG9A%3D%3D",
@@ -123,7 +123,11 @@
       "informe": "Error al generar el informe con IA: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages",
       "fecha_analisis": "2026-09-08T08:03:34.573076+00:00"
     },
-    "fecha_captura": "2026-09-08"
+    "fecha_captura": "2026-09-08",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-06",
+    "estado_updated": "2026-10-05T10:36:29.161+02:00"
   },
   {
     "folder_id": "SPA/397/2025/630.00",

@@ -1,7 +1,7 @@
 [
   {
     "folder_id": "PCO001202600081",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Contratación de la redacción del proyecto basico y de ejecución de rehabilitacion energetica del edificio anexo al Hogar infantil Emilio Romay para locales asociativos enel Concello de A Coruña y la Codirección de las obras",
     "updated": "2026-07-16T15:21:18.635+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=q3uxMbHzr6asNfRW6APEDw%3D%3D",
@@ -27,7 +27,11 @@
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-07-17"
+    "fecha_captura": "2026-07-17",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-06",
+    "estado_updated": "2026-10-05T13:39:43.246+02:00"
   },
   {
     "folder_id": "1005/2026",
