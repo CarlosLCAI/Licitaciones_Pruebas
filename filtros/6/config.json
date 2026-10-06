@@ -1,0 +1,37 @@
+{
+  "nombre": "Arquitectura",
+  "region": "Andalucía · Málaga",
+  "nuts_prefix": "ES617",
+  "cpv_permitidos": [
+    "71000000",
+    "71200000",
+    "71210000",
+    "71220000",
+    "71221000",
+    "71222000",
+    "71222100",
+    "71222200",
+    "71223000",
+    "71230000",
+    "71240000",
+    "71241000",
+    "71242000",
+    "71243000",
+    "71245000",
+    "71250000",
+    "71251000",
+    "71400000",
+    "71410000",
+    "71420000",
+    "71421000"
+  ],
+  "estados_permitidos": [
+    "PUB"
+  ],
+  "tipos_contrato_permitidos": [
+    "2"
+  ],
+  "procedimientos_permitidos": [],
+  "importe_min": null,
+  "importe_max": null
+}

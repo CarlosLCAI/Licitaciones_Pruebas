@@ -1,0 +1,36 @@
+{
+  "nombre": "Dirección de obra",
+  "region": "Andalucía",
+  "nuts_prefix": "ES61",
+  "cpv_permitidos": [
+    "71000000",
+    "71200000",
+    "71244000",
+    "71246000",
+    "71247000",
+    "71248000",
+    "71250000",
+    "71251000",
+    "71300000",
+    "71310000",
+    "71311000",
+    "71317200",
+    "71317210",
+    "71500000",
+    "71520000",
+    "71521000",
+    "71530000",
+    "71540000",
+    "71541000"
+  ],
+  "estados_permitidos": [
+    "PUB"
+  ],
+  "tipos_contrato_permitidos": [
+    "2",
+    "3"
+  ],
+  "procedimientos_permitidos": [],
+  "importe_min": null,
+  "importe_max": null
+}
