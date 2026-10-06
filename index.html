@@ -128,10 +128,27 @@
   th:nth-child(5), td:nth-child(5) { width: 100px; }
   th:nth-child(6), td:nth-child(6) { width: 110px; }
   th:nth-child(7), td:nth-child(7) { width: 145px; }
-  th:nth-child(8), td:nth-child(8) { width: 95px; }
+  th:nth-child(8), td:nth-child(8) { width: 125px; }
   th:nth-child(9), td:nth-child(9) { width: 65px; text-align: center; }
   .check-revisado { width: 16px; height: 16px; cursor: pointer; }
   .check-revisado:disabled { cursor: wait; opacity: 0.5; }
+  .marca-por {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    background: var(--teal);
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+  }
+  button.marca-por { cursor: pointer; }
+  button.marca-por:disabled { cursor: wait; opacity: 0.5; }
   thead th {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
@@ -160,6 +177,17 @@
   }
   tbody tr:hover { background: #f0faf9; }
   .titulo { font-weight: 500; max-width: 340px; }
+  .filtros-origen { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .chip-filtro {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    background: #e6f6f6;
+    color: var(--teal-dark);
+  }
   .mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; }
   .importe { font-family: 'JetBrains Mono', monospace; text-align: right; white-space: nowrap; }
   .badge {
@@ -190,6 +218,9 @@
     white-space: nowrap;
   }
   .links a:hover { color: var(--teal); border-color: var(--teal); }
+  .links a.link-revision-ia { font-weight: 700; }
+  .links a.link-solicitar-ia { color: var(--ink-soft); border-bottom-color: var(--ink-soft); }
+  .links .revision-pendiente { font-size: 11.5px; color: var(--ink-soft); font-style: italic; white-space: nowrap; }
   .empty {
     text-align: center;
     padding: 60px 20px;
@@ -197,6 +228,11 @@
     font-size: 14px;
   }
   .empty strong { display: block; font-size: 16px; color: var(--antracita); margin-bottom: 6px; }
+  .novedades-lista { margin: 0 0 6px; padding-left: 20px; font-size: 13.5px; line-height: 1.55; }
+  .novedades-lista li { margin-bottom: 10px; }
+  .pie-novedades { text-align: center; margin: 18px 0 0; font-size: 12px; }
+  .pie-novedades a { color: var(--ink-soft); }
+  #btn-cerrar-novedades { background: none; border: none; color: #fff; font-size: 15px; cursor: pointer; }
   .resumen-lectura {
     display: none;
     margin-top: 24px;
@@ -564,6 +600,12 @@
           <p class="ayuda">El token se guarda solo en este navegador (localStorage) y se usa para hacer commit directo a GitHub. Usa un token de acceso concedido para este repo, con permisos mínimos de escritura de contenidos.</p>
         </div>
 
+        <div class="campo">
+          <label for="f-nombre-usuario">Tu nombre (opcional, para firmar tus revisiones)</label>
+          <input type="text" id="f-nombre-usuario" placeholder="Déjalo vacío si eres el propietario del repositorio" maxlength="30">
+          <p class="ayuda">Si varias personas comparten el mismo token, escribe aquí tu nombre (por ejemplo, Kike) y pulsa "Guardar token": tus revisiones aparecerán con tu inicial en lugar del check.</p>
+        </div>
+
         <div class="modal-actions">
           <button type="button" class="btn-primario" id="btn-guardar-filtro">Guardar cambios en GitHub</button>
           <span id="guardar-estado"></span>
@@ -581,6 +623,28 @@
       <div class="modal-body" id="modal-revision-body"></div>
     </div>
   </div>
+
+  <div id="modal-novedades-overlay" class="modal-overlay">
+    <div class="modal-panel modal-panel-ancho">
+      <div class="modal-header">
+        <p class="modal-titulo">Novedades del monitor</p>
+        <button id="btn-cerrar-novedades" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <ul class="novedades-lista">
+          <li><strong>Nuevos filtros.</strong> <em>Arquitectura</em> (solo provincia de Málaga) y <em>Dirección de obra</em> (servicios y obras). Además, el visor arranca ahora en <em>Todos los filtros</em>, que reúne las licitaciones de todos sin duplicarlas (solo lectura).</li>
+          <li><strong>Acceso con token.</strong> Cada persona puede usar un token de GitHub desde las opciones de un filtro para marcar revisiones y editar filtros. Si varias personas comparten el token, cada una puede escribir su nombre en esas opciones: sus revisiones aparecerán con su inicial (por ejemplo, <strong>K</strong>) en lugar del check.</li>
+          <li><strong>La revisión IA ya no se genera sola.</strong> Pulsa <em>Solicitar Revisión IA</em> en la licitación que te interese (requiere el token). En unos minutos aparecerá <strong>Revisión IA</strong> en negrita, lista para abrir.</li>
+          <li><strong>Más fuentes y más información.</strong> Se leen también las plataformas agregadas (Junta de Andalucía) y los contratos menores. El estado se muestra como Publicada, Adjudicada, Desierta o Anulada, y se actualizan las ampliaciones de plazo.</li>
+        </ul>
+        <div class="modal-actions">
+          <button type="button" class="btn-primario" id="btn-entendido-novedades">Entendido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pie-novedades"><a href="#" id="link-novedades">Ver novedades</a></p>
 
 </div>
 
@@ -761,11 +825,179 @@ function abrirModalRevisionIA(registro) {
   document.getElementById('modal-revision-overlay').classList.add('abierto');
 }
 
+// --- Revisión IA bajo demanda -------------------------------------------------------------------
+// El visor no puede llamar a Claude (la clave de la API vive en los secretos de GitHub), así que el
+// botón lanza el flujo "revision_ia.yml" por la API de GitHub. Ese flujo genera el informe y lo
+// guarda en el histórico. Mientras tanto se vigila el histórico en GitHub (sin esperar a que
+// GitHub Pages republique) hasta que aparece el informe.
+const WORKFLOW_REVISION_IA = 'revision_ia.yml';
+const REVISIONES_IA_PENDIENTES_KEY = 'monitorLicitaciones.revisionesIaPendientes';
+const REVISION_IA_PENDIENTE_TTL_MS = 20 * 60 * 1000;
+const INTERVALO_VIGILANCIA_IA_MS = 20 * 1000;
+const solicitandoIA = new Set();
+let temporizadorVigilanciaIA = null;
+
+function revisionIaValida(rev) {
+  if (!rev) return false;
+  if (rev.informe) return !/^(Error al generar|No hay ANTHROPIC|No se pudo descargar)/.test(rev.informe);
+  return !!rev.clasificacion; // análisis antiguos, anteriores al formato de informe
+}
+
+function leerRevisionesIaPendientes() {
+  try { return JSON.parse(localStorage.getItem(REVISIONES_IA_PENDIENTES_KEY)) || {}; } catch (e) { return {}; }
+}
+
+function escribirRevisionesIaPendientes(todas) {
+  try { localStorage.setItem(REVISIONES_IA_PENDIENTES_KEY, JSON.stringify(todas)); } catch (e) { /* sin almacenamiento */ }
+}
+
+function revisionIaPendiente(folderId) {
+  const p = leerRevisionesIaPendientes()[folderId];
+  return p && Date.now() - p.solicitadaEn <= REVISION_IA_PENDIENTE_TTL_MS ? p : null;
+}
+
+function enlaceRevisionIA(r) {
+  const id = escapeHtml(r.folder_id || '');
+  if (revisionIaValida(r.revision_ia)) {
+    return '<a href="#" class="link-revision-ia" data-folder-id="' + id + '">Revisión IA</a>';
+  }
+  if (revisionIaPendiente(r.folder_id)) {
+    return '<span class="revision-pendiente" title="Se está generando; aparecerá aquí en unos minutos">Revisión IA solicitada…</span>';
+  }
+  const fallo = r.revision_ia && r.revision_ia.informe
+    ? ' title="' + escapeHtml('El último intento falló: ' + r.revision_ia.informe.slice(0, 160)) + '"'
+    : '';
+  return '<a href="#" class="link-solicitar-ia" data-folder-id="' + id + '"' + fallo + '>Solicitar Revisión IA</a>';
+}
+
+function filtroQueContiene(folderId) {
+  const f = filtrosManifest.find(f => cacheFiltros[f.id] && (cacheFiltros[f.id].historico || []).some(r => r.folder_id === folderId));
+  return f ? f.id : null;
+}
+
+async function solicitarRevisionIA(folderId) {
+  const token = obtenerTokenGuardado();
+  if (!token) {
+    alert('Para solicitar la revisión IA primero configura el token de GitHub (en las opciones de cualquier filtro).');
+    return;
+  }
+  if (solicitandoIA.has(folderId) || revisionIaPendiente(folderId)) return;
+  if (!confirm('¿Solicitar la revisión IA de esta licitación?\n\nSe genera en unos minutos y tiene un pequeño coste (unos céntimos).')) return;
+
+  solicitandoIA.add(folderId);
+  try {
+    const resp = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${WORKFLOW_REVISION_IA}/dispatches`, {
+      method: 'POST',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify({ ref: GH_BRANCH, inputs: { folder_id: folderId } }),
+    });
+    if (resp.status !== 204) {
+      const err = await resp.json().catch(() => ({}));
+      let ayuda = '';
+      if (resp.status === 403) ayuda = '\n\nEl token necesita el permiso "Actions: lectura y escritura" (token fine-grained) o el alcance "workflow" (token clásico).';
+      if (resp.status === 404) ayuda = '\n\nNo se encuentra el flujo "' + WORKFLOW_REVISION_IA + '" en el repositorio (¿se ha subido?) o el token no tiene acceso a Actions.';
+      if (resp.status === 422) ayuda = '\n\nEl flujo no admite lanzamiento manual (workflow_dispatch).';
+      throw new Error(`HTTP ${resp.status}: ${err.message || 'sin detalle'}${ayuda}`);
+    }
+    const todas = leerRevisionesIaPendientes();
+    todas[folderId] = { filtroId: filtroQueContiene(folderId), solicitadaEn: Date.now() };
+    escribirRevisionesIaPendientes(todas);
+    aplicarFiltros();
+    iniciarVigilanciaIA();
+  } catch (e) {
+    alert('No se pudo solicitar la revisión IA: ' + e.message);
+  } finally {
+    solicitandoIA.delete(folderId);
+  }
+}
+
+function inyectarRevisionIA(folderId, rev) {
+  for (const f of filtrosManifest) {
+    const c = cacheFiltros[f.id];
+    if (c) (c.historico || []).forEach(r => { if (r.folder_id === folderId) r.revision_ia = rev; });
+  }
+  datos.forEach(d => { if (d.folder_id === folderId) d.revision_ia = rev; });
+}
+
+function iniciarVigilanciaIA() {
+  if (temporizadorVigilanciaIA) return;
+  temporizadorVigilanciaIA = setInterval(comprobarRevisionesIA, INTERVALO_VIGILANCIA_IA_MS);
+}
+
+async function comprobarRevisionesIA() {
+  const pendientes = leerRevisionesIaPendientes();
+  const ids = Object.keys(pendientes);
+  if (!ids.length) {
+    clearInterval(temporizadorVigilanciaIA);
+    temporizadorVigilanciaIA = null;
+    return;
+  }
+  const token = obtenerTokenGuardado();
+  let cambio = false;
+  for (const id of ids) {
+    const p = pendientes[id];
+    if (Date.now() - p.solicitadaEn > REVISION_IA_PENDIENTE_TTL_MS) {
+      delete pendientes[id];
+      cambio = true;
+      continue;
+    }
+    const desc = descriptorFiltro(p.filtroId);
+    if (!token || !desc) continue;
+    try {
+      const resp = await fetch(
+        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${rutaFiltro(desc, 'historico.json')}?ref=${GH_BRANCH}`,
+        { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.raw+json' }, cache: 'no-store' }
+      );
+      if (!resp.ok) continue;
+      const reg = JSON.parse(await resp.text()).find(r => r.folder_id === id);
+      const rev = reg && reg.revision_ia;
+      if (revisionIaValida(rev)) {
+        inyectarRevisionIA(id, rev);
+        delete pendientes[id];
+        cambio = true;
+      } else if (rev && rev.fecha_analisis && Date.parse(rev.fecha_analisis) >= p.solicitadaEn - 120000) {
+        inyectarRevisionIA(id, rev);
+        delete pendientes[id];
+        cambio = true;
+        alert('La revisión IA de ' + id + ' no se pudo generar:\n\n' + String(rev.informe || '').slice(0, 300));
+      }
+    } catch (e) { /* se reintenta en la siguiente vuelta */ }
+  }
+  escribirRevisionesIaPendientes(pendientes);
+  if (cambio) aplicarFiltros();
+  if (!Object.keys(pendientes).length) {
+    clearInterval(temporizadorVigilanciaIA);
+    temporizadorVigilanciaIA = null;
+  }
+}
+
 function celdaRevisadoHumano(r) {
   const marcado = !!r.revisado_humano;
+  const esDeOtroUsuario = marcado && r.revisado_por && r.revisado_por.toLowerCase() !== GH_OWNER.toLowerCase();
+  if (esDeOtroUsuario) {
+    const titulo = 'Revisado por ' + r.revisado_por + (r.revisado_fecha ? ' el ' + formatearFecha(r.revisado_fecha) : '');
+    const letra = escapeHtml(inicialDeUsuario(r.revisado_por));
+    if (filtroActivoId === ID_VISTA_TODOS) {
+      return '<span class="marca-por" title="' + escapeHtml(titulo) + '">' + letra + '</span>';
+    }
+    return '<button type="button" class="marca-por" data-folder-id="' + escapeHtml(r.folder_id || '') +
+      '" title="' + escapeHtml(titulo + ' (clic para desmarcar)') + '">' + letra + '</button>';
+  }
+  if (filtroActivoId === ID_VISTA_TODOS) {
+    // Vista agregada: solo lectura. La revisión se guarda por filtro, así que se marca desde el filtro concreto.
+    return '<input type="checkbox" class="check-revisado" disabled title="Para marcar como revisado, hazlo desde el filtro correspondiente"' +
+      (marcado ? ' checked' : '') + '>';
+  }
   const titulo = r.revisado_fecha ? 'Revisado el ' + formatearFecha(r.revisado_fecha) : 'Marcar como revisado';
   return '<input type="checkbox" class="check-revisado" data-folder-id="' + escapeHtml(r.folder_id || '') +
     '" title="' + escapeHtml(titulo) + '"' + (marcado ? ' checked' : '') + '>';
+}
+
+function chipsFiltrosOrigen(r) {
+  if (!r.filtros_origen || !r.filtros_origen.length) return '';
+  return '<div class="filtros-origen">' +
+    r.filtros_origen.map(n => '<span class="chip-filtro">' + escapeHtml(n) + '</span>').join('') +
+    '</div>';
 }
 
 function esVigente(d) {
@@ -842,7 +1074,7 @@ function renderTabla(lista) {
   for (const r of lista) {
     html += '<tr>' +
       '<td class="mono exp-vertical">' + (r.folder_id || '—') + '</td>' +
-      '<td class="titulo">' + (r.titulo || '—') + '</td>' +
+      '<td class="titulo">' + (r.titulo || '—') + chipsFiltrosOrigen(r) + '</td>' +
       '<td>' + (r.organo || '—') + '</td>' +
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td>' + celdaEstado(r) + '</td>' +
@@ -852,7 +1084,7 @@ function renderTabla(lista) {
         (r.link ? '<a href="' + r.link + '" target="_blank" rel="noopener">Ficha</a>' : '') +
         (r.pcap_url ? '<a href="' + r.pcap_url + '" target="_blank" rel="noopener">PCAP</a>' : '') +
         (r.ppt_url ? '<a href="' + r.ppt_url + '" target="_blank" rel="noopener">PPT</a>' : '') +
-        (r.revision_ia ? '<a href="#" class="link-revision-ia" data-folder-id="' + escapeHtml(r.folder_id || '') + '">Revisión IA</a>' : '') +
+        enlaceRevisionIA(r) +
       '</td>' +
       '<td>' + celdaRevisadoHumano(r) + '</td>' +
     '</tr>';
@@ -869,7 +1101,10 @@ function renderTabla(lista) {
   });
 
   cont.querySelectorAll('.check-revisado').forEach(chk => {
-    chk.addEventListener('change', () => alCambiarRevisadoHumano(chk));
+    chk.addEventListener('change', () => alCambiarRevisadoHumano(chk, chk.checked));
+  });
+  cont.querySelectorAll('button.marca-por').forEach(btn => {
+    btn.addEventListener('click', () => alCambiarRevisadoHumano(btn, false));
   });
 
   cont.querySelectorAll('.link-revision-ia').forEach(a => {
@@ -878,6 +1113,13 @@ function renderTabla(lista) {
       const folderId = a.dataset.folderId;
       const registro = datos.find(d => d.folder_id === folderId);
       if (registro) abrirModalRevisionIA(registro);
+    });
+  });
+
+  cont.querySelectorAll('.link-solicitar-ia').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      solicitarRevisionIA(a.dataset.folderId);
     });
   });
 }
@@ -959,7 +1201,7 @@ function renderEstadisticas() {
     porEstado[k] = (porEstado[k] || 0) + 1;
   });
 
-  const conInformeIA = datos.filter(d => d.revision_ia).length;
+  const conInformeIA = datos.filter(d => revisionIaValida(d.revision_ia)).length;
 
   const revisadas = datos.filter(d => d.revisado_humano).length;
   const pctRevisadas = total ? Math.round((revisadas / total) * 100) : 0;
@@ -1082,6 +1324,14 @@ const REGIONES_ESPANA = [
   { nuts: 'ES53', nombre: 'Illes Balears' },
   { nuts: 'ES6', nombre: 'Sur (Andalucía, Murcia, Ceuta y Melilla)' },
   { nuts: 'ES61', nombre: 'Andalucía' },
+  { nuts: 'ES611', nombre: 'Andalucía · Almería' },
+  { nuts: 'ES612', nombre: 'Andalucía · Cádiz' },
+  { nuts: 'ES613', nombre: 'Andalucía · Córdoba' },
+  { nuts: 'ES614', nombre: 'Andalucía · Granada' },
+  { nuts: 'ES615', nombre: 'Andalucía · Huelva' },
+  { nuts: 'ES616', nombre: 'Andalucía · Jaén' },
+  { nuts: 'ES617', nombre: 'Andalucía · Málaga' },
+  { nuts: 'ES618', nombre: 'Andalucía · Sevilla' },
   { nuts: 'ES62', nombre: 'Región de Murcia' },
   { nuts: 'ES63', nombre: 'Ciudad Autónoma de Ceuta' },
   { nuts: 'ES64', nombre: 'Ciudad Autónoma de Melilla' },
@@ -1125,6 +1375,7 @@ function pintarModalFiltro(cfg) {
   renderCheckboxGrid('grid-estados', ESTADOS_LICITACION, cfg && cfg.estados_permitidos);
 
   document.getElementById('f-token').value = '';
+  document.getElementById('f-nombre-usuario').value = obtenerNombreLocal();
   document.getElementById('guardar-estado').textContent = '';
   document.getElementById('guardar-estado').className = '';
   actualizarEstadoToken();
@@ -1134,11 +1385,55 @@ function obtenerTokenGuardado() {
   return localStorage.getItem(GH_TOKEN_KEY) || '';
 }
 
+// Cada persona usa su propio token de GitHub; GitHub dice a qué usuario pertenece, y así se sabe
+// quién marca cada revisión. Quien no sea el propietario del repo se muestra con su inicial en
+// vez del check; INICIALES_USUARIOS permite fijarla ('usuario-github-en-minúsculas': 'K'). Si no
+// está en la lista se usa la primera letra de su usuario de GitHub.
+const INICIALES_USUARIOS = {};
+let usuarioGitHubCache = null;
+
+async function obtenerUsuarioGitHub(token) {
+  if (usuarioGitHubCache && usuarioGitHubCache.token === token) return usuarioGitHubCache.login;
+  const resp = await fetch('https://api.github.com/user', {
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
+    cache: 'no-store',
+  });
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  const login = (await resp.json()).login;
+  usuarioGitHubCache = { token, login };
+  return login;
+}
+
+function inicialDeUsuario(login) {
+  if (!login) return '';
+  return (INICIALES_USUARIOS[login.toLowerCase()] || login.charAt(0)).toUpperCase();
+}
+
+// Si varias personas comparten un token, GitHub las ve como el mismo usuario. Entonces cada una
+// escribe su nombre en el visor (se guarda solo en su navegador) y ese nombre manda sobre el
+// usuario de GitHub al firmar la revisión.
+const NOMBRE_USUARIO_KEY = 'monitorLicitaciones.nombreUsuario';
+
+function obtenerNombreLocal() {
+  try { return localStorage.getItem(NOMBRE_USUARIO_KEY) || ''; } catch (e) { return ''; }
+}
+
+async function obtenerNombreRevisor(token) {
+  return obtenerNombreLocal() || obtenerUsuarioGitHub(token);
+}
+
 function actualizarEstadoToken() {
   const el = document.getElementById('token-status');
-  if (obtenerTokenGuardado()) {
-    el.textContent = 'Token configurado ✓';
+  const token = obtenerTokenGuardado();
+  if (token) {
+    const nombreLocal = obtenerNombreLocal();
+    el.textContent = 'Token configurado ✓' + (nombreLocal ? ' · firmas como: ' + nombreLocal : '');
     el.className = 'token-status ok';
+    if (!nombreLocal) {
+      obtenerUsuarioGitHub(token).then(login => {
+        if (obtenerTokenGuardado() === token && !obtenerNombreLocal()) el.textContent = 'Token configurado ✓ · usuario de GitHub: ' + login;
+      }).catch(() => {});
+    }
   } else {
     el.textContent = 'Sin token configurado todavía.';
     el.className = 'token-status falta';
@@ -1231,6 +1526,7 @@ async function guardarRevisionHumana(folderId, valor, intentosMax = 3) {
   const archivo = rutaFiltro(desc, 'historico.json');
   const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${archivo}`;
   const cabeceras = { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' };
+  const revisor = valor ? await obtenerNombreRevisor(token).catch(() => null) : null;
 
   for (let intento = 1; intento <= intentosMax; intento++) {
     const actual = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers: cabeceras, cache: 'no-store' });
@@ -1246,6 +1542,7 @@ async function guardarRevisionHumana(folderId, valor, intentosMax = 3) {
     }
     historicoRemoto[idx].revisado_humano = valor;
     historicoRemoto[idx].revisado_fecha = valor ? new Date().toISOString() : null;
+    historicoRemoto[idx].revisado_por = revisor;
 
     const contenido = JSON.stringify(historicoRemoto, null, 2) + '\n';
     const resp = await fetch(apiUrl, {
@@ -1285,9 +1582,9 @@ function escribirRevisionesPendientes(todas) {
   try { localStorage.setItem(REVISIONES_PENDIENTES_KEY, JSON.stringify(todas)); } catch (e) { /* sin almacenamiento: se pierde solo el respaldo */ }
 }
 
-function recordarRevisionPendiente(filtroId, folderId, valor, fecha) {
+function recordarRevisionPendiente(filtroId, folderId, valor, fecha, por) {
   const todas = leerRevisionesPendientes();
-  (todas[filtroId] = todas[filtroId] || {})[folderId] = { valor, fecha: fecha || null, guardadoEn: Date.now() };
+  (todas[filtroId] = todas[filtroId] || {})[folderId] = { valor, fecha: fecha || null, por: por || null, guardadoEn: Date.now() };
   escribirRevisionesPendientes(todas);
 }
 
@@ -1307,26 +1604,26 @@ function aplicarRevisionesPendientes(filtroId, historico) {
     }
     reg.revisado_humano = p.valor;
     reg.revisado_fecha = p.fecha;
+    reg.revisado_por = p.por || null;
   }
   if (!Object.keys(delFiltro).length) delete todas[filtroId];
   escribirRevisionesPendientes(todas);
   return historico;
 }
 
-async function alCambiarRevisadoHumano(checkbox) {
-  const folderId = checkbox.dataset.folderId;
-  const valor = checkbox.checked;
-  checkbox.disabled = true;
+async function alCambiarRevisadoHumano(elemento, valor) {
+  const folderId = elemento.dataset.folderId;
+  elemento.disabled = true;
   try {
     const historicoActualizado = await guardarRevisionHumana(folderId, valor);
     const guardado = historicoActualizado.find(r => r.folder_id === folderId);
-    recordarRevisionPendiente(filtroActivoId, folderId, valor, guardado && guardado.revisado_fecha);
+    recordarRevisionPendiente(filtroActivoId, folderId, valor, guardado && guardado.revisado_fecha, guardado && guardado.revisado_por);
     cacheFiltros[filtroActivoId].historico = historicoActualizado;
     datos = historicoActualizado;
     aplicarFiltros();
   } catch (e) {
-    checkbox.checked = !valor;
-    checkbox.disabled = false;
+    if (elemento.type === 'checkbox') elemento.checked = !valor;
+    elemento.disabled = false;
     alert('No se pudo guardar la revisión: ' + e.message);
   }
 }
@@ -1337,7 +1634,7 @@ function descriptorFiltro(id) {
 
 function poblarSelectorFiltros() {
   const select = document.getElementById('selector-filtro');
-  select.innerHTML = filtrosManifest.map(f =>
+  select.innerHTML = '<option value="' + ID_VISTA_TODOS + '">Todos los filtros</option>' + filtrosManifest.map(f =>
     '<option value="' + f.id + '">' + (f.nombre || ('Filtro ' + f.id)) + '</option>'
   ).join('');
   select.value = filtroActivoId;
@@ -1371,10 +1668,66 @@ function aplicarDatosFiltro(datosCargados) {
   aplicarFiltros();
 }
 
+// Vista virtual "Todos los filtros": junta el histórico de todos los filtros, sin duplicar
+// licitaciones que entran en varios. Es de solo lectura (no tiene configuración propia).
+const ID_VISTA_TODOS = 'todos';
+
+async function construirVistaTodos() {
+  await Promise.all(filtrosManifest.map(async f => {
+    if (!cacheFiltros[f.id]) cacheFiltros[f.id] = await cargarDatosFiltro(f);
+  }));
+
+  const clave = r => r.estado_updated || r.updated || '';
+  const grupos = new Map();
+  let metaReciente = null;
+  for (const f of filtrosManifest) {
+    const d = cacheFiltros[f.id];
+    const nombre = (d.cfg && d.cfg.nombre) || f.nombre || ('Filtro ' + f.id);
+    if (d.meta && (!metaReciente || String(d.meta.fecha_hora) > String(metaReciente.fecha_hora))) metaReciente = d.meta;
+    for (const r of d.historico || []) {
+      if (!r.folder_id) continue;
+      if (!grupos.has(r.folder_id)) grupos.set(r.folder_id, []);
+      grupos.get(r.folder_id).push({ r, nombre });
+    }
+  }
+
+  const unidas = [];
+  for (const items of grupos.values()) {
+    const porReciente = items.slice().sort((a, b) => clave(b.r).localeCompare(clave(a.r)));
+    const base = { ...porReciente[0].r };
+    if (!revisionIaValida(base.revision_ia)) {
+      const conInforme = porReciente.find(x => revisionIaValida(x.r.revision_ia));
+      if (conInforme) base.revision_ia = conInforme.r.revision_ia;
+    }
+    const revisadas = items.filter(x => x.r.revisado_humano).sort((a, b) => String(b.r.revisado_fecha).localeCompare(String(a.r.revisado_fecha)));
+    base.revisado_humano = revisadas.length > 0;
+    base.revisado_por = revisadas.length ? revisadas[0].r.revisado_por || null : null;
+    base.revisado_fecha = revisadas.length ? revisadas[0].r.revisado_fecha || null : null;
+    const capturas = items.map(x => x.r.fecha_captura).filter(Boolean).sort();
+    base.fecha_captura = capturas.length ? capturas[0] : base.fecha_captura;
+    base.filtros_origen = [...new Set(items.map(x => x.nombre))];
+    unidas.push(base);
+  }
+
+  const ultima = unidas.reduce((max, d) => (d.fecha_captura && d.fecha_captura > max) ? d.fecha_captura : max, '');
+  const meta = metaReciente ? { ...metaReciente, nuevas_filtradas: unidas.filter(d => d.fecha_captura === ultima).length } : null;
+  return { historico: unidas, meta, cfg: { nombre: 'Todos los filtros' } };
+}
+
 async function cambiarFiltroActivo(id) {
+  const botonCriterios = document.getElementById('btn-detalle-filtro');
+  if (id === ID_VISTA_TODOS) {
+    filtroActivoId = id;
+    document.getElementById('selector-filtro').value = id;
+    botonCriterios.hidden = true;
+    document.getElementById('contenido').innerHTML = '<p class="empty">Cargando…</p>';
+    aplicarDatosFiltro(await construirVistaTodos());
+    return;
+  }
   const desc = descriptorFiltro(id);
   if (!desc) return;
   filtroActivoId = id;
+  botonCriterios.hidden = false;
   document.getElementById('selector-filtro').value = id;
 
   if (!cacheFiltros[id]) {
@@ -1407,8 +1760,10 @@ async function iniciarVisor() {
     } catch (e) { /* se muestra "Filtro <id>" si no se puede leer el nombre */ }
   }));
 
+  filtroActivoId = ID_VISTA_TODOS;
   poblarSelectorFiltros();
-  await cambiarFiltroActivo(filtrosManifest[0].id);
+  await cambiarFiltroActivo(ID_VISTA_TODOS);
+  if (Object.keys(leerRevisionesIaPendientes()).length) iniciarVigilanciaIA();
 }
 
 iniciarVisor().catch(() => {
@@ -1425,6 +1780,7 @@ document.getElementById('buscar').addEventListener('input', aplicarFiltros);
 document.getElementById('filtro-estado').addEventListener('change', aplicarFiltros);
 
 document.getElementById('btn-detalle-filtro').addEventListener('click', () => {
+  if (filtroActivoId === ID_VISTA_TODOS) return;
   pintarModalFiltro(filtroConfigActual);
   document.getElementById('modal-overlay').classList.add('abierto');
 });
@@ -1435,8 +1791,10 @@ document.getElementById('btn-cerrar-modal').addEventListener('click', () => {
 
 document.getElementById('btn-guardar-token').addEventListener('click', () => {
   const valor = document.getElementById('f-token').value.trim();
-  if (!valor) return;
-  localStorage.setItem(GH_TOKEN_KEY, valor);
+  const nombre = document.getElementById('f-nombre-usuario').value.trim();
+  if (!valor && nombre === obtenerNombreLocal()) return;
+  if (valor) localStorage.setItem(GH_TOKEN_KEY, valor);
+  if (nombre) localStorage.setItem(NOMBRE_USUARIO_KEY, nombre); else localStorage.removeItem(NOMBRE_USUARIO_KEY);
   document.getElementById('f-token').value = '';
   actualizarEstadoToken();
 });
@@ -1484,10 +1842,37 @@ document.getElementById('modal-revision-overlay').addEventListener('click', (e) 
   }
 });
 
+// Ventana de novedades: se abre sola la primera vez que se entra desde que cambió VERSION_NOVEDADES
+// (cámbiala al publicar cambios nuevos que merezca la pena anunciar).
+const VERSION_NOVEDADES = '2026-10-07';
+const NOVEDADES_VISTAS_KEY = 'monitorLicitaciones.novedadesVistas';
+
+function cerrarNovedades() {
+  document.getElementById('modal-novedades-overlay').classList.remove('abierto');
+  try { localStorage.setItem(NOVEDADES_VISTAS_KEY, VERSION_NOVEDADES); } catch (e) { /* sin almacenamiento */ }
+}
+
+document.getElementById('btn-cerrar-novedades').addEventListener('click', cerrarNovedades);
+document.getElementById('btn-entendido-novedades').addEventListener('click', cerrarNovedades);
+document.getElementById('modal-novedades-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-novedades-overlay') cerrarNovedades();
+});
+document.getElementById('link-novedades').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('modal-novedades-overlay').classList.add('abierto');
+});
+
+try {
+  if (localStorage.getItem(NOVEDADES_VISTAS_KEY) !== VERSION_NOVEDADES) {
+    document.getElementById('modal-novedades-overlay').classList.add('abierto');
+  }
+} catch (e) { /* si no hay almacenamiento no se insiste en cada visita */ }
+
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.getElementById('modal-overlay').classList.remove('abierto');
     document.getElementById('modal-revision-overlay').classList.remove('abierto');
+    if (document.getElementById('modal-novedades-overlay').classList.contains('abierto')) cerrarNovedades();
   }
 });
 </script>

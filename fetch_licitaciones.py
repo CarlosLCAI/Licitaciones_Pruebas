@@ -17,6 +17,17 @@ NS = {
 }
 
 FEED_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
+# Feeds de la plataforma. Cada uno publica licitaciones distintas: el de perfiles no incluye las
+# de plataformas autonómicas agregadas (p. ej. toda la Junta de Andalucía, expedientes "CONTR ...")
+# ni los contratos menores. El tercer valor indica si un fallo al leerlo aborta la ejecución
+# (el principal sí; los secundarios solo avisan y se sigue con el resto).
+FEED_AGREGADAS_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_1044/PlataformasAgregadasSinMenores.atom"
+FEED_MENORES_URL = "https://contrataciondelestado.es/sindicacion/sindicacion_1143/contratosMenoresPerfilesContratantes.atom"
+FEEDS = [
+    ("perfiles", FEED_URL, True),
+    ("agregadas", FEED_AGREGADAS_URL, False),
+    ("menores", FEED_MENORES_URL, False),
+]
 VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
 VENTANA_HORAS = 72  # cubre con margen el hueco viernes tarde -> lunes madrugada (fines de semana con poca/nula publicación)
 MAX_PAGINAS = 30
@@ -90,6 +101,10 @@ PROMPT_SISTEMA_INFORME = (
     "El texto del PCAP que recibes puede venir recortado a las páginas más relevantes (verás "
     "marcas \"--- Página N ---\"); si no encuentras algo, no asumas que no existe en el documento "
     "completo — indícalo como no localizado en vez de darlo por ausente.\n\n"
+    "Si el PCAP incluye un Cuadro de Características del Contrato (o cuadro resumen / anexo de "
+    "características), úsalo como fuente principal: suele resumir casi todo el contrato. "
+    "Contrástalo con las cláusulas del cuerpo del pliego y, si hay alguna discrepancia, "
+    "señálala con \"⚠ REVISAR\" indicando qué dice cada parte.\n\n"
     "FORMATO: responde en Markdown. Usa exactamente '## Bloque N – Título' para cada uno de los "
     "6 títulos de bloque, y '### ' para los subtítulos interiores de cada bloque. Usa **negrita** "
     "para resaltar cifras y datos clave, viñetas '- ' o listas numeradas '1. ' donde corresponda, "
@@ -507,30 +522,37 @@ def calcular_resultado(codigos):
 
 
 def aplicar_cambio_estado(registro, data, hoy):
-    """Si el feed trae una versión más reciente de una licitación ya guardada y su estado (o
-    resultado) ha cambiado, actualiza el registro. No toca 'updated' (que es la fecha de la
-    licitación que muestra el visor) sino 'estado_updated'. Devuelve True si hubo cambio."""
-    nuevo_estado = data.get("estado")
-    if not nuevo_estado:
-        return False
-
+    """Si el feed trae una versión más reciente de una licitación ya guardada, actualiza su
+    estado/resultado y su fecha límite (las ampliaciones de plazo cambian ambos). No toca
+    'updated' (la fecha de la licitación que muestra el visor) sino 'estado_updated'.
+    Devuelve la lista de campos que cambiaron: 'estado' y/o 'fecha_limite'."""
     version_nueva = data.get("updated")
     version_actual = registro.get("estado_updated") or registro.get("updated")
     try:
         if version_nueva and version_actual and datetime.fromisoformat(version_nueva) <= datetime.fromisoformat(version_actual):
-            return False  # versión igual o más antigua: no puede revertir un estado ya actualizado
+            return []  # versión igual o más antigua: no puede revertir lo ya actualizado
     except ValueError:
         pass
 
-    if nuevo_estado == registro.get("estado") and data.get("resultado") == registro.get("resultado"):
-        return False
+    cambios = []
+    nuevo_estado = data.get("estado")
+    if nuevo_estado and (nuevo_estado != registro.get("estado") or data.get("resultado") != registro.get("resultado")):
+        registro["estado_anterior"] = registro.get("estado")
+        registro["estado"] = nuevo_estado
+        registro["resultado"] = data.get("resultado")
+        registro["estado_cambiado_el"] = hoy
+        cambios.append("estado")
 
-    registro["estado_anterior"] = registro.get("estado")
-    registro["estado"] = nuevo_estado
-    registro["resultado"] = data.get("resultado")
-    registro["estado_cambiado_el"] = hoy
-    registro["estado_updated"] = version_nueva
-    return True
+    nuevo_limite = data.get("fecha_limite")
+    if nuevo_limite and nuevo_limite != registro.get("fecha_limite"):
+        registro["fecha_limite_anterior"] = registro.get("fecha_limite")
+        registro["fecha_limite"] = nuevo_limite
+        registro["fecha_limite_cambiada_el"] = hoy
+        cambios.append("fecha_limite")
+
+    if cambios:
+        registro["estado_updated"] = version_nueva
+    return cambios
 
 
 def cargar_historico(archivo):
@@ -729,6 +751,88 @@ def notificar_teams(resultados, paginas, total_entries, nombre_filtro="Monitor")
         print(f"Error notificando a Teams: {e}")
 
 
+def leer_feed(nombre, url_inicial, contextos, limite_fecha, fecha_captura_hoy):
+    """Recorre un feed (de más reciente a más antiguo) hasta salir de la ventana de tiempo y
+    evalúa cada entrada contra todos los filtros. Devuelve (páginas leídas, entradas leídas)."""
+    url_actual = url_inicial
+    pagina = 0
+    entradas_leidas = 0
+    versiones_vistas = set()
+
+    while url_actual and pagina < MAX_PAGINAS:
+        pagina += 1
+        root = fetch_pagina(url_actual)
+        entries = root.findall('atom:entry', NS)
+
+        if not entries:
+            break
+
+        parar = False
+        for entry in entries:
+            entradas_leidas += 1
+            updated_el = entry.find('atom:updated', NS)
+            if updated_el is None or not updated_el.text:
+                continue
+            fecha_entry = datetime.fromisoformat(updated_el.text)
+            if fecha_entry < limite_fecha:
+                parar = True
+                break
+
+            # El feed va de más reciente a más antiguo: si una licitación aparece varias veces,
+            # la primera es su versión actual y las demás son estados ya superados.
+            folder_id_entry = entry.findtext('.//cbc:ContractFolderID', namespaces=NS)
+            if folder_id_entry:
+                if folder_id_entry in versiones_vistas:
+                    continue
+                versiones_vistas.add(folder_id_entry)
+
+            for ctx in contextos:
+                cfg = ctx["cfg"]
+                data = parse_entry(entry, cfg)
+
+                # Licitación ya guardada que reaparece en el feed: si ha cambiado de estado
+                # (adjudicada, desierta, anulada...) o de fecha límite (ampliación de plazo) se
+                # actualiza su registro, aunque el nuevo estado ya no entre en los estados
+                # permitidos del filtro.
+                existente = ctx["historico_idx"].get(data["folder_id"])
+                if existente is not None:
+                    estado_previo = existente.get("estado")
+                    limite_previo = existente.get("fecha_limite")
+                    cambios = aplicar_cambio_estado(existente, data, fecha_captura_hoy)
+                    if cambios:
+                        ctx["cambios_estado"].append(data["folder_id"])
+                        detalle = []
+                        if "estado" in cambios:
+                            detalle.append(f"estado {estado_previo} -> {data['estado']}"
+                                           f"{' (' + data['resultado'] + ')' if data['resultado'] else ''}")
+                        if "fecha_limite" in cambios:
+                            detalle.append(f"fecha límite {limite_previo} -> {data['fecha_limite']}")
+                        print(f"    Cambio [{data['folder_id']}] ({nombre}): " + "; ".join(detalle))
+                    continue
+
+                cpv_permitidos = cfg.get("cpv_permitidos") or []
+                estados_permitidos = cfg.get("estados_permitidos") or []
+
+                if (data["es_andalucia"]
+                    and (not cpv_permitidos or data["cpv_match"])
+                    and (not estados_permitidos or data["estado"] in estados_permitidos)
+                    and data["tipo_contrato_match"]
+                    and data["procedimiento_match"]
+                    and data["importe_match"]
+                    and data["folder_id"] not in ctx["ids_vistos"]):
+                    ctx["resultados"].append(data)
+                    ctx["ids_vistos"].add(data["folder_id"])
+
+        if parar:
+            break
+
+        url_actual = get_next_link(root)
+        if url_actual:
+            time.sleep(2)  # pausa entre páginas para no parecer scraping automático agresivo
+
+    return pagina, entradas_leidas
+
+
 def main():
     filtros_desc = cargar_manifiesto_filtros()
 
@@ -754,83 +858,33 @@ def main():
     fecha_hora_iso = datetime.now(timezone.utc).isoformat()
     fecha_captura_hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     limite_fecha = datetime.now(timezone.utc) - timedelta(hours=VENTANA_HORAS)
-    url_actual = FEED_URL
     pagina = 0
     total_entries_leidas = 0
-    versiones_vistas = set()
+    feeds_con_error = []
 
-    while url_actual and pagina < MAX_PAGINAS:
-        pagina += 1
-        root = fetch_pagina(url_actual)
-        entries = root.findall('atom:entry', NS)
-
-        if not entries:
-            break
-
-        parar = False
-        for entry in entries:
-            total_entries_leidas += 1
-            updated_el = entry.find('atom:updated', NS)
-            if updated_el is None or not updated_el.text:
-                continue
-            fecha_entry = datetime.fromisoformat(updated_el.text)
-            if fecha_entry < limite_fecha:
-                parar = True
-                break
-
-            # El feed va de más reciente a más antiguo: si una licitación aparece varias veces,
-            # la primera es su versión actual y las demás son estados ya superados.
-            folder_id_entry = entry.findtext('.//cbc:ContractFolderID', namespaces=NS)
-            if folder_id_entry:
-                if folder_id_entry in versiones_vistas:
-                    continue
-                versiones_vistas.add(folder_id_entry)
-
-            for ctx in contextos:
-                cfg = ctx["cfg"]
-                data = parse_entry(entry, cfg)
-
-                # Licitación ya guardada que reaparece en el feed: si ha cambiado de estado
-                # (adjudicada, desierta, anulada...) se actualiza su registro, aunque el nuevo
-                # estado ya no entre en los estados permitidos del filtro.
-                existente = ctx["historico_idx"].get(data["folder_id"])
-                if existente is not None:
-                    estado_previo = existente.get("estado")
-                    if aplicar_cambio_estado(existente, data, fecha_captura_hoy):
-                        ctx["cambios_estado"].append(data["folder_id"])
-                        print(f"    Cambio de estado [{data['folder_id']}]: {estado_previo} -> {data['estado']}"
-                              f"{' (' + data['resultado'] + ')' if data['resultado'] else ''}")
-                    continue
-
-                cpv_permitidos = cfg.get("cpv_permitidos") or []
-                estados_permitidos = cfg.get("estados_permitidos") or []
-
-                if (data["es_andalucia"]
-                    and (not cpv_permitidos or data["cpv_match"])
-                    and (not estados_permitidos or data["estado"] in estados_permitidos)
-                    and data["tipo_contrato_match"]
-                    and data["procedimiento_match"]
-                    and data["importe_match"]
-                    and data["folder_id"] not in ctx["ids_vistos"]):
-                    ctx["resultados"].append(data)
-                    ctx["ids_vistos"].add(data["folder_id"])
-
-        if parar:
-            break
-
-        url_actual = get_next_link(root)
-        if url_actual:
-            time.sleep(2)  # pausa entre páginas para no parecer scraping automático agresivo
+    for nombre_feed, url_feed, obligatorio in FEEDS:
+        print(f"== Feed {nombre_feed}")
+        try:
+            paginas_feed, entradas_feed = leer_feed(nombre_feed, url_feed, contextos, limite_fecha, fecha_captura_hoy)
+        except Exception as e:
+            if obligatorio:
+                raise
+            print(f"Aviso: no se pudo leer el feed '{nombre_feed}' ({e}); se continúa con el resto.")
+            feeds_con_error.append(f"{nombre_feed}: {e}")
+            continue
+        print(f"   páginas: {paginas_feed}, entradas: {entradas_feed}")
+        pagina += paginas_feed
+        total_entries_leidas += entradas_feed
 
     print(f"Páginas leídas: {pagina}")
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
-
-    perfil_empresa = os.environ.get("SOLVENCIA_EMPRESA")
+    if feeds_con_error:
+        notificar_fallo_teams("; ".join(feeds_con_error), parcial=True)
 
     resultados_por_filtro = {}
-    # Una licitación puede estar en varios filtros (hoy o en días distintos): el informe se
-    # genera una sola vez y se reutiliza, en vez de pagar otra vez PCAP + Haiku + Sonnet. Se parte
-    # de los informes válidos que ya hay en el histórico de cualquier filtro.
+    # La revisión IA ya no se genera sola: se solicita desde el visor (flujo "Revisión IA bajo
+    # demanda"). Aquí solo se reutiliza, sin ninguna llamada a la API, un informe válido que la
+    # misma licitación ya tenga en el histórico de cualquier otro filtro.
     informes_ia = {}
     for ctx in contextos:
         for registro in ctx["historico"]:
@@ -844,17 +898,11 @@ def main():
         print(f"[{nombre_filtro}] licitaciones nuevas filtradas: {len(resultados)}"
               f" | cambios de estado: {len(ctx['cambios_estado'])}")
 
-        if perfil_empresa:
-            for r in resultados:
-                clave_informe = r.get("folder_id")
-                if clave_informe and clave_informe in informes_ia:
-                    r["revision_ia"] = dict(informes_ia[clave_informe])
-                    print(f"    -> Informe IA reutilizado para [{r['folder_id']}] (ya generado antes para otro filtro)")
-                    continue
-                r["revision_ia"] = analizar_licitacion_ia(r, perfil_empresa)
-                if clave_informe and informe_ia_valido(r["revision_ia"]):
-                    informes_ia[clave_informe] = r["revision_ia"]
-                print(f"    -> Informe IA generado para [{r['folder_id']}] ({len(r['revision_ia']['informe'])} caracteres)")
+        for r in resultados:
+            clave_informe = r.get("folder_id")
+            if clave_informe and clave_informe in informes_ia:
+                r["revision_ia"] = dict(informes_ia[clave_informe])
+                print(f"    -> Informe IA reutilizado para [{r['folder_id']}] (ya existía en otro filtro)")
 
         total_entries_acumulado = ctx["total_entries_acumulado_previo"] + total_entries_leidas
         guardar_estado(ruta_filtro(desc, NOMBRE_ESTADO), {
@@ -893,7 +941,7 @@ def main():
     return resultados_por_filtro
 
 
-def notificar_fallo_teams(mensaje_error):
+def notificar_fallo_teams(mensaje_error, parcial=False):
     webhook_url = os.environ.get("TEAMS_WEBHOOK_URL")
     if not webhook_url:
         return
@@ -906,6 +954,12 @@ def notificar_fallo_teams(mensaje_error):
         f"No se han detectado licitaciones nuevas en esta ejecución. "
         f"Se reintentará en la próxima ejecución programada."
     )
+    if parcial:
+        texto = (
+            f"**⚠ Lectura PLACSP parcial** ({ahora})\n\n"
+            f"No se pudo leer alguno de los feeds secundarios; el resto sí se procesó:\n\n"
+            f"`{mensaje_error}`"
+        )
     adaptive_card = {
         "type": "AdaptiveCard",
         "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -923,10 +977,83 @@ def notificar_fallo_teams(mensaje_error):
         print(f"Error notificando el fallo a Teams: {e}")
 
 
+def _historicos_con_licitacion(folder_id):
+    """[(ruta, histórico completo, [registros de esa licitación])] de cada filtro que la contiene."""
+    encontrados = []
+    for desc in cargar_manifiesto_filtros():
+        ruta = ruta_filtro(desc, NOMBRE_HISTORICO)
+        historico = cargar_historico(ruta)
+        registros = [r for r in historico if r.get("folder_id") == folder_id]
+        if registros:
+            encontrados.append((ruta, historico, registros))
+    return encontrados
+
+
+def generar_revision_bajo_demanda(folder_id, salida, forzar=False):
+    """Genera (o reutiliza, si ya existe uno válido) el informe IA de una licitación y lo deja en
+    un archivo temporal. Separado de aplicar_revision_bajo_demanda para que, si el push falla
+    porque otro proceso escribió antes, se pueda reaplicar sin volver a pagar la llamada a la IA."""
+    encontrados = _historicos_con_licitacion(folder_id)
+    if not encontrados:
+        raise RuntimeError(f"No se encontró la licitación {folder_id!r} en ningún histórico.")
+    registros = [r for _, _, regs in encontrados for r in regs]
+
+    resultado = None
+    if not forzar:
+        previo = next((r["revision_ia"] for r in registros if informe_ia_valido(r.get("revision_ia"))), None)
+        if previo:
+            print("Ya existe un informe válido de esta licitación; se reutiliza sin llamar a la IA.")
+            resultado = previo
+
+    if resultado is None:
+        perfil_empresa = os.environ.get("SOLVENCIA_EMPRESA")
+        if not perfil_empresa:
+            resultado = {
+                "informe": "Error al generar el informe con IA: falta el secret SOLVENCIA_EMPRESA.",
+                "fecha_analisis": datetime.now(timezone.utc).isoformat(),
+            }
+        else:
+            base = next((r for r in registros if r.get("pcap_url")), registros[0])
+            resultado = analizar_licitacion_ia(base, perfil_empresa)
+        print(f"Informe de {folder_id}: {len(resultado['informe'])} caracteres")
+
+    with open(salida, "w", encoding="utf-8") as f:
+        json.dump(resultado, f, ensure_ascii=False, indent=2)
+
+
+def aplicar_revision_bajo_demanda(folder_id, entrada):
+    """Copia el informe generado a TODOS los registros de esa licitación, en todos los filtros."""
+    with open(entrada, "r", encoding="utf-8") as f:
+        resultado = json.load(f)
+    total = 0
+    for ruta, historico, registros in _historicos_con_licitacion(folder_id):
+        for r in registros:
+            r["revision_ia"] = dict(resultado)
+            total += 1
+        with open(ruta, "w", encoding="utf-8") as f:
+            json.dump(historico, f, ensure_ascii=False, indent=2)
+    print(f"Revisión IA aplicada a {total} registro(s) de {folder_id}")
+
+
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print(f"Fallo la ejecucion: {e}")
-        notificar_fallo_teams(str(e))
-        raise
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Monitor de licitaciones PLACSP")
+    parser.add_argument("--generar-revision", metavar="FOLDER_ID", help="genera el informe IA de una licitación")
+    parser.add_argument("--aplicar-revision", metavar="FOLDER_ID", help="guarda un informe ya generado en los históricos")
+    parser.add_argument("--salida", help="archivo donde dejar el informe generado")
+    parser.add_argument("--entrada", help="archivo con el informe a guardar")
+    parser.add_argument("--forzar", action="store_true", help="regenera aunque ya exista un informe válido")
+    args = parser.parse_args()
+
+    if args.generar_revision:
+        generar_revision_bajo_demanda(args.generar_revision, args.salida, args.forzar)
+    elif args.aplicar_revision:
+        aplicar_revision_bajo_demanda(args.aplicar_revision, args.entrada)
+    else:
+        try:
+            main()
+        except Exception as e:
+            print(f"Fallo la ejecucion: {e}")
+            notificar_fallo_teams(str(e))
+            raise
