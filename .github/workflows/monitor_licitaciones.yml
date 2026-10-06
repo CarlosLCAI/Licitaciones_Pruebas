@@ -26,8 +26,6 @@ jobs:
       - name: Ejecutar script
         env:
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          SOLVENCIA_EMPRESA: ${{ secrets.SOLVENCIA_EMPRESA }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python fetch_licitaciones.py
 
       - name: Commit estado actualizado
