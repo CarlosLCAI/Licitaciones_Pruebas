@@ -28,7 +28,7 @@ FEEDS = [
     ("agregadas", FEED_AGREGADAS_URL, False),
     ("menores", FEED_MENORES_URL, False),
 ]
-VISOR_URL = "https://carloslcai.github.io/Licitaciones_Pruebas/"
+VISOR_URL = "https://carloslcai.github.io/Monitor-de-Licitaciones/"
 VENTANA_HORAS = 72  # cubre con margen el hueco viernes tarde -> lunes madrugada (fines de semana con poca/nula publicación)
 MAX_PAGINAS = 30
 FILTROS_MANIFEST_FILE = "filtros.json"
