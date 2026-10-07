@@ -2363,10 +2363,10 @@
     "cpv_codes": [
       "71240000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431749",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431748",
+    "organo": "Agencia Pública de Puertos de Andalucía (APPA)",
+    "importe": "13500.06",
     "importe_num": 14850.07,
     "fecha_limite": "2026-10-26",
     "tipo_contrato": "2",
@@ -2378,6 +2378,7 @@
     "revision_ia": {
       "informe": "No se pudo descargar el PCAP.",
       "fecha_analisis": "2026-10-07T14:02:09.463290+00:00"
-    }
+    },
+    "junta_consultado": "2026-10-07"
   }
 ]

@@ -1910,10 +1910,10 @@
       "71241000",
       "72220000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/425548",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/425549",
+    "organo": "Cetursa Sierra Nevada, S.A.",
+    "importe": "100000",
     "importe_num": 100000.0,
     "fecha_limite": "2026-10-22",
     "tipo_contrato": "2",
@@ -1925,7 +1925,8 @@
     "revision_ia": {
       "informe": "No se pudo descargar el PCAP.",
       "fecha_analisis": "2026-10-07T14:01:18.579481+00:00"
-    }
+    },
+    "junta_consultado": "2026-10-07"
   },
   {
     "folder_id": "CONTR 2026 0000311570",
@@ -1939,10 +1940,10 @@
     "cpv_codes": [
       "71240000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431749",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431748",
+    "organo": "Agencia Pública de Puertos de Andalucía (APPA)",
+    "importe": "13500.06",
     "importe_num": 14850.07,
     "fecha_limite": "2026-10-26",
     "tipo_contrato": "2",
@@ -1954,7 +1955,8 @@
     "revision_ia": {
       "informe": "No se pudo descargar el PCAP.",
       "fecha_analisis": "2026-10-07T14:02:09.463290+00:00"
-    }
+    },
+    "junta_consultado": "2026-10-07"
   },
   {
     "folder_id": "EXP. 1040_2026",
@@ -1970,10 +1972,10 @@
       "73200000",
       "79411000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431180",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431181",
+    "organo": "Fundación Pública Andaluza Progreso y Salud",
+    "importe": "65505",
     "importe_num": 131010.0,
     "fecha_limite": "2026-10-20",
     "tipo_contrato": "2",
@@ -1981,6 +1983,7 @@
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "junta_consultado": "2026-10-07"
   }
 ]

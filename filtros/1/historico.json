@@ -1547,10 +1547,10 @@
       "71241000",
       "72220000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/425548",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/425549",
+    "organo": "Cetursa Sierra Nevada, S.A.",
+    "importe": "100000",
     "importe_num": 100000.0,
     "fecha_limite": "2026-10-22",
     "tipo_contrato": "2",
@@ -1562,6 +1562,7 @@
     "revision_ia": {
       "informe": "No se pudo descargar el PCAP.",
       "fecha_analisis": "2026-10-07T14:01:18.579481+00:00"
-    }
+    },
+    "junta_consultado": "2026-10-07"
   }
 ]

@@ -212,10 +212,10 @@
     "cpv_codes": [
       "71317200"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432461",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432460",
+    "organo": "Consejo Consultivo de Andalucía",
+    "importe": "1732.24",
     "importe_num": 3464.48,
     "fecha_limite": "2026-10-21",
     "tipo_contrato": "2",
@@ -223,7 +223,8 @@
     "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "junta_consultado": "2026-10-07"
   },
   {
     "folder_id": "CONTR 2026 0000239512",
@@ -239,10 +240,10 @@
       "71247000",
       "71242000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/427684",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/427683",
+    "organo": "Dirección Provincial del Servicio Andaluz de Empleo de Córdoba",
+    "importe": "80983.46",
     "importe_num": 97180.15,
     "fecha_limite": "2026-10-21",
     "tipo_contrato": "2",
@@ -250,7 +251,8 @@
     "procedimiento": "999",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "junta_consultado": "2026-10-07"
   },
   {
     "folder_id": "CONTR 2026 0000297628",
@@ -264,10 +266,10 @@
     "cpv_codes": [
       "71000000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432055",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432054",
+    "organo": "Agencia Pública Andaluza de Educación",
+    "importe": "22200",
     "importe_num": 22200.0,
     "fecha_limite": "2026-10-20",
     "tipo_contrato": "2",
@@ -275,7 +277,8 @@
     "procedimiento": "999",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "junta_consultado": "2026-10-07"
   },
   {
     "folder_id": "CONTR 2026 0000297480",
@@ -289,10 +292,10 @@
     "cpv_codes": [
       "71000000"
     ],
-    "pcap_url": null,
-    "ppt_url": null,
-    "organo": null,
-    "importe": null,
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431605",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/431604",
+    "organo": "Agencia Pública Andaluza de Educación",
+    "importe": "22000",
     "importe_num": 22000.0,
     "fecha_limite": "2026-10-19",
     "tipo_contrato": "2",
@@ -300,6 +303,7 @@
     "procedimiento": "999",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "junta_consultado": "2026-10-07"
   }
 ]
