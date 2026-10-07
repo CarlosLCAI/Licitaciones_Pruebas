@@ -1921,7 +1921,11 @@
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "revision_ia": {
+      "informe": "No se pudo descargar el PCAP.",
+      "fecha_analisis": "2026-10-07T14:01:18.579481+00:00"
+    }
   },
   {
     "folder_id": "CONTR 2026 0000311570",
