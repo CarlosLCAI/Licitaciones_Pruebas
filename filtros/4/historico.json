@@ -2374,6 +2374,10 @@
     "procedimiento": "1",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-07"
+    "fecha_captura": "2026-10-07",
+    "revision_ia": {
+      "informe": "No se pudo descargar el PCAP.",
+      "fecha_analisis": "2026-10-07T14:02:09.463290+00:00"
+    }
   }
 ]
