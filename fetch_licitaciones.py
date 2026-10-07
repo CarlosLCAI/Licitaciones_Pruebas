@@ -579,6 +579,86 @@ def informe_ia_valido(revision):
     )
 
 
+def normalizar_importe(txt):
+    """'1.732,24' -> '1732.24'; los importes con punto decimal ('119296.8') se dejan igual."""
+    t = (txt or "").strip().rstrip(".,")
+    if "," in t:
+        t = t.replace(".", "").replace(",", ".")
+    return t or None
+
+
+# Las licitaciones de la Junta de Andalucía llegan por el feed de plataformas agregadas SIN órgano
+# claro, importe ni enlaces a los pliegos. Su portal tiene un servicio de consulta (el que usa su
+# propia web) con el detalle completo de cada expediente, incluidas las URL de descarga.
+JUNTA_DETALLE_URL = "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc-front-publico/elastic/sirec_pdc_expedientes_details/_search"
+RE_ID_JUNTA = re.compile(r"juntadeandalucia\.es.*idExpediente=(\d+)")
+MAX_CONSULTAS_JUNTA_RELLENO = 80
+
+
+def id_expediente_junta(registro):
+    m = RE_ID_JUNTA.search(registro.get("link") or "")
+    return m.group(1) if m else None
+
+
+def consultar_detalle_junta(id_expediente):
+    r = requests.post(
+        JUNTA_DETALLE_URL,
+        json={"query": {"match": {"_id": id_expediente}}},
+        headers={**HEADERS, "Content-Type": "application/json", "Accept": "application/json"},
+        timeout=30,
+    )
+    r.raise_for_status()
+    hits = r.json().get("hits", {}).get("hits", [])
+    return hits[0]["_source"] if hits else None
+
+
+def documento_junta(documentos, prefijo):
+    """URL de descarga del documento activo más reciente cuya categoría empieza por PCAP / PPT."""
+    activos = [d for d in documentos
+               if (d.get("categoria") or "").upper().startswith(prefijo) and d.get("estado") == "Activo" and d.get("descarga")]
+    if not activos:
+        return None
+    return max(activos, key=lambda d: d.get("fechaPublicacion") or "")["descarga"]
+
+
+def enriquecer_registro_junta(registro, cache, hoy):
+    """Completa órgano, importe y URL de PCAP/PPT de una licitación de la Junta (solo huecos).
+    cache: {id_expediente: detalle o None} compartido entre filtros para consultar cada
+    expediente una sola vez por ejecución. Devuelve True si el registro cambió."""
+    id_exp = id_expediente_junta(registro)
+    if not id_exp:
+        return False
+    if id_exp not in cache:
+        try:
+            cache[id_exp] = consultar_detalle_junta(id_exp)
+        except Exception as e:
+            print(f"    Aviso: no se pudo consultar el detalle de la Junta para {registro.get('folder_id')} ({e})")
+            cache[id_exp] = None
+        time.sleep(0.3)
+    detalle = cache[id_exp]
+    if not detalle:
+        return False
+
+    cambios = False
+
+    def poner(campo, valor):
+        nonlocal cambios
+        if valor and not registro.get(campo):
+            registro[campo] = valor
+            cambios = True
+
+    poner("organo", ((detalle.get("perfilContratante") or {}).get("descripcion") or "").strip())
+    if detalle.get("importeLicitacion") is not None:
+        poner("importe", str(detalle["importeLicitacion"]))
+    documentos = detalle.get("documentos") or []
+    poner("pcap_url", documento_junta(documentos, "PCAP"))
+    poner("ppt_url", documento_junta(documentos, "PPT"))
+    if registro.get("junta_consultado") != hoy:
+        registro["junta_consultado"] = hoy
+        cambios = True
+    return cambios
+
+
 def parse_entry(entry, filtro_cfg):
     def find_text(path):
         el = entry.find(path, NS)
@@ -612,10 +692,15 @@ def parse_entry(entry, filtro_cfg):
 
     organo, importe = None, None
     if summary_text:
-        organo_match = re.search(r'rgano de Contrataci.n:\s*(.*?);\s*Importe', summary_text)
-        importe_match = re.search(r'Importe:\s*([\d.,]+)\s*EUR', summary_text)
+        organo_match = re.search(r'rgano de [Cc]ontrataci.n:\s*(.*?)\s*;\s*Importe', summary_text)
+        importe_match = re.search(r'Importe:\s*([\d.,]+)\s*(?:EUR|€)', summary_text)
         organo = organo_match.group(1).strip() if organo_match else None
-        importe = importe_match.group(1).strip() if importe_match else None
+        importe = normalizar_importe(importe_match.group(1)) if importe_match else None
+
+    if importe is None:
+        base_el = entry.find('.//cac:ProcurementProject/cac:BudgetAmount/cbc:TaxExclusiveAmount', NS)
+        if base_el is not None and base_el.text:
+            importe = base_el.text.strip()
 
     tipo_contrato = find_text('.//cac:ProcurementProject/cbc:TypeCode')
     procedimiento = find_text('.//cac:TenderingProcess/cbc:ProcedureCode')
@@ -880,6 +965,25 @@ def main():
     print(f"Licitaciones leídas (total entries): {total_entries_leidas}")
     if feeds_con_error:
         notificar_fallo_teams("; ".join(feeds_con_error), parcial=True)
+
+    # Completar las licitaciones de la Junta: las nuevas de hoy y, una sola vez, las ya guardadas
+    # que se capturaron sin órgano, importe o pliegos.
+    cache_junta = {}
+    for ctx in contextos:
+        for r in ctx["resultados"]:
+            enriquecer_registro_junta(r, cache_junta, fecha_captura_hoy)
+    relleno = 0
+    for ctx in contextos:
+        for r in ctx["historico"]:
+            if not id_expediente_junta(r) or r.get("junta_consultado") or r.get("pcap_url"):
+                continue
+            if id_expediente_junta(r) not in cache_junta and relleno >= MAX_CONSULTAS_JUNTA_RELLENO:
+                continue
+            if id_expediente_junta(r) not in cache_junta:
+                relleno += 1
+            enriquecer_registro_junta(r, cache_junta, fecha_captura_hoy)
+    if cache_junta:
+        print(f"Detalle de la Junta consultado para {len(cache_junta)} expediente(s).")
 
     resultados_por_filtro = {}
     # La revisión IA ya no se genera sola: se solicita desde el visor (flujo "Revisión IA bajo
