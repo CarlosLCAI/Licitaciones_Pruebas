@@ -34,5 +34,11 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add filtros.json filtros/
           git diff --quiet --cached || git commit -m "Actualización diaria licitaciones $(date +%F)"
-          git pull --rebase origin main
-          git push
+          # GitHub devuelve de vez en cuando un error 500 temporal al hacer push: se reintenta
+          for intento in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            echo "Push fallido (intento $intento de 5); reintentando en $((intento * 15)) s..."
+            sleep $((intento * 15))
+          done
+          echo "No se pudo subir el resultado tras 5 intentos"
+          exit 1
