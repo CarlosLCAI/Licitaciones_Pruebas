@@ -290,7 +290,7 @@
   },
   {
     "folder_id": "24/2026",
-    "estado": "EV",
+    "estado": "RES",
     "titulo": "Constituye el objeto del contrato la prestación del servicio de redacción de proyectos, dirección técnica, tramitación y legalización de instalaciones eléctricas temporales y estructuras provisionales necesarias para la celebración de los certámenes organizados en FYCMA, conforme a las especificaciones del PPT.",
     "updated": "2026-09-16T11:12:22.478+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=DC%2Fm7JVt%2FLkUqXM96WStVA%3D%3D",
@@ -317,10 +317,10 @@
       "fecha_analisis": "2026-09-19T08:09:33.318103+00:00"
     },
     "fecha_captura": "2026-09-19",
-    "estado_anterior": "PUB",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-03",
-    "estado_updated": "2026-10-02T07:55:54.352+02:00"
+    "estado_anterior": "EV",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-07",
+    "estado_updated": "2026-10-05T12:55:15.882+02:00"
   },
   {
     "folder_id": "11_LIMPIEZA 2026/2027",
@@ -370,7 +370,7 @@
     "organo": "Intendente de Cartagena",
     "importe": "38581.95",
     "importe_num": 38581.95,
-    "fecha_limite": "2026-10-07",
+    "fecha_limite": "2026-10-09",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
@@ -380,7 +380,10 @@
       "informe": "Error al generar el informe con IA: 401 Client Error: Unauthorized for url: https://api.anthropic.com/v1/messages",
       "fecha_analisis": "2026-09-22T08:37:50.015709+00:00"
     },
-    "fecha_captura": "2026-09-22"
+    "fecha_captura": "2026-09-22",
+    "fecha_limite_anterior": "2026-10-07",
+    "fecha_limite_cambiada_el": "2026-10-07",
+    "estado_updated": "2026-10-05T12:01:33.272+02:00"
   },
   {
     "folder_id": "376/2026",
@@ -1298,7 +1301,7 @@
   },
   {
     "folder_id": "1154/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "Mantenimiento, conservación y labores de jardinería de espacios ajardinados y arbolado viario",
     "updated": "2026-09-30T10:18:17.792+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=2nX7a4SY%2Fz%2BExvMJXBMHHQ%3D%3D",
@@ -1322,7 +1325,11 @@
       "informe": "## Bloque 1 – Características Principales del Contrato\n\n### Objeto de la licitación\nEl contrato tiene por objeto la prestación de servicios de **mantenimiento, conservación y labores de jardinería** de los espacios ajardinados y del arbolado viario de titularidad municipal del Ayuntamiento de Cantoria. Se trata de un mantenimiento integral que abarca céspedes, árboles, arbustos, setos, terrizos, macizos de flor, zonas pavimentadas, redes de drenaje, fuentes, hidrantes, redes de riego y mecanismos eléctricos asociados, y jardineras ornamentales. CPV **71421000-5** (Servicios de jardinería paisajística).\n\n**Objetivos:**\n- Mantener los espacios verdes municipales en condiciones óptimas.\n- Conservar el arbolado viario y el conjunto de elementos asociados a las zonas ajardinadas.\n- Garantizar un mantenimiento integral (no solo elementos vegetales, sino también instalaciones de riego, drenaje, fuentes, etc.).\n\n### División en lotes\nNo procede división en lotes. El PCAP justifica esta decisión (art. 99.3 LCSP) indicando que la ejecución independiente de las prestaciones dificultaría la correcta ejecución técnica del contrato.\n\n### Características del contrato\n| Concepto | Dato |\n|---|---|\n| Presupuesto base de licitación (IVA incluido) | **150.000,00 €** |\n| Valor estimado del contrato (sin IVA) | **123.966,94 €** |\n| IVA | 26.033,06 € |\n| Duración | **1 año**, desde la formalización, **sin posibilidad de prórroga** |\n| Distribución por anualidades | 2026: 30.000 € (IVA incl.) / 2027: 120.000 € (IVA incl.) |\n| Procedimiento | Abierto, tramitación ordinaria, pluralidad de criterios (mejor relación calidad-precio) |\n| Plazo de presentación de ofertas | **15 días naturales** desde el día siguiente a la publicación del anuncio en el perfil del contratante |\n| Forma de presentación | Exclusivamente **electrónica**, a través de la Plataforma de Contratación del Sector Público (no se admiten ofertas en papel ni fuera de plazo) |\n| Revisión de precios | **No cabe** |\n| Plazo de garantía | 3 meses desde la recepción/conformidad del trabajo |\n\n**Trabajos específicos obligatorios:** no se identifican en el PCAP trabajos técnicos específicos tipo arqueología, topografía o geotecnia (coherente con la naturaleza del contrato, un servicio de jardinería, no una obra o proyecto técnico). Se exige certificado/autorización para tratamiento fitosanitario de plantas por el organismo competente, a aportar en la documentación administrativa.\n\n---\n\n## Bloque 2 – Solvencia\n\n### Económica y financiera\n- Único medio de acreditación exigido: **justificante de seguro de responsabilidad civil por riesgos profesionales** por importe **igual o superior al precio base de licitación**, es decir, ≥ **150.000 €**.\n- **No se exige** cifra de negocio mínima anual ni acumulada en el texto disponible del PCAP.\n- No es obligatoria la inscripción en el ROLECE.\n\n### Técnica y profesional\nSe acredita por **uno** de los siguientes medios (alternativos, no acumulativos):\n- a) Relación de los principales servicios o trabajos de igual o similar naturaleza ejecutados en los **últimos 3 años (2023, 2024, 2025)**, indicando importe, fecha y destinatario (público o privado).\n- b) Declaración de la maquinaria, material y equipo técnico disponible para la ejecución de los trabajos, con documentación acreditativa.\n\nNo se especifican en el fragmento disponible:\n- Titulaciones concretas exigidas por perfil profesional.\n- Equipo mínimo nominal (número de operarios, técnico responsable, maquinaria concreta) — **no localizado**; puede estar detallado en el Pliego de Prescripciones Técnicas, no incluido en este extracto.\n- Proyectos de referencia con importe mínimo específico — no se fija un umbral de importe por servicio similar, solo se pide relación informativa.\n- Puestos subcontratables — no se detalla un límite % de subcontratación, solo se indica que el incumplimiento de obligaciones en materia de subcontratación conlleva penalización del 5% de lo subcontratado.\n\nNo se ha identificado en el PCAP ningún criterio de mejora de equipo adicional al mínimo de solvencia (no aplica el aviso ⚠ en este expediente).\n\n---\n\n## Bloque 3 – Criterios de Adjudicación\n\n### Automáticos (fórmulas) — 60 puntos\n| Criterio | Puntuación máxima | Detalle |\n|---|---|---|\n| Menor plazo de prestación de los servicios | 20 puntos | 20 pts (día siguiente a la comunicación) / 15 pts (2 días) / 10 pts (3 días) / 5 pts (4 días) |\n| Precio | 40 puntos | 40 pts (baja ≥4% s/PBL) / 20 pts (baja 3%) / 10 pts (baja 2%) / 0 pts (resto de bajas) |\n\n### Juicio de valor — 40 puntos\n| Subcriterio | Puntuación máxima |\n|---|---|\n| Mejoras adicionales en la prestación de los servicios | 15 puntos |\n| Compromiso de contratación de personas demandantes de empleo | 10 puntos |\n| Conocimiento del entorno y descripción de actividades relevantes | 15 puntos |\n\n### Umbrales mínimos de puntuación\nNo se menciona en el PCAP la existencia de umbrales mínimos de puntuación (ni en juicio de valor ni global) para continuar en el proceso de valoración. Se indica expresamente que **no se prevén ofertas anormalmente bajas** al establecerse un umbral de saciedad en la oferta económica (criterio de precio con tramos fijos, sin baja libre ilimitada).\n\n---\n\n## Bloque 4 – Forma de Pago\n\n- El pago se efectúa **a la realización del trabajo o servicio**, previa presentación de factura debidamente conformada por el responsable del contrato (Empleado Municipal adscrito a Mantenimiento y/o Concejal Delegado de Servicios).\n- El contratista debe presentar la factura en el registro administrativo en el plazo de **30 días** desde la prestación del servicio (formato electrónico si aplica según Ley 25/2013).\n- La Administración debe **aprobar la conformidad** de los servicios dentro de los 30 días siguientes a su prestación, y abonar el precio dentro de los **30 días siguientes** a la aprobación de dicha conformidad (art. 198 LCSP), devengándose intereses de demora en caso contrario.\n- **No cabe revisión de precios** durante la ejecución del contrato.\n- **Garantía definitiva**: 5% del precio final ofertado (IVA excluido).\n- **Penalizaciones:**\n  - Incumplimientos muy graves (condiciones especiales de ejecución): 5% del precio de adjudicación (IVA excluido) por infracción y/o día de incumplimiento.\n  - Incumplimiento de obligaciones de subcontratación: 5% del importe subcontratado.\n  - Otros incumplimientos u obligaciones contractuales: multa coercitiva de 0,1% a 0,5% del precio del contrato según gravedad/reincidencia.\n  - Retraso imputable en formalización del contrato: 3% del presupuesto base de licitación (IVA excluido).",
       "fecha_analisis": "2026-10-01T10:39:22.382510+00:00"
     },
-    "fecha_captura": "2026-10-01"
+    "fecha_captura": "2026-10-01",
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-07",
+    "estado_updated": "2026-10-06T09:37:42.728+02:00"
   },
   {
     "folder_id": "P4108900D-2026/000011-PEA",
@@ -1450,8 +1457,8 @@
   },
   {
     "folder_id": "552/2026",
-    "estado": "PUB",
-    "resultado": null,
+    "estado": "RES",
+    "resultado": "adjudicada",
     "titulo": "la gestión y explotación del Ecoparque fijo de Las Torres de Cotillas, situado en la Avenida del Trabajo, s/n, Polígono Industrial San Jorge, y la prestación del servicio de Ecoparque móvil vinculado al mismo",
     "updated": "2026-10-01T13:26:34.417+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=zSynzygBQMe7JOCXkOhcDg%3D%3D",
@@ -1477,7 +1484,10 @@
       "informe": "No se pudo descargar el PCAP.",
       "fecha_analisis": "2026-10-02T10:22:49.864106+00:00"
     },
-    "fecha_captura": "2026-10-02"
+    "fecha_captura": "2026-10-02",
+    "estado_anterior": "PUB",
+    "estado_cambiado_el": "2026-10-07",
+    "estado_updated": "2026-10-06T12:09:48.718+02:00"
   },
   {
     "folder_id": "10175/2026",
@@ -1885,5 +1895,84 @@
       "fecha_analisis": "2026-10-06T10:25:49.816613+00:00"
     },
     "fecha_captura": "2026-10-06"
+  },
+  {
+    "folder_id": "CE181960054/26",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de la segunda fase del plan director de Cetursa Sierra Nevada S.A.: Actualización del máster plan y estudios de capacidad, remontes e integración urbana del dominio esquiable de Sierra Nevada",
+    "updated": "2026-10-06T13:42:20.331+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1005974",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90712200",
+      "71241000",
+      "72220000"
+    ],
+    "pcap_url": null,
+    "ppt_url": null,
+    "organo": null,
+    "importe": null,
+    "importe_num": 100000.0,
+    "fecha_limite": "2026-10-22",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-07"
+  },
+  {
+    "folder_id": "CONTR 2026 0000311570",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "rp y df reparación instal eléctrica y sustitución luminarias puerto mazagón",
+    "updated": "2026-10-05T10:42:01.745+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1013727",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000"
+    ],
+    "pcap_url": null,
+    "ppt_url": null,
+    "organo": null,
+    "importe": null,
+    "importe_num": 14850.07,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-07"
+  },
+  {
+    "folder_id": "EXP. 1040_2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "contratación de servicios externos de gestión y evaluación de proyectos de competencias profesionales de gestión y servicios para la agencia de calidad sanitaria de andalucía (acsa) por procedimiento abierto no sujeto a regulación armonizada.",
+    "updated": "2026-10-04T22:41:11.573+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1009362",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "79419000",
+      "73200000",
+      "79411000"
+    ],
+    "pcap_url": null,
+    "ppt_url": null,
+    "organo": null,
+    "importe": null,
+    "importe_num": 131010.0,
+    "fecha_limite": "2026-10-20",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-07"
   }
 ]

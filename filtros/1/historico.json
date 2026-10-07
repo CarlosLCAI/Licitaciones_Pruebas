@@ -144,7 +144,7 @@
   },
   {
     "folder_id": "24/26",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "Servicio de Consultoría – Oficina Técnica Administrativa del Proyecto ECOCREM, cofinanciado por el Programa Plurirregional de España FEDER 2021-2027 en un 85% del gasto elegible, en el marco de la Línea FID-CPI del Ministerio de Ciencia, Innovación y Universidades para la empresa Parque Cementerio de Málaga S.A (PARCEMASA).",
     "updated": "2026-07-13T09:00:00.000+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=7j7HaCQg2c9eKgd8LfVV9g%3D%3D",
@@ -163,7 +163,11 @@
     "organo": "Gerencia del Parque Cementerio de Málaga, S.A.",
     "importe": "481470.91",
     "fecha_limite": "2026-08-17",
-    "fecha_captura": "2026-07-14"
+    "fecha_captura": "2026-07-14",
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-07",
+    "estado_updated": "2026-10-05T13:03:03.784+02:00"
   },
   {
     "folder_id": "06/2026-Servicios_ABI_Simplificado",
@@ -867,7 +871,7 @@
   },
   {
     "folder_id": "4380/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "servicio de redacción del proyecto básico y de ejecución y de dirección facultativa de las obras de nueva sede judicial de Alcalá de Guadaíra (C-2026/033)",
     "updated": "2026-08-14T13:38:11.644+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=lBoZFj0MTgVQFSeKCRun4Q%3D%3D",
@@ -895,7 +899,11 @@
       "informe": "# Informe de Análisis PCAP — C-2026/033\n## Nueva Sede Judicial de Alcalá de Guadaíra\n\n---\n\n## 1. Solvencia económico-financiera\n\n**Medio exigido:** Seguro de indemnización por riesgos profesionales.\n\n- Importe mínimo asegurado: **1.000.000 €**\n- Compromiso de renovación o prórroga que garantice la cobertura durante toda la ejecución del contrato.\n\n**Forma de acreditación** (en fase de propuesta de adjudicatario, cláusula 14.3):\n- Certificado expedido por la aseguradora (importes, riesgos y fecha de vencimiento), o\n- Póliza definitivamente suscrita.\n- En todo caso, declaración responsable comprometiéndose a la suscripción/prórroga/renovación.\n- Alternativamente, cabe aportar una **propuesta de póliza** + declaración responsable de formalizarla antes del inicio de la ejecución.\n\n*(Nota: además, existe una solvencia profesional de empresa —no confundir con el equipo mínimo del apartado 2— consistente en acreditar experiencia en servicios similares en los últimos 3 años, con un importe anual acumulado en el año de mayor ejecución ≥ 25 % del presupuesto base de licitación IVA excluido, es decir, ≥ 143.904,20 €).*\n\n---\n\n## 2. Solvencia técnica / Equipo mínimo\n\n* **Redactor/a del proyecto y Director/a de obra (1 persona)**: Arquitecto/a Superior (o titulación equivalente y legalmente habilitante)\n   * Al menos 10 años de experiencia profesional, habiendo redactado y dirigido al menos 1 proyecto de edificio de cualquier uso, incluso residencial, con presupuesto de contrata (IVA excluido) superior a 2.500.000 €\n\n* **Colaborador/a en redacción de proyecto de ejecución y Dirección de obra (1 persona)**: Ingeniero/a Industrial o Ingeniero/a Técnico/a Industrial, especialista en instalaciones (o titulación equivalente)\n   * Al menos 10 años de experiencia profesional (no se exige experiencia específica en proyectos concretos)\n\n* **Director/a de ejecución de la obra (1 persona)**: Aparejador/a, Arquitecto/a Técnico/a o Ingeniero/a de la Edificación (o titulación equivalente)\n   * Al menos 10 años de experiencia profesional, habiendo dirigido la ejecución de al menos 2 proyectos de edificios de cualquier uso, incluso residencial, con presupuesto de contrata (IVA excluido) superior a 2.500.000 € cada uno\n\n* **Coordinador/a de Seguridad y Salud (1 persona)**: Arquitecto/a, Aparejador/a, Arquitecto/a Técnico/a o Ingeniero/a de la Edificación\n   * Al menos 10 años de experiencia profesional, habiendo coordinado la seguridad y salud de al menos 2 proyectos de obra de edificios de cualquier uso, incluso residencial, con presupuesto de contrata (IVA excluido) superior a 2.500.000 € cada uno\n\n*No se ofrecen alternativas de experiencia para ningún perfil (una única vía de acreditación por perfil).*\n\nTodos estos perfiles constituyen **obligación esencial del contrato** (Anexo I, apartado 14), cuyo incumplimiento es causa de resolución. La sustitución de personal durante la ejecución exige autorización previa municipal y perfil de igual o superior capacidad.\n\n---\n\n## 3. Criterios de adjudicación\n\n**A) Oferta técnica (juicio de valor) — 45 % — máx. 45 puntos**\n- A.1) Calidad general del diseño (urbanístico, arquitectónico, formal y patrimonial): **25 puntos**\n- A.2) Organización general, accesos, circulaciones y funcionalidad: **15 puntos**\n- A.3) Aspectos bioclimáticos y de sostenibilidad (incl. principios DNSH): **5 puntos**\n\n**B) Oferta económica (automática) — 55 % — máx. 35 puntos**\n- Fórmula: 35 puntos a la mayor baja; el resto mediante fórmula cuadrática de proporcionalidad respecto a la baja máxima.\n\n**C) Experiencia profesional del personal técnico designado director/a principal de los trabajos — máx. 20 puntos**\n- 2 puntos por cada redacción de proyecto adicional y 2 puntos por cada dirección de obra adicional (uso equipamiento/terciario/residencial colectivo, >2.500.000 € contrata), acumulables hasta 20 puntos.\n- Si un mismo encargo incluye proyecto + dirección de obra, se otorgan 4 puntos conjuntos.\n- Solo se valoran trabajos terminados y recepcionados de conformidad, y únicamente si se acredita documentalmente dentro del sobre C.\n\n⚠ **REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia.** Este criterio C valora experiencia *adicional* del director/a principal (arquitecto/a redactor + director de obra) más allá del único trabajo mínimo exigido como solvencia/obligación esencial (10 años + 1 proyecto >2,5M€). Puede ser determinante para la puntuación final (20 de 100 puntos posibles).\n\n---\n\n## 4. Valoración para CAI Consultores\n\n### Puntos a favor\n- El volumen de negocio de CAI (1.100.000 €/año) supera ampliamente el umbral estimado de solvencia profesional de empresa (≥ 143.904,20 € anuales en servicios similares en los últimos 3 años), siempre que se disponga de referencias de **redacción de proyectos y/o dirección de obra de edificación** (no urbanísticos) que puedan justificarse documentalmente ante el Ayuntamiento.\n- Procedimiento con criterio económico moderado (35 pts) y fuerte peso técnico/juicio de valor (45 pts) más experiencia de equipo (20 pts), lo que favorece a equipos con buena propuesta arquitectónica y trayectoria acreditada, más que a bajas agresivas.\n- Posibilidad de integrar solvencia con medios externos (DEUC de terceros) y de subcontratar partes no críticas, salvo que el PPT (Anexo VI, no incluido en el texto analizado) prohíba expresamente subcontratar algún perfil.\n\n### Puntos a verificar internamente\n- **Desajuste de perfil**: este contrato es de **redacción de proyecto de edificación y dirección facultativa de obra** (sede judicial), no de instrumento urban",
       "fecha_analisis": "2026-08-15T03:54:01.896880+00:00"
     },
-    "fecha_captura": "2026-08-15"
+    "fecha_captura": "2026-08-15",
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-07",
+    "estado_updated": "2026-10-06T11:36:21.236+02:00"
   },
   {
     "folder_id": "CONTRATO_361/2026",
@@ -1111,7 +1119,7 @@
     "organo": "Comisión Ejecutiva de la Gerencia de Urbanismo de Sevilla",
     "importe": "198347.11",
     "importe_num": 198347.11,
-    "fecha_limite": "2026-09-08",
+    "fecha_limite": "2026-07-23",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -1125,7 +1133,9 @@
     "estado_anterior": "PUB",
     "resultado": null,
     "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-10-01T14:54:12.712+02:00"
+    "estado_updated": "2026-10-05T11:31:36.113+02:00",
+    "fecha_limite_anterior": "2026-09-08",
+    "fecha_limite_cambiada_el": "2026-10-07"
   },
   {
     "folder_id": "453/2026",
@@ -1522,5 +1532,32 @@
     "revisado_humano": true,
     "revisado_fecha": "2026-10-06T15:56:01.963Z",
     "revisado_por": "CarlosLCAI"
+  },
+  {
+    "folder_id": "CE181960054/26",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de la segunda fase del plan director de Cetursa Sierra Nevada S.A.: Actualización del máster plan y estudios de capacidad, remontes e integración urbana del dominio esquiable de Sierra Nevada",
+    "updated": "2026-10-06T13:42:20.331+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1005974",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90712200",
+      "71241000",
+      "72220000"
+    ],
+    "pcap_url": null,
+    "ppt_url": null,
+    "organo": null,
+    "importe": null,
+    "importe_num": 100000.0,
+    "fecha_limite": "2026-10-22",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-07"
   }
 ]
