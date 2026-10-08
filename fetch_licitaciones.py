@@ -458,7 +458,7 @@ def analizar_licitacion_ia(r, perfil_empresa):
         pcap_tipo, pcap_contenido = None, None
 
     resultado = generar_informe_licitacion_ia(
-        perfil_empresa, pcap_tipo, pcap_contenido, r.get("titulo"), r.get("organo"), api_key
+        perfil_empresa, pcap_tipo, pcap_contenido, r.get("descripcion") or r.get("titulo"), r.get("organo"), api_key
     )
     resultado["fecha_analisis"] = datetime.now(timezone.utc).isoformat()
     return resultado
@@ -648,6 +648,11 @@ def enriquecer_registro_junta(registro, cache, hoy):
             cambios = True
 
     poner("organo", ((detalle.get("perfilContratante") or {}).get("descripcion") or "").strip())
+    # En la Junta la descripción del expediente explica el objeto mucho mejor que su título
+    # (que suele ser una abreviatura). Se guarda aunque venga vacía para no volver a consultarla.
+    if registro.get("descripcion") is None:
+        registro["descripcion"] = (detalle.get("descripcion") or "").strip()
+        cambios = True
     if detalle.get("importeLicitacion") is not None:
         poner("importe", str(detalle["importeLicitacion"]))
     documentos = detalle.get("documentos") or []
@@ -975,7 +980,7 @@ def main():
     relleno = 0
     for ctx in contextos:
         for r in ctx["historico"]:
-            if not id_expediente_junta(r) or r.get("junta_consultado") or r.get("pcap_url"):
+            if not id_expediente_junta(r) or r.get("descripcion") is not None:
                 continue
             if id_expediente_junta(r) not in cache_junta and relleno >= MAX_CONSULTAS_JUNTA_RELLENO:
                 continue

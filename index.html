@@ -993,6 +993,16 @@ function celdaRevisadoHumano(r) {
     '" title="' + escapeHtml(titulo) + '"' + (marcado ? ' checked' : '') + '>';
 }
 
+// Las licitaciones de la Junta traen una descripción que explica el objeto mejor que su título
+// (casi siempre una abreviatura): se muestra la descripción y el título queda como tooltip.
+function celdaTitulo(r) {
+  const desc = (r.descripcion || '').trim();
+  const tit = r.titulo || '';
+  const principal = desc ? escapeHtml(desc) : (tit || '—');
+  const tooltip = desc && tit ? ' title="' + escapeHtml('Título del expediente: ' + tit) + '"' : '';
+  return '<td class="titulo"' + tooltip + '>' + principal + chipsFiltrosOrigen(r) + '</td>';
+}
+
 function chipsFiltrosOrigen(r) {
   if (!r.filtros_origen || !r.filtros_origen.length) return '';
   return '<div class="filtros-origen">' +
@@ -1074,7 +1084,7 @@ function renderTabla(lista) {
   for (const r of lista) {
     html += '<tr>' +
       '<td class="mono exp-vertical">' + (r.folder_id || '—') + '</td>' +
-      '<td class="titulo">' + (r.titulo || '—') + chipsFiltrosOrigen(r) + '</td>' +
+      celdaTitulo(r) +
       '<td>' + (r.organo || '—') + '</td>' +
       '<td class="importe">' + formatearImporte(r.importe) + '</td>' +
       '<td>' + celdaEstado(r) + '</td>' +
@@ -1151,6 +1161,7 @@ function aplicarFiltros() {
   let filtrados = datosPorPestana().filter(d => {
     const coincideTexto = !texto ||
       (d.titulo && d.titulo.toLowerCase().includes(texto)) ||
+      (d.descripcion && d.descripcion.toLowerCase().includes(texto)) ||
       (d.organo && d.organo.toLowerCase().includes(texto)) ||
       (d.folder_id && d.folder_id.toLowerCase().includes(texto));
     const coincideEstado = !estado || infoEstado(d).texto === estado;
