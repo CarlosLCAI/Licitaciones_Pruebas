@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "folder_id": "CONTR 2026 0000048893",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "servicio para el desarrollo de acciones de difusión custodia del territorio",
+    "updated": "2026-10-07T13:41:28.737+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1011685",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90713000"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430708",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430709",
+    "organo": "Consejería de Sostenibilidad y Medio Ambiente. Dirección General de Espacios Naturales Protegidos (En Transición)",
+    "importe": "238021.52",
+    "importe_num": 238021.52,
+    "fecha_limite": "2026-11-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08"
+  },
+  {
+    "folder_id": "CONTR 2026 0000048958",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "dir. obra coord. seguridad y salud de las obras de depuración fase iv",
+    "updated": "2026-10-07T10:41:45.661+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1009409",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71310000",
+      "90492000",
+      "71000000",
+      "71520000",
+      "71317210"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430388",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430386",
+    "organo": "Consejería de Agricultura, Pesca, Agua y Desarrollo Rural. D.G. de Infraestructuras del Agua (En Transición)",
+    "importe": "955583.22",
+    "importe_num": 1146699.87,
+    "fecha_limite": "2026-11-09",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08"
+  }
+]

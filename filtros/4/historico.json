@@ -618,7 +618,7 @@
   },
   {
     "folder_id": "2/2026",
-    "estado": "ADJ",
+    "estado": "RES",
     "titulo": "Servicio redacción del proyecto obra, dirección facultativa y dirección de ejecución de la obra, así como de seguridad y salud para la obra de reformas asociadas a la mejora de la eficiencia energética en el edificio de la dirección provincial del sepe de Almería",
     "updated": "2026-08-13T10:01:57.398+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Sr02VDds9n2opEMYCmrbmw%3D%3D",
@@ -643,10 +643,10 @@
       "fecha_analisis": "2026-08-15T03:59:34.666336+00:00"
     },
     "fecha_captura": "2026-08-15",
-    "estado_anterior": "EV",
+    "estado_anterior": "ADJ",
     "resultado": "adjudicada",
-    "estado_cambiado_el": "2026-10-07",
-    "estado_updated": "2026-10-06T14:03:15.379+02:00",
+    "estado_cambiado_el": "2026-10-08",
+    "estado_updated": "2026-10-07T19:00:25.875+02:00",
     "fecha_limite_anterior": "2026-09-16",
     "fecha_limite_cambiada_el": "2026-10-07"
   },
@@ -685,7 +685,7 @@
   },
   {
     "folder_id": "34/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "Servicio para la redacción de Proyecto Básico y de Ejecución, Estudio de Seguridad y Salud, de las obras de rehabilitación integral de las dos naves industriales de la antigua Algodonera Virgen de los Reyes, para su adaptación a Centro de Orientación, Acompañamiento e Innovación para el Empleo situado en el barrio Alcosa (Fase-1), así como a la asistencia técnica a la Dirección de Obra.",
     "updated": "2026-08-12T10:09:41.330+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=j08%2BBegnUWAwYTJJ03sHog%3D%3D",
@@ -711,10 +711,10 @@
       "fecha_analisis": "2026-08-15T04:01:37.325989+00:00"
     },
     "fecha_captura": "2026-08-15",
-    "estado_anterior": "EV",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-06",
-    "estado_updated": "2026-10-05T19:09:19.998+02:00"
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-08",
+    "estado_updated": "2026-10-07T11:18:37.360+02:00"
   },
   {
     "folder_id": "26-752",
@@ -1570,7 +1570,7 @@
   },
   {
     "folder_id": "25/26",
-    "estado": "EV",
+    "estado": "PUB",
     "titulo": "Servicio de Consultoria - Oficina Tecnica Administrativa del Proyecto ECOCREM, cofinanciado por el Programa Plurirregional de España FEDER 2021-2027 en un 85% del gasto elegible, en el marco de la Línea FID-CPI del Ministerio de Ciencia, Innovación y Universidades para la empresa Parque Cementerio de Málaga S.A (PARCEMASA)",
     "updated": "2026-09-28T09:28:08.923+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=XAO3D5uzCgmHCIsjvJ3rhQ%3D%3D",
@@ -1589,7 +1589,7 @@
     "organo": "Gerencia del Parque Cementerio de Málaga, S.A.",
     "importe": "481189.78",
     "importe_num": 481189.78,
-    "fecha_limite": "2026-10-28",
+    "fecha_limite": "2026-10-21",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -1600,10 +1600,12 @@
       "fecha_analisis": "2026-09-29T09:55:15.794402+00:00"
     },
     "fecha_captura": "2026-09-29",
-    "estado_anterior": "RES",
+    "estado_anterior": "EV",
     "resultado": null,
-    "estado_cambiado_el": "2026-10-03",
-    "estado_updated": "2026-10-02T08:04:43.041+02:00"
+    "estado_cambiado_el": "2026-10-08",
+    "estado_updated": "2026-10-07T11:11:43.283+02:00",
+    "fecha_limite_anterior": "2026-10-28",
+    "fecha_limite_cambiada_el": "2026-10-08"
   },
   {
     "folder_id": "12419/2026",
@@ -2380,5 +2382,61 @@
       "fecha_analisis": "2026-10-07T14:02:09.463290+00:00"
     },
     "junta_consultado": "2026-10-07"
+  },
+  {
+    "folder_id": "CONTR 2026 0000048893",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "servicio para el desarrollo de acciones de difusión custodia del territorio",
+    "updated": "2026-10-07T13:41:28.737+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1011685",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90713000"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430708",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430709",
+    "organo": "Consejería de Sostenibilidad y Medio Ambiente. Dirección General de Espacios Naturales Protegidos (En Transición)",
+    "importe": "238021.52",
+    "importe_num": 238021.52,
+    "fecha_limite": "2026-11-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08",
+    "fecha_captura": "2026-10-08"
+  },
+  {
+    "folder_id": "CONTR 2026 0000048958",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "dir. obra coord. seguridad y salud de las obras de depuración fase iv",
+    "updated": "2026-10-07T10:41:45.661+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1009409",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71310000",
+      "90492000",
+      "71000000",
+      "71520000",
+      "71317210"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430388",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430386",
+    "organo": "Consejería de Agricultura, Pesca, Agua y Desarrollo Rural. D.G. de Infraestructuras del Agua (En Transición)",
+    "importe": "955583.22",
+    "importe_num": 1146699.87,
+    "fecha_limite": "2026-11-09",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08",
+    "fecha_captura": "2026-10-08"
   }
 ]

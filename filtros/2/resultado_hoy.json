@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "folder_id": "ECAS 17852/2025",
+    "estado": "EV",
+    "resultado": null,
+    "titulo": "Concurs de projectes de la reurbanització de l’àmbit del Portal de Sant Roc al barri del Centre, a Terrassa, amb criteris de contractació pública ecològica",
+    "updated": "2026-10-07T14:05:54.741+02:00",
+    "link": "https://contractaciopublica.cat/ca/detall-publicacio/57977379-e84f-48cb-87fa-2f68f7524c06/300902828",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71240000"
+    ],
+    "pcap_url": "https://contractaciopublica.cat/portal-api/descarrega-document/302586894/90BAD077A6742D1328345B20293C0BA6",
+    "ppt_url": "https://contractaciopublica.cat/portal-api/descarrega-document/302586895/0B01223961DE700DF44C95D70A9556E2",
+    "organo": "Ajuntament de Terrassa",
+    "importe": "104811.57",
+    "importe_num": 203985.12,
+    "fecha_limite": "2026-09-15",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "8",
+    "procedimiento_match": true,
+    "importe_match": true
+  }
+]

@@ -646,7 +646,7 @@
   },
   {
     "folder_id": "25/26",
-    "estado": "EV",
+    "estado": "PUB",
     "titulo": "Servicio de Consultoria - Oficina Tecnica Administrativa del Proyecto ECOCREM, cofinanciado por el Programa Plurirregional de España FEDER 2021-2027 en un 85% del gasto elegible, en el marco de la Línea FID-CPI del Ministerio de Ciencia, Innovación y Universidades para la empresa Parque Cementerio de Málaga S.A (PARCEMASA)",
     "updated": "2026-09-28T09:28:08.923+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=XAO3D5uzCgmHCIsjvJ3rhQ%3D%3D",
@@ -665,7 +665,7 @@
     "organo": "Gerencia del Parque Cementerio de Málaga, S.A.",
     "importe": "481189.78",
     "importe_num": 481189.78,
-    "fecha_limite": "2026-10-28",
+    "fecha_limite": "2026-10-21",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -676,10 +676,12 @@
       "fecha_analisis": "2026-09-29T10:01:00.232842+00:00"
     },
     "fecha_captura": "2026-09-29",
-    "estado_anterior": "RES",
+    "estado_anterior": "EV",
     "resultado": null,
-    "estado_cambiado_el": "2026-10-03",
-    "estado_updated": "2026-10-02T08:04:43.041+02:00"
+    "estado_cambiado_el": "2026-10-08",
+    "estado_updated": "2026-10-07T11:11:43.283+02:00",
+    "fecha_limite_anterior": "2026-10-28",
+    "fecha_limite_cambiada_el": "2026-10-08"
   },
   {
     "folder_id": "117/2024",
@@ -1079,7 +1081,7 @@
   },
   {
     "folder_id": "56/26",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Exhibición drones luminosos con motivo del XI Aniversario del Museo Cruz Herrera.",
     "updated": "2026-09-30T13:31:54.903+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=LQJf%2F9hdFW%2BAAM7L03kM8A%3D%3D",
@@ -1095,7 +1097,7 @@
     "organo": "Alcaldía del Ayuntamiento de la Línea de la Concepción",
     "importe": "14876.04",
     "importe_num": 14876.04,
-    "fecha_limite": "2026-10-15",
+    "fecha_limite": "2026-10-07",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
@@ -1105,7 +1107,13 @@
       "informe": "## Bloque 1 – Características Principales del Contrato\n\n### Objeto de la licitación\nEl contrato tiene por objeto la prestación del **servicio de exhibición de drones luminosos** con motivo del **X Aniversario del Museo Cruz Herrera**, en La Línea de la Concepción. Incluye el diseño artístico personalizado vinculado a la obra del pintor Cruz Herrera, la aportación de medios técnicos y humanos especializados, la sonorización sincronizada y la gestión operativa de seguridad aérea del enjambre de drones.\n\nObjetivos principales:\n- Realizar una exhibición aérea temática y personalizada sobre la efeméride del museo.\n- Garantizar la seguridad aérea de la operación (certificación AESA).\n- Sincronizar iluminación, formaciones de drones y sonorización en un evento único.\n\nCPV: **60440000-4** (servicios aéreos), **71318100-1** (servicios de luminotecnia/iluminación), **79952100-3** (organización de eventos culturales).\n\n### División en lotes\n**No existe división en lotes** (casilla \"LOTES: NO\" marcada en el Cuadro de Características).\n\n### Características del contrato\n| Concepto | Dato |\n|---|---|\n| Presupuesto base de licitación (sin IVA) | **14.876,04 €** |\n| IVA (21%) | 3.123,96 € |\n| PBL total (IVA incluido) | **18.000,00 €** |\n| Valor estimado del contrato | 14.876,04 € |\n| Procedimiento | Abierto simplificado, tramitación abreviada, no sujeto a regulación armonizada |\n| Plazo de ejecución | Vigencia inferior a un año; prestación de carácter **único** (un solo evento), con **fecha límite de ejecución el 28/02/2027** |\n| Lugar de ejecución | A coordinar con el Jefe de Servicio de la Delegación de Cultura |\n| Plazo de presentación de ofertas | **10 días hábiles** desde el anuncio en el Perfil de Contratante |\n| Forma de presentación | Exclusivamente electrónica, a través de la Plataforma de Contratación del Estado |\n| Garantías | **No se exigen** (ni provisional ni, según apartado 8, definitiva con exención motivada) |\n| Revisión de precios | **No procede** |\n| Financiación | Subvención del Plan PICGD de la Diputación de Cádiz |\n\nTrabajos específicos obligatorios:\n- **Seguro de Responsabilidad Civil reforzado**, cobertura mínima **6.500.000 €**, vigente durante toda la prestación.\n- **Certificado de operador UAS de AESA** en vigor previo a la ejecución.\n- Personal (pilotos) con **certificaciones y licencias operacionales de AESA**.\n- Coordinación íntegra de las tareas a cargo del adjudicatario.\n\nNo se identifican en el texto disponible trabajos de arqueología, topografía, geotecnia o trámites ambientales específicos (más allá de una declaración jurada de plan de formación medioambiental como condición especial de ejecución).\n\n---\n\n## Bloque 2 – Solvencia\n\n### Económica y financiera\nConforme al **apartado 6 del Cuadro de Características**, **la solvencia económica y financiera NO es exigible**, al amparo del **art. 159.6 de la LCSP 2017** (contratos de escaso valor en procedimiento simplificado abreviado). \n\nNo obstante, el licitador propuesto como adjudicatario **deberá aportar, antes de la adjudicación, una declaración jurada de solvencia** conforme a la LCSP y al RGLCAP, en base al valor estimado del contrato (14.876,04 €). No se fija cifra de negocio mínima concreta en el documento.\n\nNo se exige clasificación empresarial (apartado 7: \"NO\").\n\nSeguro exigido (no como solvencia previa, sino como obligación de ejecución/apartado 25): **Seguro de Responsabilidad Civil con cobertura mínima de 6.500.000 €**, más certificado de operador UAS de AESA vigente.\n\n### Técnica y profesional\n- El apartado **19 \"Titulaciones exigidas\"** del Cuadro de Características aparece **en blanco / sin contenido explícito** — no localizado un desglose de titulaciones por perfil.\n- Se exige que los trabajadores/pilotos de UAS cuenten con las **certificaciones y licencias operacionales exig",
       "fecha_analisis": "2026-10-01T10:33:41.557106+00:00"
     },
-    "fecha_captura": "2026-10-01"
+    "fecha_captura": "2026-10-01",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-08",
+    "fecha_limite_anterior": "2026-10-15",
+    "fecha_limite_cambiada_el": "2026-10-08",
+    "estado_updated": "2026-10-07T19:11:00.521+02:00"
   },
   {
     "folder_id": "SE-19/26",
@@ -1985,5 +1993,87 @@
     "importe_match": true,
     "fecha_captura": "2026-10-07",
     "junta_consultado": "2026-10-07"
+  },
+  {
+    "folder_id": "CR050-26-075",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "suministro y mantenimiento de contenedores higiénico sanitarios para los centros de trabajo de veiasa",
+    "updated": "2026-10-07T14:41:19.329+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1014129",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90513000"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432693",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/432694",
+    "organo": "Verificaciones Industriales de Andalucía, S.A. (VEIASA)",
+    "importe": "54390.00",
+    "importe_num": 54390.0,
+    "fecha_limite": "2026-10-22",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08",
+    "fecha_captura": "2026-10-08"
+  },
+  {
+    "folder_id": "CONTR 2026 0000048893",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "servicio para el desarrollo de acciones de difusión custodia del territorio",
+    "updated": "2026-10-07T13:41:28.737+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1011685",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90713000"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430708",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430709",
+    "organo": "Consejería de Sostenibilidad y Medio Ambiente. Dirección General de Espacios Naturales Protegidos (En Transición)",
+    "importe": "238021.52",
+    "importe_num": 238021.52,
+    "fecha_limite": "2026-11-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08",
+    "fecha_captura": "2026-10-08"
+  },
+  {
+    "folder_id": "CONTR 2026 0000048958",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "dir. obra coord. seguridad y salud de las obras de depuración fase iv",
+    "updated": "2026-10-07T10:41:45.661+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1009409",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71310000",
+      "90492000",
+      "71000000",
+      "71520000",
+      "71317210"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430388",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/430386",
+    "organo": "Consejería de Agricultura, Pesca, Agua y Desarrollo Rural. D.G. de Infraestructuras del Agua (En Transición)",
+    "importe": "955583.22",
+    "importe_num": 1146699.87,
+    "fecha_limite": "2026-11-09",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "junta_consultado": "2026-10-08",
+    "fecha_captura": "2026-10-08"
   }
 ]
