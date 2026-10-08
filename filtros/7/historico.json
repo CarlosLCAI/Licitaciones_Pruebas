@@ -331,9 +331,9 @@
     "importe_match": true,
     "junta_consultado": "2026-10-08",
     "fecha_captura": "2026-10-08",
-    "revisado_humano": true,
-    "revisado_fecha": "2026-10-08T15:19:26.174Z",
-    "revisado_por": "augusto"
+    "revisado_humano": false,
+    "revisado_fecha": null,
+    "revisado_por": null
   },
   {
     "folder_id": "CONTR 2026 0000297632",
