@@ -105,12 +105,14 @@
     color: var(--ink-soft);
     margin: 0 0 14px;
   }
-  .tabs {
+  .barra-tabs {
     display: flex;
-    gap: 2px;
+    flex-wrap: wrap;
+    align-items: stretch;
     margin-bottom: 16px;
     border-bottom: 2px solid var(--linea);
   }
+  .tabs { display: flex; gap: 2px; flex: none; }
   .tab {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
@@ -135,9 +137,8 @@
   }
   .controls {
     display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
+    flex: 1 1 240px;
+    margin-left: 10px;
   }
   .controls input, .controls select {
     font-family: 'Barlow', sans-serif;
@@ -147,7 +148,7 @@
     background: var(--surface);
     color: var(--ink);
   }
-  .controls input { flex: 1; min-width: 220px; }
+  .controls input { flex: 1; min-width: 0; }
   table {
     width: 100%;
     table-layout: fixed;
@@ -157,9 +158,9 @@
     font-size: 13.5px;
   }
   th:nth-child(1), td:nth-child(1) { width: 60px; }
-  th:nth-child(2), td:nth-child(2) { width: 28%; }
-  th:nth-child(3), td:nth-child(3) { width: 14%; }
-  th:nth-child(4), td:nth-child(4) { width: 9%; }
+  th:nth-child(2), td:nth-child(2) { width: 25%; }
+  th:nth-child(3), td:nth-child(3) { width: 13%; }
+  th:nth-child(4), td:nth-child(4) { width: 150px; } /* cabe "10.000.000,00 €" (122 px + relleno) en monoespaciada */
   th:nth-child(5), td:nth-child(5) { width: 100px; }
   th:nth-child(6), td:nth-child(6) { width: 110px; }
   th:nth-child(7), td:nth-child(7) { width: 145px; }
@@ -609,13 +610,11 @@
     </div>
   </div>
 
-  <div class="tabs" id="tabs"></div>
-
-  <div class="controls">
-    <input type="text" id="buscar" placeholder="Buscar por título, órgano o expediente">
-    <select id="filtro-estado">
-      <option value="">Todos los estados</option>
-    </select>
+  <div class="barra-tabs">
+    <div class="tabs" id="tabs"></div>
+    <div class="controls">
+      <input type="text" id="buscar" placeholder="Buscar por título, órgano o expediente">
+    </div>
   </div>
 
   <div id="contenido">
@@ -752,7 +751,7 @@
             <ul>
               <li>El selector de arriba elige el filtro (Arquitectura, Dirección de obra…). <strong>Todos los filtros</strong> junta los de todos sin duplicar y es solo de lectura. Cada licitación indica con una etiqueta en qué filtro ha entrado.</li>
               <li>El botón <strong>⋯</strong> abre los criterios del filtro elegido (zona, CPV, tipo, importe…) y desde ahí se pueden editar con el token.</li>
-              <li>El buscador encuentra por título, descripción, órgano o expediente, y el desplegable de estado filtra por Publicada, Evaluación, Adjudicada, etc.</li>
+              <li>El buscador encuentra por título, descripción, órgano o expediente, sea cual sea el estado de la licitación (Publicada, Evaluación, Adjudicada…).</li>
             </ul>
 
             <h4>Ordenar las columnas</h4>
@@ -1491,21 +1490,8 @@ function celdaEstado(r) {
   return '<span class="badge ' + info.clase + '"' + titulo + '>' + escapeHtml(info.texto) + '</span>';
 }
 
-function poblarFiltroEstado() {
-  const select = document.getElementById('filtro-estado');
-  select.innerHTML = '<option value="">Todos los estados</option>';
-  const estados = [...new Set(datos.map(d => infoEstado(d).texto).filter(Boolean))];
-  for (const e of estados) {
-    const opt = document.createElement('option');
-    opt.value = e;
-    opt.textContent = e;
-    select.appendChild(opt);
-  }
-}
-
 function aplicarFiltros() {
   const texto = document.getElementById('buscar').value.toLowerCase();
-  const estado = document.getElementById('filtro-estado').value;
 
   let filtrados = datosPorPestana().filter(d => {
     const coincideTexto = !texto ||
@@ -1513,8 +1499,7 @@ function aplicarFiltros() {
       (d.descripcion && d.descripcion.toLowerCase().includes(texto)) ||
       (d.organo && d.organo.toLowerCase().includes(texto)) ||
       (d.folder_id && d.folder_id.toLowerCase().includes(texto));
-    const coincideEstado = !estado || infoEstado(d).texto === estado;
-    return coincideTexto && coincideEstado;
+    return coincideTexto;
   });
 
   filtrados.sort((a, b) => {
@@ -2027,7 +2012,6 @@ function aplicarDatosFiltro(datosCargados) {
   }
   document.getElementById('last-update').textContent = fechaUltimaLectura || '—';
   pestanaActiva = 'ultima';
-  poblarFiltroEstado();
   renderTabs();
   aplicarFiltros();
 }
@@ -2141,7 +2125,6 @@ document.getElementById('selector-filtro').addEventListener('change', (e) => {
 });
 
 document.getElementById('buscar').addEventListener('input', aplicarFiltros);
-document.getElementById('filtro-estado').addEventListener('change', aplicarFiltros);
 
 document.getElementById('btn-detalle-filtro').addEventListener('click', () => {
   if (filtroActivoId === ID_VISTA_TODOS) return;
