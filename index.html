@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitor Licitaciones · CAI Consultores</title>
 <link rel="icon" type="image/png" href="favicon.png">
+<script>try { if (localStorage.getItem('monitorLicitaciones.tema') === 'oscuro') document.documentElement.dataset.tema = 'oscuro'; } catch (e) { /* sin almacenamiento: tema claro */ }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -17,23 +18,57 @@
     --ink: #1a1a1a;
     --ink-soft: #5A5A5A;
     --border: #DADADA;
+    --linea: #2E2E2E;
+    --surface: #fff;
+    --surface-2: #EAEAEA;
+    --surface-3: #F7F7F7;
+    --hover-fila: #f0faf9;
+    --teal-suave: #E3F5F5;
+    --teal-texto: #055f5f;
   }
+  /* Tema oscuro: solo cambia el visor; los informes que se comparten (PDF/HTML/copiar) siguen claros. */
+  html[data-tema="oscuro"] {
+    color-scheme: dark;
+    --paper: #161718;
+    --ink: #ECEDEE;
+    --ink-soft: #A9AEB2;
+    --border: #3B3E41;
+    --antracita: #E4E6E8;
+    --linea: #5C6165;
+    --surface: #232527;
+    --surface-2: #323537;
+    --surface-3: #2A2C2E;
+    --hover-fila: #2B3A3A;
+    --teal-suave: #1E3B3B;
+    --teal-texto: #4CCFCF;
+  }
+  html[data-tema="oscuro"] .badge-PUB, html[data-tema="oscuro"] .badge-ia-apto { background: #16392f; color: #8fe3c6; }
+  html[data-tema="oscuro"] .badge-EV, html[data-tema="oscuro"] .badge-ia-apto-ute { background: #17304a; color: #9cc8f0; }
+  html[data-tema="oscuro"] .badge-ADJ, html[data-tema="oscuro"] .badge-ia-no-apto { background: #44202e; color: #f0a8bf; }
+  html[data-tema="oscuro"] .badge-other, html[data-tema="oscuro"] .badge-ia-revision { background: #3a3a36; color: #d4d2c8; }
+  html[data-tema="oscuro"] .badge-baja { background: #4a1f1f; color: #f2a5a5; }
+  html[data-tema="oscuro"] .btn-primario:disabled { background: #46505a; border-color: #46505a; color: #9aa3ab; }
+  html[data-tema="oscuro"] .modal-overlay { background: rgba(0, 0, 0, 0.65); }
+  .wrap { position: relative; }
+  #btn-tema {
+    position: absolute; top: 10px; right: 24px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 12.5px;
+    letter-spacing: .04em; text-transform: uppercase; cursor: pointer;
+    background: var(--surface); color: var(--ink-soft); border: 1px solid var(--border); padding: 4px 10px;
+  }
+  #btn-tema:hover { color: var(--teal-texto); border-color: var(--teal-texto); }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     background: var(--paper);
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 24px 24px;
-    background-attachment: fixed;
     font-family: 'Barlow', sans-serif;
     color: var(--ink);
   }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
   .cajetin {
-    background: #fff;
-    border: 1.5px solid var(--antracita);
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     margin-bottom: 28px;
@@ -58,7 +93,7 @@
     color: var(--antracita);
     margin: 0;
   }
-  .cajetin .value.teal { color: var(--teal-dark); }
+  .cajetin .value.teal { color: var(--teal-texto); }
   .logo-cai { display: block; height: 26px; width: auto; margin-bottom: 8px; }
   .marca-cai {
     text-align: center;
@@ -74,7 +109,7 @@
     display: flex;
     gap: 2px;
     margin-bottom: 16px;
-    border-bottom: 2px solid var(--antracita);
+    border-bottom: 2px solid var(--linea);
   }
   .tab {
     font-family: 'Barlow Condensed', sans-serif;
@@ -83,7 +118,7 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
     padding: 9px 18px;
-    background: #EAEAEA;
+    background: var(--surface-2);
     color: var(--ink-soft);
     border: none;
     cursor: pointer;
@@ -109,7 +144,7 @@
     font-size: 14px;
     padding: 8px 12px;
     border: 1px solid var(--border);
-    background: #fff;
+    background: var(--surface);
     color: var(--ink);
   }
   .controls input { flex: 1; min-width: 220px; }
@@ -117,7 +152,7 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--border);
     font-size: 13.5px;
   }
@@ -175,7 +210,7 @@
     border-top: 1px solid var(--border);
     vertical-align: top;
   }
-  tbody tr:hover { background: #f0faf9; }
+  tbody tr:hover { background: var(--hover-fila); }
   .titulo { font-weight: 500; max-width: 340px; }
   .filtros-origen { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
   .chip-filtro {
@@ -185,8 +220,8 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 1px 6px;
-    background: #e6f6f6;
-    color: var(--teal-dark);
+    background: var(--teal-suave);
+    color: var(--teal-texto);
   }
   .mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; }
   .importe { font-family: 'JetBrains Mono', monospace; text-align: right; white-space: nowrap; }
@@ -211,9 +246,9 @@
   .links { display: flex; flex-direction: column; gap: 3px; }
   .links a {
     font-size: 11.5px;
-    color: var(--teal-dark);
+    color: var(--teal-texto);
     text-decoration: none;
-    border-bottom: 1px dotted var(--teal-dark);
+    border-bottom: 1px dotted var(--teal-texto);
     width: fit-content;
     white-space: nowrap;
   }
@@ -230,6 +265,24 @@
   .empty strong { display: block; font-size: 16px; color: var(--antracita); margin-bottom: 6px; }
   .novedades-lista { margin: 0 0 6px; padding-left: 20px; font-size: 13.5px; line-height: 1.55; }
   .novedades-lista li { margin-bottom: 10px; }
+  .ayuda-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--surface-3); }
+  .ayuda-tab {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .04em;
+    text-transform: uppercase; background: none; border: none; border-bottom: 3px solid transparent;
+    padding: 10px 20px; cursor: pointer; color: var(--ink-soft);
+  }
+  .ayuda-tab.active { color: var(--teal); border-bottom-color: var(--teal); background: var(--surface); }
+  .tutorial h4 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; text-transform: uppercase;
+    letter-spacing: .04em; color: var(--teal); margin: 16px 0 4px; border-bottom: 1px solid var(--border); padding-bottom: 3px;
+  }
+  .tutorial h4:first-child { margin-top: 0; }
+  .tutorial ul { margin: 4px 0 6px; padding-left: 20px; font-size: 13.5px; line-height: 1.55; }
+  .tutorial li { margin-bottom: 5px; }
+  .tutorial-aviso {
+    margin-top: 16px; padding: 10px 14px; background: var(--teal-suave); border-left: 4px solid var(--teal);
+    font-size: 13.5px; line-height: 1.55;
+  }
   .pie-novedades { text-align: center; margin: 18px 0 0; font-size: 12px; }
   .pie-novedades a { color: var(--ink-soft); }
   #btn-cerrar-novedades { background: none; border: none; color: #fff; font-size: 15px; cursor: pointer; }
@@ -237,7 +290,7 @@
     display: none;
     margin-top: 24px;
     padding-top: 14px;
-    border-top: 1px solid var(--antracita);
+    border-top: 1px solid var(--linea);
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
     color: var(--ink-soft);
@@ -251,7 +304,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--antracita);
-    border-bottom: 2px solid var(--antracita);
+    border-bottom: 2px solid var(--linea);
     padding-bottom: 6px;
     margin: 26px 0 12px;
   }
@@ -262,7 +315,7 @@
     gap: 12px;
   }
   .stats-card {
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--border);
     padding: 14px 16px;
   }
@@ -308,7 +361,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
     font-size: 15px;
-    color: var(--teal-dark);
+    color: var(--teal-texto);
     border: none;
     background: transparent;
     padding: 2px 0;
@@ -320,7 +373,7 @@
     font-size: 16px;
     line-height: 1;
     color: var(--ink-soft);
-    background: #EAEAEA;
+    background: var(--surface-2);
     border: 1px solid var(--border);
     width: 26px;
     height: 26px;
@@ -339,8 +392,8 @@
   }
   .modal-overlay.abierto { display: flex; }
   .modal-panel {
-    background: #fff;
-    border: 1.5px solid var(--antracita);
+    background: var(--surface);
+    border: 1.5px solid var(--linea);
     width: 480px;
     max-width: 90vw;
     max-height: 88vh;
@@ -348,7 +401,7 @@
     flex-direction: column;
   }
   .modal-body { overflow-y: auto; }
-  .modal-panel-ancho { width: 720px; }
+  .modal-panel-ancho { width: 860px; }
   .informe-ia {
     font-size: 13.5px;
     line-height: 1.6;
@@ -377,10 +430,36 @@
   .informe-aviso { color: var(--pink); font-weight: 600; margin: 6px 0; }
   .informe-ia ul, .informe-ia ol { margin: 4px 0 10px; padding-left: 22px; }
   .informe-ia li { margin-bottom: 3px; }
-  .informe-tabla { width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12.5px; }
-  .informe-tabla td { padding: 5px 8px; border: 1px solid var(--border); text-align: left; }
-  .informe-tabla-cab td { font-weight: 600; }
-  .informe-tabla tr:nth-child(even):not(.informe-tabla-cab) { background: #F5F5F5; }
+  /* Las tablas del informe no deben heredar el reparto fijo de columnas de la tabla principal
+     (table-layout: fixed + anchos por posición): el ancho de cada columna lo decide su contenido. */
+  .informe-tabla-wrap { overflow-x: auto; margin: 6px 0 14px; }
+  .informe-tabla { width: 100%; table-layout: auto; border-collapse: collapse; font-size: 12.5px; line-height: 1.4; }
+  .informe-tabla td, .informe-tabla td:nth-child(n) {
+    width: auto; min-width: 70px; padding: 5px 8px; border: 1px solid var(--border);
+    text-align: left; vertical-align: top; overflow-wrap: break-word; hyphens: auto;
+  }
+  .informe-tabla-cab td { font-weight: 600; background: var(--teal-suave); }
+  .modal-cabecera-acciones { display: flex; align-items: center; gap: 8px; }
+  .btn-cabecera-modal {
+    font-family: 'Barlow', sans-serif; font-size: 14px; cursor: pointer;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--border); padding: 4px 12px;
+  }
+  .btn-cabecera-modal:hover { background: var(--surface-2); }
+  .compartir-wrap { position: relative; }
+  .menu-compartir {
+    position: absolute; right: 0; top: calc(100% + 4px); z-index: 20; min-width: 210px;
+    background: var(--surface); border: 1px solid var(--linea); box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    display: none; flex-direction: column;
+  }
+  .menu-compartir.abierto { display: flex; }
+  .menu-compartir button {
+    font-family: 'Barlow', sans-serif; font-size: 14px; text-align: left; cursor: pointer;
+    background: none; border: none; border-bottom: 1px solid var(--border); padding: 9px 14px; color: var(--ink);
+  }
+  .menu-compartir button:last-child { border-bottom: none; }
+  .menu-compartir button:hover { background: var(--teal-suave); }
+  .menu-compartir small { display: block; color: var(--ink-soft); font-size: 11.5px; }
+  .informe-tabla tr:nth-child(even):not(.informe-tabla-cab) { background: var(--surface-3); }
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -434,7 +513,7 @@
     font-size: 12.5px;
     padding: 7px 9px;
     border: 1px solid var(--border);
-    background: #fff;
+    background: var(--surface);
     color: var(--ink);
     resize: vertical;
   }
@@ -449,7 +528,7 @@
     overflow-y: auto;
     border: 1px solid var(--border);
     padding: 8px 10px;
-    background: #FAFAFA;
+    background: var(--surface-3);
   }
   .checkbox-grid label {
     display: flex;
@@ -472,7 +551,7 @@
     font-size: 11.5px;
     margin: 6px 0 0;
   }
-  .token-status.ok { color: var(--teal-dark); }
+  .token-status.ok { color: var(--teal-texto); }
   .token-status.falta { color: var(--ink-soft); }
   .token-row { display: flex; gap: 6px; }
   .token-row input { flex: 1; }
@@ -489,22 +568,23 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
     padding: 8px 16px;
-    border: 1px solid var(--antracita);
+    border: 1px solid var(--linea);
     cursor: pointer;
   }
   .btn-primario { background: var(--teal); border-color: var(--teal); color: #fff; }
   .btn-primario:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primario:disabled { background: #b9c3c8; border-color: #b9c3c8; cursor: not-allowed; }
-  .btn-secundario { background: #fff; color: var(--antracita); }
-  .btn-secundario:hover { background: #EAEAEA; }
+  .btn-secundario { background: var(--surface); color: var(--antracita); }
+  .btn-secundario:hover { background: var(--surface-2); }
   #guardar-estado { font-size: 12px; }
-  #guardar-estado.ok { color: var(--teal-dark); }
+  #guardar-estado.ok { color: var(--teal-texto); }
   #guardar-estado.error { color: var(--pink); }
 </style>
 </head>
 <body>
 <div class="wrap">
 
+  <button type="button" id="btn-tema" aria-pressed="false" title="Cambiar entre tema claro y oscuro">☾ Tema oscuro</button>
   <p class="marca-cai">CAI Consultores</p>
 
   <div class="cajetin">
@@ -618,7 +698,17 @@
     <div class="modal-panel modal-panel-ancho">
       <div class="modal-header">
         <p class="modal-titulo" id="modal-revision-titulo">Revisión IA</p>
-        <button id="btn-cerrar-modal-revision" aria-label="Cerrar">✕</button>
+        <div class="modal-cabecera-acciones">
+          <div class="compartir-wrap" id="compartir-wrap" hidden>
+            <button type="button" class="btn-cabecera-modal" id="btn-compartir-ia" aria-haspopup="true">Compartir ▾</button>
+            <div class="menu-compartir" id="menu-compartir">
+              <button type="button" data-accion="copiar">Copiar texto<small>Para pegar en Teams, correo o Word</small></button>
+              <button type="button" data-accion="pdf">Descargar PDF<small>Se abre el diálogo: "Guardar como PDF"</small></button>
+              <button type="button" data-accion="html">Descargar HTML<small>Archivo que se abre en cualquier navegador</small></button>
+            </div>
+          </div>
+          <button id="btn-cerrar-modal-revision" class="btn-cabecera-modal" aria-label="Cerrar">✕</button>
+        </div>
       </div>
       <div class="modal-body" id="modal-revision-body"></div>
     </div>
@@ -627,16 +717,67 @@
   <div id="modal-novedades-overlay" class="modal-overlay">
     <div class="modal-panel modal-panel-ancho">
       <div class="modal-header">
-        <p class="modal-titulo">Novedades del monitor</p>
+        <p class="modal-titulo">Monitor de licitaciones — novedades y ayuda</p>
         <button id="btn-cerrar-novedades" aria-label="Cerrar">✕</button>
       </div>
+      <div class="ayuda-tabs" role="tablist">
+        <button type="button" class="ayuda-tab active" data-ayuda="novedades" role="tab">Novedades</button>
+        <button type="button" class="ayuda-tab" data-ayuda="tutorial" role="tab">Tutorial</button>
+      </div>
       <div class="modal-body">
+        <div id="ayuda-novedades">
         <ul class="novedades-lista">
           <li><strong>Nuevos filtros.</strong> <em>Arquitectura</em> (solo provincia de Málaga) y <em>Dirección de obra</em> (servicios y obras). Además, el visor arranca ahora en <em>Todos los filtros</em>, que reúne las licitaciones de todos sin duplicarlas (solo lectura).</li>
           <li><strong>Acceso con token.</strong> Cada persona puede usar un token de GitHub desde las opciones de un filtro para marcar revisiones y editar filtros. Si varias personas comparten el token, cada una puede escribir su nombre en esas opciones: sus revisiones aparecerán con su inicial (por ejemplo, <strong>K</strong>) en lugar del check.</li>
           <li><strong>La revisión IA ya no se genera sola.</strong> Pulsa <em>Solicitar Revisión IA</em> en la licitación que te interese (requiere el token). En unos minutos aparecerá <strong>Revisión IA</strong> en negrita, lista para abrir.</li>
           <li><strong>Más fuentes y más información.</strong> Se leen también las plataformas agregadas (Junta de Andalucía) y los contratos menores. El estado se muestra como Publicada, Adjudicada, Desierta o Anulada, y se actualizan las ampliaciones de plazo.</li>
+          <li><strong>Licitaciones de la Junta de Andalucía.</strong> Ahora muestran el órgano, el importe, el PCAP y el PPT, y en la columna del título aparece la <em>descripción</em> del proyecto, que explica mejor el objeto que el título del expediente.</li>
+          <li><strong>Compartir la revisión IA.</strong> Dentro de una revisión, el botón <em>Compartir</em> permite copiar el texto, descargar un PDF o descargar un HTML. Las tablas del informe también se ven mejor.</li>
+          <li><strong>Tema oscuro.</strong> El botón de arriba a la derecha cambia entre el tema claro y el oscuro, y recuerda tu elección en ese navegador.</li>
+          <li><strong>Tutorial.</strong> En la pestaña <em>Tutorial</em> de esta ventana tienes una guía rápida de cómo usar el monitor.</li>
         </ul>
+        </div>
+
+        <div id="ayuda-tutorial" hidden>
+          <div class="tutorial">
+            <h4>Las pestañas</h4>
+            <ul>
+              <li><strong>Última lectura:</strong> las licitaciones nuevas que ha encontrado el monitor en su última ejecución (se lanza cada madrugada). Es lo primero que conviene mirar cada día.</li>
+              <li><strong>En plazo:</strong> las licitaciones a las que todavía se puede presentar oferta, es decir, cuya fecha límite no ha vencido, da igual cuándo se captaron.</li>
+              <li><strong>Todas:</strong> el histórico completo de todo lo que ha captado el filtro seleccionado, también lo que ya venció.</li>
+              <li><strong>Estadísticas:</strong> un resumen con los datos de la última lectura, cuántas licitaciones hay en plazo y vencidas, cuántas ha revisado el equipo, cuántos informes IA se han generado y el reparto por estado.</li>
+            </ul>
+
+            <h4>Los filtros</h4>
+            <ul>
+              <li>El selector de arriba elige el filtro (Arquitectura, Dirección de obra…). <strong>Todos los filtros</strong> junta los de todos sin duplicar y es solo de lectura. Cada licitación indica con una etiqueta en qué filtro ha entrado.</li>
+              <li>El botón <strong>⋯</strong> abre los criterios del filtro elegido (zona, CPV, tipo, importe…) y desde ahí se pueden editar con el token.</li>
+              <li>El buscador encuentra por título, descripción, órgano o expediente, y el desplegable de estado filtra por Publicada, Evaluación, Adjudicada, etc.</li>
+            </ul>
+
+            <h4>Ordenar las columnas</h4>
+            <ul>
+              <li>Pulsa el encabezado de una columna (Exp, Título, Órgano, Importe, Estado, fechas o Revisado) para ordenar por ella. Si vuelves a pulsarla, se invierte el orden. Por defecto salen primero las más recientes.</li>
+            </ul>
+
+            <h4>Documentos</h4>
+            <ul>
+              <li><strong>Ficha</strong> abre la licitación en la web oficial; <strong>PCAP</strong> y <strong>PPT</strong> descargan los pliegos de cláusulas administrativas y de prescripciones técnicas.</li>
+            </ul>
+
+            <h4>Revisión IA y check de revisado</h4>
+            <ul>
+              <li><strong>Solicitar Revisión IA:</strong> la revisión no se genera sola, se pide en la licitación que interese. En unos minutos el enlace pasa a <strong>Revisión IA</strong> en negrita; al abrirlo se ve el informe, que se puede compartir con el botón <em>Compartir</em> (copiar, PDF o HTML). Cada revisión tiene un pequeño coste.</li>
+              <li><strong>Check de revisado:</strong> marca que alguien del equipo ya ha mirado esa licitación. Si lo marca otra persona con su nombre configurado, en lugar del check aparece su inicial. Solo se puede marcar dentro de un filtro concreto, no en <em>Todos los filtros</em>.</li>
+            </ul>
+
+            <div class="tutorial-aviso">
+              <strong>Hace falta un token.</strong> Para solicitar una Revisión IA y para marcar el check de revisado hay que tener un token de acceso. <strong>Pídeselo al administrador, Carlos Lanzat.</strong>
+              <br>Cuando lo tengas: elige un filtro concreto, pulsa <strong>⋯</strong>, pega el token en "Token de GitHub", escribe tu nombre en "Tu nombre" y pulsa <strong>Guardar token</strong>. Solo hay que hacerlo una vez en cada navegador.
+            </div>
+          </div>
+        </div>
+
         <div class="modal-actions">
           <button type="button" class="btn-primario" id="btn-entendido-novedades">Entendido</button>
         </div>
@@ -644,7 +785,7 @@
     </div>
   </div>
 
-  <p class="pie-novedades"><a href="#" id="link-novedades">Ver novedades</a></p>
+  <p class="pie-novedades"><a href="#" id="link-novedades">Ver novedades</a> · <a href="#" id="link-tutorial">Tutorial</a></p>
 
 </div>
 
@@ -745,13 +886,13 @@ function formatearInformeIA(texto) {
   }
   function cerrarTabla() {
     if (!filasTabla) return;
-    html += '<table class="informe-tabla"><tbody>' +
+    html += '<div class="informe-tabla-wrap"><table class="informe-tabla"><tbody>' +
       filasTabla.map((fila, i) =>
         '<tr' + (i === 0 ? ' class="informe-tabla-cab"' : '') + '>' +
         fila.map(celda => '<td>' + enLinea(celda.trim()) + '</td>').join('') +
         '</tr>'
       ).join('') +
-      '</tbody></table>';
+      '</tbody></table></div>';
     filasTabla = null;
   }
 
@@ -822,8 +963,216 @@ function abrirModalRevisionIA(registro) {
   }
 
   document.getElementById('modal-revision-body').innerHTML = cuerpo;
+  registroModalRevision = registro;
+  document.getElementById('compartir-wrap').hidden = !revisionIA.informe; // solo los informes nuevos se comparten
+  cerrarMenuCompartir();
   document.getElementById('modal-revision-overlay').classList.add('abierto');
 }
+
+// --- Compartir la revisión IA --------------------------------------------------------------------
+// Tres salidas: copiar (HTML + texto, para pegar en Teams/correo/Word conservando títulos y tablas),
+// PDF (diálogo de impresión del navegador sobre un documento con la imagen de CAI: no hace falta
+// ninguna librería y funciona igual en cualquier equipo) y HTML (archivo autónomo).
+let registroModalRevision = null;
+
+const ESTILOS_INLINE_INFORME = [
+  ['.informe-h1', 'background:#07AAAA;color:#fff;text-transform:uppercase;font-weight:bold;font-size:15px;padding:6px 10px;margin:16px 0 6px;'],
+  ['.informe-h2', 'background:#07AAAA;color:#fff;font-weight:bold;font-size:13px;padding:5px 10px;margin:10px 0 5px;'],
+  ['.informe-aviso', 'color:#ED2E63;font-weight:bold;'],
+  ['.informe-tabla', 'border-collapse:collapse;width:100%;font-size:12px;'],
+  ['.informe-tabla td', 'border:1px solid #DADADA;padding:4px 7px;vertical-align:top;text-align:left;'],
+  ['.informe-tabla-cab td', 'font-weight:bold;background:#E3F5F5;'],
+];
+
+const CSS_INFORME_EXPORTADO = `
+  * { box-sizing: border-box; }
+  body { font-family: Barlow, Arial, sans-serif; color: #1a1a1a; font-size: 13.5px; line-height: 1.55; max-width: 900px; margin: 0 auto; padding: 28px 24px; }
+  .cab { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #07AAAA; padding-bottom: 10px; margin-bottom: 14px; }
+  .cab img { height: 42px; }
+  .cab .tipo { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #5A5A5A; text-align: right; }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .objeto { margin: 0 0 10px; color: #333; }
+  .datos { border-collapse: collapse; margin-bottom: 8px; font-size: 12.5px; }
+  .datos td { padding: 2px 14px 2px 0; vertical-align: top; }
+  .datos td:first-child { color: #5A5A5A; white-space: nowrap; }
+  .informe-h1 { background: #07AAAA; color: #fff; text-transform: uppercase; font-weight: 700; font-size: 15px; padding: 7px 12px; margin: 20px 0 8px; break-after: avoid; }
+  .informe-h2 { background: #07AAAA; color: #fff; font-weight: 700; font-size: 13px; padding: 6px 12px; margin: 12px 0 6px; break-after: avoid; }
+  .informe-parrafo { margin: 6px 0; }
+  .informe-aviso { color: #ED2E63; font-weight: 600; margin: 6px 0; }
+  ul, ol { margin: 4px 0 10px; padding-left: 22px; }
+  li { margin-bottom: 3px; }
+  .informe-tabla-wrap { overflow-x: auto; margin: 6px 0 14px; }
+  .informe-tabla { width: 100%; border-collapse: collapse; font-size: 12px; line-height: 1.4; }
+  .informe-tabla td { min-width: 60px; padding: 4px 7px; border: 1px solid #DADADA; text-align: left; vertical-align: top; overflow-wrap: break-word; }
+  .informe-tabla-cab td { font-weight: 600; background: #E3F5F5; }
+  .informe-tabla tr:nth-child(even):not(.informe-tabla-cab) { background: #F5F5F5; }
+  .pie { margin-top: 22px; padding-top: 8px; border-top: 1px solid #DADADA; font-size: 11.5px; color: #5A5A5A; }
+  a { color: #067f7f; }
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { padding: 0; max-width: none; }
+    tr { break-inside: avoid; }
+    .informe-tabla-wrap { overflow: visible; }
+  }
+  @page { margin: 16mm 14mm; }
+`;
+
+let logoDataUriCache = null;
+async function logoComoDataUri() {
+  if (logoDataUriCache !== null) return logoDataUriCache;
+  try {
+    const blob = await (await fetch('logo-cai.png')).blob();
+    logoDataUriCache = await new Promise((ok, ko) => {
+      const lector = new FileReader();
+      lector.onload = () => ok(lector.result);
+      lector.onerror = ko;
+      lector.readAsDataURL(blob);
+    });
+  } catch (e) {
+    logoDataUriCache = ''; // sin logo, el documento sale igual
+  }
+  return logoDataUriCache;
+}
+
+function nombreArchivoInforme(r) {
+  return 'Revision-IA_' + String(r.folder_id || 'licitacion').trim().replace(/[^\w.-]+/g, '-');
+}
+
+function resumenDatosLicitacion(r) {
+  const filas = [
+    ['Expediente', r.folder_id],
+    ['Órgano', r.organo],
+    ['Importe', formatearImporte(r.importe)],
+    ['Fecha límite', formatearFecha(r.fecha_limite)],
+  ].filter(([, v]) => v && v !== '—');
+  return filas;
+}
+
+function objetoLicitacion(r) {
+  return (r.descripcion || '').trim() || r.titulo || '';
+}
+
+async function documentoInformeHTML(r) {
+  const rev = r.revision_ia;
+  const logo = await logoComoDataUri();
+  const filas = resumenDatosLicitacion(r).map(([k, v]) => '<tr><td>' + escapeHtml(k) + '</td><td>' + escapeHtml(v) + '</td></tr>');
+  if (/^https?:\/\//.test(r.link || '')) {
+    filas.push('<tr><td>Ficha</td><td><a href="' + escapeHtml(r.link) + '">' + escapeHtml(r.link) + '</a></td></tr>');
+  }
+  const fecha = rev.fecha_analisis ? formatearFecha(rev.fecha_analisis) : '';
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<title>' + escapeHtml(nombreArchivoInforme(r)) + '</title><style>' + CSS_INFORME_EXPORTADO + '</style></head><body>' +
+    '<div class="cab">' + (logo ? '<img src="' + logo + '" alt="CAI Consultores">' : '<strong>CAI Consultores</strong>') +
+      '<div class="tipo">Revisión IA de licitación</div></div>' +
+    '<h1>' + escapeHtml(r.folder_id || '') + '</h1>' +
+    '<p class="objeto">' + escapeHtml(objetoLicitacion(r)) + '</p>' +
+    '<table class="datos">' + filas.join('') + '</table>' +
+    formatearInformeIA(rev.informe) +
+    '<p class="pie">Informe generado con IA' + (fecha ? ' el ' + fecha : '') +
+      ' a partir del pliego de la licitación. Debe contrastarse con la documentación oficial.</p>' +
+    '</body></html>';
+}
+
+function htmlParaPortapapeles(r) {
+  const cont = document.createElement('div');
+  const datos = resumenDatosLicitacion(r).map(([k, v]) => escapeHtml(k) + ': ' + escapeHtml(v)).join(' · ');
+  cont.innerHTML =
+    '<h2>Revisión IA — ' + escapeHtml(r.folder_id || '') + '</h2>' +
+    '<p>' + escapeHtml(objetoLicitacion(r)) + '</p>' +
+    (datos ? '<p>' + datos + '</p>' : '') +
+    formatearInformeIA(r.revision_ia.informe);
+  for (const [selector, estilo] of ESTILOS_INLINE_INFORME) {
+    cont.querySelectorAll(selector).forEach(el => { el.style.cssText += estilo; });
+  }
+  return cont.innerHTML;
+}
+
+async function copiarInforme(r) {
+  const html = htmlParaPortapapeles(r);
+  const texto = 'Revisión IA — ' + (r.folder_id || '') + '\n' + objetoLicitacion(r) + '\n\n' + r.revision_ia.informe;
+  if (navigator.clipboard && window.ClipboardItem) {
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([html], { type: 'text/html' }),
+      'text/plain': new Blob([texto], { type: 'text/plain' }),
+    })]);
+  } else {
+    await navigator.clipboard.writeText(texto);
+  }
+}
+
+async function descargarInformeHTML(r) {
+  const blob = new Blob([await documentoInformeHTML(r)], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nombreArchivoInforme(r) + '.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
+async function descargarInformePDF(r) {
+  const html = await documentoInformeHTML(r);
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+  const tituloAnterior = document.title;
+  let limpio = false;
+  const limpiar = () => {
+    if (limpio) return;
+    limpio = true;
+    document.title = tituloAnterior;
+    setTimeout(() => iframe.remove(), 500);
+  };
+  iframe.onload = () => {
+    const w = iframe.contentWindow;
+    document.title = nombreArchivoInforme(r); // los navegadores lo proponen como nombre del PDF
+    w.addEventListener('afterprint', limpiar);
+    w.focus();
+    w.print();
+    setTimeout(limpiar, 120000);
+  };
+  iframe.srcdoc = html;
+  document.body.appendChild(iframe);
+}
+
+function cerrarMenuCompartir() {
+  document.getElementById('menu-compartir').classList.remove('abierto');
+}
+
+function avisoBotonCompartir(texto) {
+  const boton = document.getElementById('btn-compartir-ia');
+  boton.textContent = texto;
+  setTimeout(() => { boton.textContent = 'Compartir ▾'; }, 2000);
+}
+
+document.getElementById('btn-compartir-ia').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('menu-compartir').classList.toggle('abierto');
+});
+
+document.getElementById('menu-compartir').addEventListener('click', async (e) => {
+  const boton = e.target.closest('button[data-accion]');
+  if (!boton || !registroModalRevision) return;
+  cerrarMenuCompartir();
+  try {
+    if (boton.dataset.accion === 'copiar') {
+      await copiarInforme(registroModalRevision);
+      avisoBotonCompartir('Copiado ✓');
+    } else if (boton.dataset.accion === 'html') {
+      await descargarInformeHTML(registroModalRevision);
+    } else if (boton.dataset.accion === 'pdf') {
+      await descargarInformePDF(registroModalRevision);
+    }
+  } catch (err) {
+    alert('No se pudo completar la acción: ' + err.message);
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#compartir-wrap')) cerrarMenuCompartir();
+});
 
 // --- Revisión IA bajo demanda -------------------------------------------------------------------
 // El visor no puede llamar a Claude (la clave de la API vive en los secretos de GitHub), así que el
@@ -1171,6 +1520,10 @@ function aplicarFiltros() {
   filtrados.sort((a, b) => {
     let va = a[ordenColumna] || '';
     let vb = b[ordenColumna] || '';
+    if (ordenColumna === 'titulo') { // se ordena por el texto que se ve (descripción en las de la Junta)
+      va = (a.descripcion || a.titulo || '').toLowerCase();
+      vb = (b.descripcion || b.titulo || '').toLowerCase();
+    }
     if (ordenColumna === 'importe') {
       va = parseFloat(va) || 0;
       vb = parseFloat(vb) || 0;
@@ -1855,7 +2208,7 @@ document.getElementById('modal-revision-overlay').addEventListener('click', (e) 
 
 // Ventana de novedades: se abre sola la primera vez que se entra desde que cambió VERSION_NOVEDADES
 // (cámbiala al publicar cambios nuevos que merezca la pena anunciar).
-const VERSION_NOVEDADES = '2026-10-07';
+const VERSION_NOVEDADES = '2026-10-08';
 const NOVEDADES_VISTAS_KEY = 'monitorLicitaciones.novedadesVistas';
 
 function cerrarNovedades() {
@@ -1868,9 +2221,26 @@ document.getElementById('btn-entendido-novedades').addEventListener('click', cer
 document.getElementById('modal-novedades-overlay').addEventListener('click', (e) => {
   if (e.target.id === 'modal-novedades-overlay') cerrarNovedades();
 });
+function mostrarAyuda(seccion) {
+  document.querySelectorAll('.ayuda-tab').forEach(b => b.classList.toggle('active', b.dataset.ayuda === seccion));
+  document.getElementById('ayuda-novedades').hidden = seccion !== 'novedades';
+  document.getElementById('ayuda-tutorial').hidden = seccion !== 'tutorial';
+  document.querySelector('#modal-novedades-overlay .modal-body').scrollTop = 0;
+}
+
+function abrirAyuda(seccion) {
+  mostrarAyuda(seccion);
+  document.getElementById('modal-novedades-overlay').classList.add('abierto');
+}
+
+document.querySelectorAll('.ayuda-tab').forEach(b => b.addEventListener('click', () => mostrarAyuda(b.dataset.ayuda)));
 document.getElementById('link-novedades').addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('modal-novedades-overlay').classList.add('abierto');
+  abrirAyuda('novedades');
+});
+document.getElementById('link-tutorial').addEventListener('click', (e) => {
+  e.preventDefault();
+  abrirAyuda('tutorial');
 });
 
 try {
@@ -1878,6 +2248,21 @@ try {
     document.getElementById('modal-novedades-overlay').classList.add('abierto');
   }
 } catch (e) { /* si no hay almacenamiento no se insiste en cada visita */ }
+
+// Tema claro / oscuro: se recuerda en este navegador (el tema inicial se aplica en la cabecera para que no parpadee).
+const TEMA_KEY = 'monitorLicitaciones.tema';
+function aplicarTema(tema, guardar) {
+  const oscuro = tema === 'oscuro';
+  if (oscuro) document.documentElement.dataset.tema = 'oscuro'; else delete document.documentElement.dataset.tema;
+  const boton = document.getElementById('btn-tema');
+  boton.textContent = oscuro ? '☀ Tema claro' : '☾ Tema oscuro';
+  boton.setAttribute('aria-pressed', oscuro ? 'true' : 'false');
+  if (guardar) { try { localStorage.setItem(TEMA_KEY, tema); } catch (e) { /* sin almacenamiento */ } }
+}
+document.getElementById('btn-tema').addEventListener('click', () => {
+  aplicarTema(document.documentElement.dataset.tema === 'oscuro' ? 'claro' : 'oscuro', true);
+});
+aplicarTema(document.documentElement.dataset.tema === 'oscuro' ? 'oscuro' : 'claro', false);
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
