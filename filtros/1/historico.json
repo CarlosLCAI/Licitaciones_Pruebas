@@ -20,7 +20,7 @@
   },
   {
     "folder_id": "704/2026",
-    "estado": "EV",
+    "estado": "RES",
     "titulo": "Servicio de redacción nuevo Plan Básico de Ordenación Municipal y Catálogo de Patrimonio Histórico y Cultural del Municipio de Montemayor (Córdoba)",
     "updated": "2026-07-08T10:33:16.418+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=%2FlhOflFrVsJVYjgxA4nMUw%3D%3D",
@@ -35,10 +35,10 @@
     "organo": "Alcaldía del Ayuntamiento de Montemayor",
     "importe": "141534.71",
     "fecha_captura": "2026-07-10",
-    "estado_anterior": "PUB",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-09-29T11:50:16.732+02:00"
+    "estado_anterior": "EV",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-08T13:46:39.648+02:00"
   },
   {
     "folder_id": "DIR260603",
@@ -102,7 +102,7 @@
   },
   {
     "folder_id": "GEX 1096/2026",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Contrato de servicios para la redacción de proyecto de ejecución, dirección facultativa de las obras y coordinación de seguridad y salud de la actuación “Puesta en valor y conservación del Castillo de Santaella, Córdoba”. En el marco del  Programa plurirregional de España, período 2021-2027. Proyecto “Conecta Campiña Sur”.",
     "updated": "2026-07-13T12:00:34.872+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5PmEdEFtOoBSYrkJkLlFdw%3D%3D",
@@ -118,11 +118,15 @@
     "organo": "Presidenta de Mancomunidad de Municipios Campiña Sur Cordobesa",
     "importe": "40627.82",
     "fecha_limite": "2026-07-28",
-    "fecha_captura": "2026-07-14"
+    "fecha_captura": "2026-07-14",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-07T20:06:35.124+02:00"
   },
   {
     "folder_id": "205/2026",
-    "estado": "EV",
+    "estado": "PUB",
     "titulo": "contratacion del servicio de asistencia tecnica para la redacción del Plan General de Ordenación Municipal PGOM y del Plan POU",
     "updated": "2026-07-13T09:00:00.000+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=80aPPYr93hmOUi78BmzhOQ%3D%3D",
@@ -135,16 +139,18 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=ANfnasMvFMBfQEOKVFd%2BGwyXinMDV7f41l8ykcPj01uqYcTl%2B5Au6RKREO/ebjMTX4AnfT3oBVkIIPxV0wyxjAaBvQv608dECDP6hwCaquB7QB3HKyQaFUExmUVQCerk",
     "organo": "Pleno del Ayuntamiento de Gádor",
     "importe": "289256.2",
-    "fecha_limite": "2026-08-14",
+    "fecha_limite": "2026-10-26",
     "fecha_captura": "2026-07-14",
-    "estado_anterior": "PUB",
+    "estado_anterior": "EV",
     "resultado": null,
-    "estado_cambiado_el": "2026-10-06",
-    "estado_updated": "2026-10-05T09:04:31.226+02:00"
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-08T08:37:54.801+02:00",
+    "fecha_limite_anterior": "2026-08-14",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "24/26",
-    "estado": "RES",
+    "estado": "ADJ",
     "titulo": "Servicio de Consultoría – Oficina Técnica Administrativa del Proyecto ECOCREM, cofinanciado por el Programa Plurirregional de España FEDER 2021-2027 en un 85% del gasto elegible, en el marco de la Línea FID-CPI del Ministerio de Ciencia, Innovación y Universidades para la empresa Parque Cementerio de Málaga S.A (PARCEMASA).",
     "updated": "2026-07-13T09:00:00.000+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=7j7HaCQg2c9eKgd8LfVV9g%3D%3D",
@@ -162,12 +168,14 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=zp5eD6eWRxhOIVlpuwyE1k4R9uZNkJoHd27aLbND1mxFAZdLp5uwwNuWbeWYaqhgpMH2HVJVk6K6YcbhRWC4iEmcSHkMBZ3Xh2/1gEJzGfcC1/zDIE0Kw/PWNnLS0Z0z",
     "organo": "Gerencia del Parque Cementerio de Málaga, S.A.",
     "importe": "481470.91",
-    "fecha_limite": "2026-08-17",
+    "fecha_limite": "2026-08-14",
     "fecha_captura": "2026-07-14",
-    "estado_anterior": "PUB",
+    "estado_anterior": "RES",
     "resultado": "adjudicada",
-    "estado_cambiado_el": "2026-10-07",
-    "estado_updated": "2026-10-05T13:03:03.784+02:00"
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-07T11:04:49.551+02:00",
+    "fecha_limite_anterior": "2026-08-17",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "06/2026-Servicios_ABI_Simplificado",
@@ -286,7 +294,7 @@
   },
   {
     "folder_id": "3809/2026",
-    "estado": "RES",
+    "estado": "EV",
     "titulo": "Contrato mixto de obras y servicios para la ejecución de obras de Reformado conservación, reparación y refuerzo de estructura de madera de cubierta sobre aulas 4A, 4B y 4C en CEIP San Roque de Arahal. Este proyecto está financiado por la Administración General del Estado, a través del Ministerio de Política Territorial y Memoria Democrática, con una aportación de 147.707,48 €.\r\n",
     "updated": "2026-07-15T10:21:53.202+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=CV4dyWQi64gQyBAnWzHfCg%3D%3D",
@@ -311,12 +319,14 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=MrVeOOFTZrhQ4qVeau7xzYbgHhBzCnSbctd%2BMQd83yDAH4QvE1b1HJeWO%2Bt6w8YRBRnzkBmQDMGUHYPYZEXtc/Z7KXb328sPygqOemxomPh7QB3HKyQaFUExmUVQCerk",
     "organo": "Alcaldia del Ayuntamiento de Arahal",
     "importe": "127438.11",
-    "fecha_limite": "2026-07-16",
+    "fecha_limite": "2026-10-01",
     "fecha_captura": "2026-07-16",
-    "estado_anterior": "PUB",
-    "resultado": "formalizada",
-    "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-09-30T12:41:21.420+02:00"
+    "estado_anterior": "RES",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-08T13:43:25.283+02:00",
+    "fecha_limite_anterior": "2026-07-16",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "SV33/2026",
@@ -516,7 +526,7 @@
   },
   {
     "folder_id": "1608/2026",
-    "estado": "PUB",
+    "estado": "ADJ",
     "titulo": "Contrato de servicios para la redacción del proyecto de la obra de reparación del camino rural “Albojaira”, dirección de obra y coordinación en materia de seguridad y salud.",
     "updated": "2026-07-23T09:06:01.056+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=PLh0Jm9Tc8XN3k3tjedSGw%3D%3D",
@@ -540,7 +550,11 @@
       "informe": "# 1. Solvencia económico-financiera\n\nEl presente PCAP establece un régimen de acreditación **simplificado y excepcional**:\n\n- De conformidad con el artículo 96 LCSP, la acreditación de la solvencia económica, financiera y técnica o profesional **se realiza exclusivamente mediante la inscripción de la empresa licitadora en el ROLECE** (Registro Oficial de Licitadores y Empresas Clasificadas del Sector Público), o en el registro oficial de la Comunidad Autónoma correspondiente, conforme al art. 159.4.a) LCSP.\n- **No se exige aportación de documentación adicional** acreditativa de la solvencia distinta de la propia inscripción registral (no se fijan cifras de volumen de negocio, ratios financieros ni pólizas de seguro concretas en este Pliego).\n- Sin perjuicio de lo anterior, el órgano de contratación o la Mesa de Contratación podrán verificar de oficio los datos inscritos y requerir aclaraciones (art. 141 LCSP).\n- Si el licitador solo acredita haber solicitado la inscripción en el registro (art. 159.4.a) in fine LCSP), la Mesa le requerirá justificación documental de su solvencia con carácter previo a la propuesta de adjudicación.\n- Igualmente, al propuesto como adjudicatario se le comprobarán de oficio en ROLECE los requisitos de capacidad, solvencia y ausencia de prohibiciones de contratar.\n\n⚠ No se especifican en el PCAP cifras concretas de volumen de negocio mínimo anual/acumulado ni importe de seguro de RC profesional exigido, al remitirse todo el requisito a la inscripción registral.\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\n⚠ **El presente PCAP no contiene una cláusula específica de equipo mínimo con perfiles, titulaciones y experiencia detallados.** La acreditación de la solvencia técnica o profesional se remite, igual que la económica, exclusivamente a la inscripción en el ROLECE (art. 96 y 159.4.a) LCSP), sin exigirse documentación adicional sobre medios personales concretos en fase de licitación.\n\nNo obstante, sí se establecen obligaciones posteriores relacionadas con el equipo, en fase de ejecución (condición especial de ejecución, cláusula 5.1.a):\n- El contratista deberá mantener adscrito durante toda la ejecución al técnico o técnicos identificados en su oferta (Memoria Técnica) como responsables de:\n  - Redacción del proyecto\n  - Dirección de obra\n  - Coordinación de seguridad y salud\n- Cualquier sustitución requerirá autorización previa del órgano de contratación y el sustituto deberá acreditar cualificación y experiencia equivalente o superior a la valorada en la adjudicación.\n\n**Recomendación:** revisar el Pliego de Prescripciones Técnicas Particulares (PPTP), no aportado en este documento, ya que es el instrumento habitual donde se detallarían los perfiles concretos exigidos (arquitecto/ingeniero redactor, director de obra, coordinador de seguridad y salud), sus titulaciones y experiencia mínima, si los hubiera.\n\n---\n\n# 3. Criterios de adjudicación\n\nPuntuación total: **100 puntos**, distribuidos así:\n\n**a) Precio (70 puntos) — Evaluable mediante fórmula automática**\n- Fórmula: P = 70 × (Bi / Bmax), donde Bi es la baja porcentual de la oferta valorada y Bmax la baja porcentual de la oferta más ventajosa no incursa en anormalidad.\n- A la oferta que iguale el presupuesto base (baja cero) se le asignan 0 puntos.\n- Nota relevante: la baja ofertada sobre este contrato de servicios (redacción/dirección) deberá trasladarse también al proyecto de la obra de arreglo del camino rural, cuyo presupuesto base (IVA incluido) asciende, en principio, a 965.631,12 €.\n\n**b) Memoria Técnica (30 puntos) — Evaluable mediante juicio de valor**\nDesglosada en 4 subcriterios:\n- Metodología para la redacción del proyecto de obra: hasta 12 puntos (análisis previo del estado del camino, soluciones técnicas constructivas, control de calidad documental).\n- Organización y medios adscritos a la dirección de obra: hasta 9 puntos (sistema de control/seguimiento, coordinación con contratista, medios personales y materiales concretos).\n- Plan de coordinación de seguridad y salud: hasta 6 puntos (sistema de visitas, control de riesgos, verificación del Estudio/Estudio Básico de SS).\n- Programación y plazos de las prestaciones: hasta 3 puntos (cronograma de las tres prestaciones en coherencia con el plazo de obra).\n\nLa Memoria Técnica tiene un límite de 15 páginas (DIN-A4, Arial 11, interlineado sencillo, una cara) y **no puede contener ninguna referencia, directa o indirecta, al precio ofertado**, bajo pena de exclusión (art. 145.2 LCSP).\n\nNo se identifica en este PCAP ningún criterio o subapartado diferenciado de \"mejora de experiencia del equipo\" distinto del mínimo de solvencia (que, como se indicó, se remite a ROLECE). Por tanto, no aplica la advertencia de revisión sobre este punto.\n\n---\n\n# 4. Valoración para CAI Consultores\n\n**Puntos a favor:**\n- El umbral de solvencia económico-financiera es bajo/indeterminado (remitido a ROLECE), lo cual **no supone barrera de entrada** para CAI dado su volumen de negocio (1.1M€/año), muy superior al presupuesto del contrato (101.000 € IVA incl.).\n- El peso del precio es alto (70 puntos) y el de la memoria técnica moderado (30 puntos), lo que favorece a empresas con capacidad de ofertar bajas competitivas manteniendo calidad técnica suficiente.\n- Contrato de importe reducido (VEC 83.471,07 €) y plazo corto de redacción (1 mes), compatible con la estructura de CAI.\n- No se exige clasificación empresarial ni acreditación documental compleja de solvencia en fase de licitación, lo que simplifica la preparación de la oferta.\n\n**Puntos a verificar internamente:**\n- **Inscripción vigente en ROLECE** (o registro autonómico equivalente) de CAI Consultores, condición obligatoria y excluyente para participar; verificar que esté actualizada a la fecha de presentación de ofertas.\n- Dado que no hay cláusula de equipo mínimo en el PCAP, **revisar el PPTP** (no incluido en este análisis) para comprobar si allí se exige experiencia específica en LISTA/LOUA (Andalucía) o en caminos rurales/obras de reparación, y si CAI cuenta con dicho perfil o necesita subcontratar (coordinador de SS, delineación, topografía, etc.).\n- Verificar disponibilidad interna de un técnico que pueda asumir de forma continuada las tres fases (redacción, dirección de obra y coordinación SS), dado que la cláusula 5.1.a exige mantener adscrito al mismo técnico identificado en la oferta durante toda la duración del contrato (que se extiende hasta la recepción de las obras, plazo indeterminado y potencialmente largo).\n- Tener en cuenta la **responsabilidad específica por errores del proyecto** (arts. 314-315 LCSP): posibles indemnizaciones de hasta el 50% del precio de adjudicación por desviaciones de presupuesto de obra, y hasta 5 veces el precio del proyecto por daños derivados de defectos técnicos, exigibles en un plazo de 10 años — relevante para dimensionar el seguro de RC profesional de CAI.\n- Confirmar la capacidad de asumir la baja ofertada teniendo en cuenta que ésta condicionará también, en cierta medida, el enfoque económico del futuro proyecto de obra (965.631,12 € IVA incl.), lo que podría ser relevante si CAI aspira también a la licitación de dicha obra o su dirección.\n- Dado que no se exige explícitamente experiencia LISTA/LOUA en este PCAP (es un contrato de obra civil de camino rural, no de instrumento urbanístico propiamente dicho), verificar si el PPTP contempla algún requisito de esta naturaleza, poco habitual en este tipo de objeto contractual.",
       "fecha_analisis": "2026-07-24T05:58:36.327247+00:00"
     },
-    "fecha_captura": "2026-07-24"
+    "fecha_captura": "2026-07-24",
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-08T13:27:59.112+02:00"
   },
   {
     "folder_id": "GEX 2026 1519 PLAN ORDENACION",
@@ -1025,7 +1039,7 @@
     "organo": "Comisión Ejecutiva de la Gerencia de Urbanismo de Sevilla",
     "importe": "233606.57",
     "importe_num": 233606.57,
-    "fecha_limite": "2026-09-14",
+    "fecha_limite": "2026-08-17",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -1036,10 +1050,12 @@
       "fecha_analisis": "2026-08-15T03:57:04.182693+00:00"
     },
     "fecha_captura": "2026-08-15",
-    "estado_anterior": "PUB",
-    "resultado": "adjudicada",
-    "estado_cambiado_el": "2026-10-08",
-    "estado_updated": "2026-10-07T11:18:37.360+02:00"
+    "estado_anterior": "RES",
+    "resultado": "formalizada",
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-07T13:16:47.282+02:00",
+    "fecha_limite_anterior": "2026-09-14",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "P4107100B-2026/001234-PEA",
@@ -1119,7 +1135,7 @@
     "organo": "Comisión Ejecutiva de la Gerencia de Urbanismo de Sevilla",
     "importe": "198347.11",
     "importe_num": 198347.11,
-    "fecha_limite": "2026-07-23",
+    "fecha_limite": "2026-09-15",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -1133,9 +1149,9 @@
     "estado_anterior": "PUB",
     "resultado": null,
     "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-10-05T11:31:36.113+02:00",
-    "fecha_limite_anterior": "2026-09-08",
-    "fecha_limite_cambiada_el": "2026-10-07"
+    "estado_updated": "2026-10-06T15:29:09.621+02:00",
+    "fecha_limite_anterior": "2026-07-23",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "453/2026",
@@ -1334,7 +1350,7 @@
   },
   {
     "folder_id": "25/26",
-    "estado": "PUB",
+    "estado": "ADJ",
     "titulo": "Servicio de Consultoria - Oficina Tecnica Administrativa del Proyecto ECOCREM, cofinanciado por el Programa Plurirregional de España FEDER 2021-2027 en un 85% del gasto elegible, en el marco de la Línea FID-CPI del Ministerio de Ciencia, Innovación y Universidades para la empresa Parque Cementerio de Málaga S.A (PARCEMASA)",
     "updated": "2026-09-28T09:28:08.923+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=XAO3D5uzCgmHCIsjvJ3rhQ%3D%3D",
@@ -1353,7 +1369,7 @@
     "organo": "Gerencia del Parque Cementerio de Málaga, S.A.",
     "importe": "481189.78",
     "importe_num": 481189.78,
-    "fecha_limite": "2026-10-21",
+    "fecha_limite": "2026-08-14",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -1364,12 +1380,12 @@
       "fecha_analisis": "2026-09-29T09:52:38.339915+00:00"
     },
     "fecha_captura": "2026-09-29",
-    "estado_anterior": "EV",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-08",
-    "estado_updated": "2026-10-07T11:11:43.283+02:00",
-    "fecha_limite_anterior": "2026-10-28",
-    "fecha_limite_cambiada_el": "2026-10-08"
+    "estado_anterior": "PUB",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-07T11:18:29.416+02:00",
+    "fecha_limite_anterior": "2026-10-21",
+    "fecha_limite_cambiada_el": "2026-10-09"
   },
   {
     "folder_id": "12419/2026",
@@ -1502,8 +1518,8 @@
   },
   {
     "folder_id": "2026/CTT_01/000027 - 39/26.-CTOS",
-    "estado": "PUB",
-    "resultado": null,
+    "estado": "RES",
+    "resultado": "desistida",
     "titulo": "Servicios de asistencia técnica para la Auditoría Energética del Alumbrado Público, Asistencia técnico-jurídico para la redacción de pliegos, asesoramiento a Mesa de Contratación y Corrección de Memorias de las Instalaciones de  Alumbrado Público Exterior del Municipio de Sanlúcar la mayor (Sevilla)",
     "updated": "2026-10-05T10:54:18.899+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=QgUjlxKszqz%2B3JAijKO%2Bkg%3D%3D",
@@ -1533,7 +1549,10 @@
     "fecha_captura": "2026-10-06",
     "revisado_humano": true,
     "revisado_fecha": "2026-10-06T15:56:01.963Z",
-    "revisado_por": "CarlosLCAI"
+    "revisado_por": "CarlosLCAI",
+    "estado_anterior": "PUB",
+    "estado_cambiado_el": "2026-10-09",
+    "estado_updated": "2026-10-07T16:43:50.295+02:00"
   },
   {
     "folder_id": "CE181960054/26",
@@ -1565,6 +1584,149 @@
       "informe": "## Bloque 1 – Características Principales del Contrato\n\n### Objeto de la licitación\nContrato de servicios de consultoría técnica especializada para la **segunda fase del Plan Director de Cetursa Sierra Nevada, S.A.**: estudios y diseños conceptuales para la mejora del área esquiable, la modernización de remontes y la conexión entre el área urbana y el dominio esquiable. El ámbito incluye a) Plaza de Andalucía/Pradollano y b) UE-1 de la Estación de Esquí, Snowboard y Montaña de Sierra Nevada. Los detalles figuran en el PPT, que **no se ha facilitado**.\n\nObjetivos:\n- Actualizar el máster plan y los estudios de capacidad.\n- Estudiar y diseñar la modernización de remontes.\n- Integrar el área urbana y el dominio esquiable (movilidad, accesos, aparcamientos).\n- Elaborar desarrollo conceptual de los ámbitos Plaza de Andalucía/Pradollano y UE-1.\n\nCPV: 72220000-3, 71241000-9 y 90712200-3.\n\n### División en lotes\nNo hay división en lotes. El PCAP lo justifica por la necesidad de coordinación y de gestión unificada de los trabajos.\n\n### Características del contrato\n- **Expediente:** CE181960054/26. Procedimiento abierto, tramitado según las Instrucciones Internas de Contratación (IIC) de CETURSA, que no es poder adjudicador. El contrato es privado.\n- **Valor estimado y presupuesto base de licitación (sin IVA):** **100.000,00 €**. IVA 21.000,00 €. **Total con IVA: 121.000,00 €**. No hay desglose. No hay revisión de precios, prórrogas ni modificaciones previstas.\n- **Duración:** **12 meses**, sin prórrogas. Cuenta desde la formalización.\n- **Plazo de presentación:** **20 días naturales** desde el día siguiente a la publicación en el Perfil del Contratante. La cláusula 15 fija un mínimo de 10 días, que se cumple.\n- **Lugar y forma:** exclusivamente por vía electrónica en SiREC – Portal de Licitación, con firma electrónica cualificada o avanzada. Hay **3 archivos electrónicos**. Existe la posibilidad de enviar primero la huella electrónica y la oferta en las 24 horas siguientes.\n- **Apertura de la oferta económica:** fecha y hora según el Perfil del Contratante, en acto no público.\n- **Garantía provisional:** no se exige. **Garantía definitiva:** 5 % del precio, por aval electrónico. **Garantía complementaria:** no se exige.\n- **Subcontratación:** permitida.\n- **Financiación europea (PRTR):** el pliego está editado en formato PRTR, pero el tipo de fondo, el porcentaje, el componente y los hitos están en blanco. El pliego dice que se contempla pedir financiación \"en un futuro\". ⚠ REVISAR: la cláusula 1 y el apartado D) del cuadro indican \"Plan de Recuperación: Sí\", pero sin datos. Conviene confirmar si se aplicarán los anexos XI–XVII y el análisis de conflicto de interés (MINERVA).\n- **Trabajos específicos obligatorios:** no se citan arqueología, topografía ni geotecnia en el PCAP. Hay condiciones especiales de ejecución ambientales (cumplir el PORN del Parque Natural y Nacional de Sierra Nevada, gestión de residuos e informes mensuales). El resto está en el PPT, no localizado.\n- **Seguro:** responsabilidad civil obligatoria para el adjudicatario, sin importe mínimo fijado en el PCAP.\n\n## Bloque 2 – Solvencia\n\n### Económica y financiera\n- **Habilitación empresarial:** no se exige. **ROLECE:** inscripción potestativa.\n- **Volumen anual de negocios del mejor ejercicio de los últimos 3 disponibles:** igual o superior a **150.000,00 €**. El pliego lo describe como \"una vez y media el valor anual medio del contrato\".\n- **Acreditación:** cuentas anuales depositadas en el Registro Mercantil, certificado de la AEAT sobre el importe neto de la cifra de negocios o modelo 390 del IVA.\n- **Seguro de RC:** lo exige el apartado T) al adjudicatario. No se fija cifra. Se acredita con póliza o certificado del asegurador. No es requisito de solvencia en la fase de licitación.\n- ⚠ REVISAR: el apartado G) expresa el requisito como \"una vez y media el valor anual medio del contrato (150.000 €)\". Con un contrato de 12 meses, el valor anual medio es 100.000 €, y 1,5 × 100.000 = 150.000 €, por lo que es coherente.\n\n### Técnica y profesional\nExperiencia **a nivel internacional**, es decir, en estaciones o ámbitos situados **fuera de España**. Se acredita con una relación de los principales servicios de los **últimos 10 años** (objeto, importe, fecha y destinatario). Mínimos exigidos:\n- **5** Máster Plan o Planes Directores de estaciones de esquí y montaña.\n- **10** estudios de diseño, implantación o modernización de remontes mecánicos.\n- **5** proyectos de integración urbanística y funcional entre áreas urbanas y dominio esquiable (movilidad, accesos, aparcamientos o remontes urbanos).\n- **1** trabajo en una estación en espacio natural protegido o con condicionantes ambientales equivalentes.\n- **1** trabajo de planificación de infraestructuras u organización funcional de una estación sede de Juegos Olímpicos, Campeonatos o Copas del Mundo u otros eventos internacionales de deportes de invierno.\n\n**Acreditación:** certificados de buena ejecución del cliente o, en su defecto, contratos, actas de recepción u otros documentos. Se aporta en el **Sobre/Archivo nº 1** (el cuadro marca \"SÍ\").\n\nNo se fijan en el cuadro titulaciones por perfil como requisito de solvencia, ni importe mínimo por proyecto de referencia. Tampoco se detalla qué puestos pueden subcontratarse: se permite la subcontratación en general, pero **no se concreta por puestos**.\n\nEquipo mínimo (lote único), recogido en el criterio automático:\n- Al menos **6 profesionales distintos**, cubriendo los 7 perfiles: director/coordinador, planificación estratégica de destinos, planificación territorial/urbanística, arquitectura/paisaje, ingeniería civil, análisis económico-financiero y SIG/CAD/BIM.\n- Una misma persona puede cubrir como máximo **2 perfiles**.\n- El equipo es **vinculante**, y su sustitución requiere autorización de CETURSA.\n\n⚠ REVISAR — criterio de mejora de equipo, no confundir con el mínimo de solvencia: la formación adicional (hasta 7 puntos) y la participación en proyectos comparables (hasta 13 puntos) puntúan en el Bloque 3 y no son requisito de solvencia.\n\n⚠ REVISAR: el texto dice \"mínimo de seis profesionales\" y a la vez lista siete perfiles. Con el límite de 2 perfiles por persona, el mínimo real es 4 personas, pero el pliego exige 6 distintos. Y la tabla de formación puntúa hasta 7 perfiles. Conviene aclarar si se pueden presentar 6 personas para 7 perfiles.\n\n⚠ REVISAR: la cláusula 12 refiere a la clasificación empresarial como medio alternativo, pero no es obligatoria. El cuadro no menciona ninguna clasificación concreta.\n\n## Bloque 3 – Criterios de Adjudicación\n\nMáximo **100 puntos**: 60 automáticos y 40 por juicio de valor.\n\n### Automáticos (fórmulas)\n| Criterio | Puntos |\n|---|---|\n| Mejor precio | 40 |\n| Cualificación del equipo técnico | 20 |\n| **Total** | **60** |\n\n**1. Precio (40 puntos):** P = 40 × Omin / Oi, donde Omin es la oferta admitida más baja y Oi la oferta valorada. Hay proporcionalidad inversa, sin umbral de saciedad.\n\n**2. Equipo técnico (20 puntos):**\n\n| Subcriterio | Máx. |\n|---|---|\n| A. Formación especializada adicional | 7 |\n| B. Participación en proyectos comparables | 13 |\n\n- **A (7 puntos):** 1 punto por cada perfil cubierto por una persona con formación especializada. Cuenta como formación: máster oficial, máster propio de al menos 60 ECTS o 600 h, posgrado o diploma de al menos 20 ECTS o 200 h, o certificación profesional reconocida. Debe estar relacionada con las materias listadas. Una misma titulación no puede dar más de 1 punto por perfil. Según el Anexo I-B, la formación usada para acreditar el mínimo del perfil no puntúa.\n- **B (13 puntos):** por cada proyecto comparable, según los profesionales del equipo que hayan participado: 1 profesional = **0,50**; 2 = **1,00**; 3 = **1,50**; 4 o más de al menos 3 perfiles distintos = **2,00**. Cada proyecto puntúa una sola vez y cada profesional se computa una vez por proyecto. Se acredita con una ficha por proyecto más certificados u otros documentos. Los CV y declaraciones no bastan por sí solos.\n- El Anexo I-B tiene 17 filas para proyectos. ⚠ REVISAR: son 17 filas, pero el máximo de 13 puntos se alcanza con 7 proyectos de 2 puntos.\n\nOtros criterios de adjudicación automáticos: no se localizan.\n\n### Juicio de valor\n**Memoria técnica: 40 puntos**\n\n| Apartado | Puntos |\n|---|---|\n| a. Metodología y organización de los trabajos | 10 |\n| b. Calidad técnica de la propuesta | 12 |\n| c. Integración funcional, urbanística y paisajística | 10 |\n| d. Calidad de la documentación gráfica e innovación técnica | 8 |\n| **Total** | **40** |\n\nRúbrica de valoración: no presentado 0 %; deficiente 25 %; aceptable 50 %; bueno y completo 75 %; excelente 100 % de la puntuación máxima del apartado. Se valora en el Archivo nº 2 por la Comisión Técnica. No se fijan límites de extensión ni de formato de la memoria en lo localizado. ⚠ REVISAR: puede constar en el PPT o en el anuncio.\n\n### Umbrales mínimos de puntuación\nNo se establecen umbrales mínimos de puntuación en el texto localizado.\n\nOtros datos:\n- **Ofertas anormalmente bajas:** art. 85 RD 1098/2001 (con baja superior a 25 puntos porcentuales respecto al presupuesto con un solo licitador, y a 10 puntos respecto a la media con 3 o más).\n- **Desempate:** discapacidad, igualdad, empresas de inserción, compromiso medioambiental, cooperativas andaluzas; después, mayor puntuación en el criterio automático de más peso; y finalmente sorteo.\n\n## Bloque 4 – Forma de Pago\n\n- **Valoración de trabajos:** abono al precio convenido, previa acreditación de la prestación de los servicios.\n- **Facturación y pago:** a **30 días** desde la expedición de la factura, con conformidad del responsable del contrato (Álvaro Fernández Salmerón, director del área técnica). Pasados esos 30 días se devengan intereses de demora y costes de cobro (Ley de morosidad, art. 198 LCSP).\n- **Certificaciones / hitos de pago:** no se fija calendario de hitos ni porcentajes en lo localizado. Las penalidades hacen referencia a una \"factura mensual\" y a un \"importe mensual del contrato\". ⚠ REVISAR: confirmar si habrá facturación mensual o por hitos (puede detallarse en el PPT).\n- **Revisión de precios:** no.\n- **Penalidades:**\n  - **Leves:** advertencia. La 2ª advertencia en el mes pasa a grave.\n  - **Graves:** 10 % del importe mensual facturado.\n  - **Muy graves:** 15 % del importe mensual facturado, con posible resolución e incautación de la garantía.\n  - Si CETURSA detecta una falta que el contratista no ha comunicado, la penalización **se duplica**.\n  - **Demora:** **1 % del precio de adjudicación por cada día de retraso**. Al alcanzar múltiplos del 5 % del precio, CETURSA puede resolver el contrato o continuar con nuevas penalidades.\n  - ⚠ REVISAR: la penalidad diaria del 1 % es muy elevada (100 días suponen el 100 % del precio). Además, el régimen de penalidades parece redactado para servicios continuados (seguridad, encuestas de usuarios) y no encaja bien con un estudio. Conviene aclararlo con el órgano de contratación.\n- **Compensación a licitadores:** 0 € en caso de renuncia; 600 € en caso de desistimiento, previa acreditación del coste.\n- **Plazo de garantía:** el mínimo legal desde la recepción total.\n\n## Bloque 5 – Documentación a Presentar\n\nSe presentan **3 archivos electrónicos** (cláusula 18.B), a través de SiREC. Toda la documentación debe estar en castellano.\n\n### Sobre 1 – Documentación administrativa\n- Índice del contenido en documento independiente.\n- Declaración responsable (Anexo II-A) de capacidad, ausencia de prohibiciones y cumplimiento de la solvencia económica.\n- Declaración responsable (Anexo II-B) de que los servicios cumplen los requisitos mínimos del PPT.\n- Autorización de notificaciones por correo electrónico (Anexo III).\n- Hoja de datos de la empresa (Anexo IV).\n- **Documentación acreditativa de la solvencia técnica** (el apartado G) exige aportarla en este Sobre 1).\n- Declaración de confidencialidad, en su caso (Anexo V).\n- Garantía provisional: no se exige.\n- Empresas extranjeras: sometimiento a tribunales españoles (Anexo VI).\n- UTE: compromiso de constitución (Anexo VII).\n- Subcontratación prevista, con identidad del subcontratista, si procede.\n- Declaración de protección de datos (Anexo VIII).\n- Declaración de ausencia de conflicto de intereses, DACI (Anexo X).\n\n### Sobre 2 – Criterios de juicio de valor\n- Índice de documentos.\n- Memoria descriptiva del servicio.\n- Documentación justificativa de los criterios de juicio de valor (memoria técnica con los apartados a–d).\n- **No debe incluirse ninguna información sobre la oferta económica o los criterios automáticos**. Es causa de exclusión.\n\n### Sobre 3 – Criterios automáticos\n- **Anexo I-A:** oferta económica, con el IVA como partida independiente.\n- **Anexo I-B:** equipo técnico (formación y proyectos comparables), con fichas y documentos acreditativos.\n\n### Documentación posterior (solo el propuesto como adjudicatario)\n- Capacidad de obrar, poderes y DNI del representante.\n- Solvencia económica y técnica, si no estaba ya aportada.\n- Certificados de estar al corriente con Hacienda estatal y autonómica y con la Seguridad Social, y alta en el IAE.\n- Certificado de plantilla y de discapacidad (2 % si hay 50 o más empleados), y plan de igualdad si hay 50 o más empleados.\n- Póliza o certificado del seguro de responsabilidad civil.\n- Garantía definitiva (5 % del precio, aval electrónico).\n- Si se aplica el PRTR: Anexos XI–XVII (titularidad real, DNSH, plan antifraude, etc.).\n\n## Bloque 6 – Conclusiones / Análisis Preliminar\n\n### Precio frente a duración\nEl presupuesto es de **100.000 € sin IVA para 12 meses**, es decir, unos **8.333 €/mes**. El alcance incluye actualizar el máster plan, estudios de capacidad, remontes e integración urbana, y exige un equipo de **al menos 6 profesionales** multidisciplinares. Con ese equipo, 100.000 € parece un presupuesto **ajustado** (el propio pliego indica que sale de un promedio de mercado, sin desglose). El criterio de precio pesa 40 puntos con fórmula proporcional. Esto presiona a la baja sobre un presupuesto ya justo, y el umbral de anormalidad es amplio (10 puntos sobre la media). Hay que valorar la rentabilidad antes de ofertar. Además, la penalidad del 1 % diario por demora supone un riesgo económico elevado.\n\n### Contraste con el perfil de CAI Consultores\n**Solvencia económica**\n- Se exige una cifra de negocio del mejor ejercicio de los últimos 3 de **150.000 €**. CAI factura **1.100.000 €** anuales (2023, 2024 y 2025), por lo que **cumple con holgura** (más de 7 veces el mínimo). Los tres últimos ejercicios cerrados son 2023–2025, que son los que declara el perfil.\n- **Seguro de RC:** el perfil no informa de importe asegurado ni de aseguradora (el dato aparece incompleto). El PCAP no fija una cifra mínima y solo lo exige al adjudicatario, pero hay que tener la póliza vigente y que cubra la actividad.\n\n**Solvencia técnica**\n- El perfil facilitado **no incluye** información sobre equipo, titulaciones ni proyectos de referencia. **No puedo confirmar el cumplimiento** de los requisitos técnicos.\n- Los mínimos son muy exigentes y **de ámbito internacional** (fuera de España): 5 máster plan o planes directores de estaciones de esquí, 10 estudios de remontes, 5 proyectos de integración urbana-esquiable, 1 en espacio natural protegido y 1 en una estación sede de eventos internacionales de invierno. Un estudio local de arquitectura/ingeniería rara vez los reúne por sí solo.\n- **Qué debería acreditar CAI:** la relación de servicios de los últimos 10 años con certificados de buena ejecución, y un equipo de 6 profesionales con los 7 perfiles cubiertos.\n- **Opciones si no llega a los mínimos:** UTE con una consultora internacional especializada en estaciones de montaña, o recurrir a los medios de otras entidades (art. 75 LCSP), con compromiso escrito de disponibilidad. Hay que revisar si la normativa de la UTE permite sumar la experiencia.\n- Para los 20 puntos del equipo, también hay que reunir la formación especializada de cada perfil y fichas de proyectos comparables (hasta 13 puntos), que son más accesibles que la solvencia internacional y pueden ser nacionales.\n\n### Valoración\n- **Económica:** cumple.\n- **Técnica:** no verificable con los datos del perfil, con alto riesgo de **no cumplir** el requisito internacional. Conviene verificarlo antes de decidir presentarse.\n- **Plazos:** 20 días naturales desde la publicación. Con fecha de hoy (**2026-10-08**), conviene comprobar en el Perfil del Contratante si el plazo sigue abierto, porque el PCAP no indica la fecha de publicación.\n\n### Puntos a revisar en el PCAP\n1. PPT no disponible: alcance, entregables, hitos y requisitos del equipo.\n2. Estado de la financiación PRTR (campos en blanco) y anexos aplicables.\n3. Calendario de facturación y encaje del régimen de penalidades (1 % diario) con un contrato de estudios.\n4. Incoherencia entre \"mínimo de seis profesionales\" y siete perfiles.\n5. Puestos subcontratables y límite de subcontratación: no concretados.\n6. Páginas del PCAP no incluidas en el texto recibido (cláusulas 3–6, 21–23 parciales, 26–40), por lo que podrían existir detalles no localizados.",
       "fecha_analisis": "2026-10-08T10:49:01.928191+00:00"
     },
-    "junta_consultado": "2026-10-07"
+    "junta_consultado": "2026-10-09",
+    "descripcion": "Contratación de la segunda fase del plan director de Cetursa Sierra Nevada S.A.: Actualización del máster plan y estudios de capacidad, remontes e integración urbana del dominio esquiable de Sierra Nevada"
+  },
+  {
+    "folder_id": "20809/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Redacción de Proyecto, Dirección de Obra, Coordinación de Seguridad y Salud, de Urbanización de diversas calles, Programa de Ayuda a Inversiones (PAI), cofinanciado por la Unión Europea - Fondo Europeo de Desarrollo Regional (FEDER) en el Marco del Programa operativo Plurirregional de España POPE 2021-2027, 2 lotes.",
+    "updated": "2026-10-08T17:19:41.852+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=NuVWnp7aDfB9PLkba5eRog%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71317210",
+      "71240000",
+      "71317210",
+      "71240000",
+      "71317210"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=QOzq4IQ8Cbzm6lfOFthGyXM41UImGCrQ/q6wMvNEBHRsuqaDBfMjVbMWS7kvC2WOu4GUumcrgKOlu3Ty5A%2BrKhk9ceRQwXukdU64oseoZ6PfdyQgZAdTm3EfcUAC7CJ6",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=/IHwvzevUfMsv5fWfDjAe1n16u9bAZU0gEg%2BrYH6E2S8E7Jb4nX7g%2BK%2B%2BBYLJJqlNRM6TbdRG4FSqOesVcg3HMyHUkQ4ELLGrp%2B44/5uR8UC1/zDIE0Kw/PWNnLS0Z0z",
+    "organo": "Concejalía Delegada en Materia de Contratación del Ayuntamiento de Torremolinos",
+    "importe": "539314.15",
+    "importe_num": 647176.98,
+    "fecha_limite": "2026-11-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "2203/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de la redacción del proyecto, estudio de seguridad y salud, dirección facultativa y coordinación de seguridad y salud del aliviadero del emisario del CEIP BENAFELIX",
+    "updated": "2026-10-08T13:38:54.111+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=1sKuvLqRo5w%2Bk2oCbDosIw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71242000",
+      "71240000",
+      "71317200",
+      "71247000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=CuFfu/lG2lIeu9rCZGgySNZrONRWT1Z7rtIK4Ktr3c0WA3ezhTRjovUhjmMnEJ6Qf1NpQ5y88tk%2BMVEggrX4isrhZ0dagDSlEBxA0hnLVpCB0nvVKRzfe4rpHcnlPhSZ",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=wRA0lfsCH5Q/CwkinAmzeZ7x2dksJvL14pzU7xF/zH%2BGtJWl20MHYJlng12RfEYvyB3qG8GkxaE9QS2mLKiBhIoTSr6FTrwtE%2BamcKZRhpk//q7NB2iMZvNyf0xrJmjt",
+    "organo": "Alcaldía del Ayuntamiento de Ubrique",
+    "importe": "96900.83",
+    "importe_num": 96900.83,
+    "fecha_limite": "2026-10-14",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "26449 PROYECTO AQUILLA DEL AGUA",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicios para la redacción del proyecto de construcción del parque de Arquilla del Agua. está cofinanciado por la Unión Europea a través del fondo europeo de desarrollo regional (feder) en el marco del programa operativo plurirregional de España (2021-2027) V2\"",
+    "updated": "2026-10-08T13:16:46.326+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=fVAuco2eg61PpzdqOdhuWg%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71420000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=MVPZehdkOo8UcO%2BiQ5PMfErm5UT4vvwnrJos2YVm2nj/9vT%2BsLqU3cFZGd66AqXeMzmw2%2BNI2x00imvO9zc5KJnxauEvysWggeaI8fidLyiB0nvVKRzfe4rpHcnlPhSZ",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=0u2TZW3rNstUCLL2rHnK9ATxJ6qmOME%2B/afZ9qsRTihAqtzH8UICVvHoJxhKLaab7qlFcWtrwFCcHyn356WAE8Tc8U7lOPIWHrJBqAlOjIRt/o8fNevwsujgRzaBbugn",
+    "organo": "Alcaldía del Ayuntamiento de Alhaurín el Grande",
+    "importe": "205003.89",
+    "importe_num": 205003.89,
+    "fecha_limite": "2026-10-28",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "86-26",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de redacción del anteproyecto de la actuación «mejora del funcionamiento y calidad del agua de la ETAP de Río Verde (T.M. Marbella)», para ACOSOL, S.A.",
+    "updated": "2026-10-08T10:30:55.381+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=RzA148G8qA0mMOlAXxDEjw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71300000",
+      "71311300",
+      "71243000",
+      "71200000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=A5zh2%2BYo4AXH6/jV/9Wpl9baFx9st2v32vRci0Guzw4N3gRPV22Kz9Lt9l46oykiER7WXpk2exA6P6dWuFxsqtE8xNdlAFJM5PgEYJ1UBkh45ClyWkoJ44mKM70IFcOu",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=QA8lEW1Jb1jhzobptg3YQ%2Bd5zV%2B4Oubh/wr1VMdwv9TcN/EmVbW37KwKBoxcGlgyvIaveGOTRoVRGx9LDaTVy%2B9IQcXjmes0bU%2Bpm/iMeMR45ClyWkoJ44mKM70IFcOu",
+    "organo": "Consejería delegada de ACOSOL, S.A.U.",
+    "importe": "572077.58",
+    "importe_num": 572077.58,
+    "fecha_limite": "2026-11-09",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "REPARACION TORRE NOROESTE DEL CASTILLO  ZAGRA",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contrato de Servicio de Redacción de Proyecto, Dirección de Obra, Dirección de ejecución de Obra y Coordinación de Seguridad y Salud para las Obras de Reparación de la Torre Noroeste del Castillo de Zagra, mediante Procedimiento Abierto y Licitación Electrónica.",
+    "updated": "2026-10-06T14:55:27.194+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=R5Firk9x0%2BecCF8sV%2BqtYA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71240000",
+      "71317200",
+      "71310000",
+      "71200000",
+      "71520000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=VbPp/byMXwNSTBDwnSRJVHY49KNaS9rlY%2BU1jtZ0HISSGm/HuE3HWRN/b%2BMGI5PEN3idXoHBcHOAnHGT7YPyGgAzB5RVkZ96mALs0B6sY2WCx2e6p7hqtlp2aFupgHMr",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=54Hz%2BRdUk3ucaTOwICBJlrg7qMHDcuYFLO/dqGjnzuTPhmO%2BmzZfD2elQqND1SyAumWoonNO41g/iib0jLgLkgc1042F6205gS4/b7B1Z6WHAj0WEJrB5sP7amrh2jBD",
+    "organo": "Alcaldía del Ayuntamiento de Zagra",
+    "importe": "32070",
+    "importe_num": 32070.0,
+    "fecha_limite": "2026-10-21",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-09"
   }
 ]

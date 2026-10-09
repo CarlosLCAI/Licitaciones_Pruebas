@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "folder_id": "PA-SER 103/26",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de redacción del proyecto básico y de ejecución, Dirección de Obra, Dirección de Ejecución, Coordinación de Seguridad y Salud de las Obras de Reforma del área de tratamiento renal sustitutivo y enfermedad renal crónica avanzada, incluida la renovación de la instalación de tratamiento de agua de hemodiálisis.",
+    "updated": "2026-10-08T14:11:06.610+02:00",
+    "link": "https://contratos-publicos.comunidad.madrid/contrato-publico/servicio-redaccion-proyecto-basico-ejecucion-direccion-obra-direccion-ejecucion-2",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71520000",
+      "71240000",
+      "71317200"
+    ],
+    "pcap_url": "https://contratos-publicos.comunidad.madrid/sites/default/files/PCON/2026-10/05.pcap_pa_ser_rp-do-de_ccsso_hemodialisis_f_censurado.pdf",
+    "ppt_url": "https://contratos-publicos.comunidad.madrid/sites/default/files/PCON/2026-10/04_ppt_programafuncional_103-26_f_censurado.pdf",
+    "organo": "Hospital Universitario Fundación Alcorcón",
+    "importe": "165468.80",
+    "importe_num": 165468.8,
+    "fecha_limite": "2026-10-23",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true
+  }
+]
