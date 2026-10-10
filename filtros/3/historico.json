@@ -65,7 +65,7 @@
   },
   {
     "folder_id": "1854/2026",
-    "estado": "RES",
+    "estado": "EV",
     "titulo": "“Redacción proyecto básico y de ejecución, dirección facultativa de las obras y coordinación  de seguridad y salud para las obras de construcción de edificio para centro deportivo en Velilla de San Antonio.",
     "updated": "2026-08-05T10:07:19.087+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=KXcmHtkgvJ19PLkba5eRog%3D%3D",
@@ -80,7 +80,7 @@
     "organo": "Alcaldía del Ayuntamiento de Velilla de San Antonio",
     "importe": "171531.5",
     "importe_num": 171531.5,
-    "fecha_limite": "2026-08-05",
+    "fecha_limite": "2026-09-22",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -91,10 +91,12 @@
       "fecha_analisis": "2026-08-06T06:12:16.242982+00:00"
     },
     "fecha_captura": "2026-08-06",
-    "estado_anterior": "EV",
-    "resultado": "adjudicada",
-    "estado_cambiado_el": "2026-10-07",
-    "estado_updated": "2026-10-06T16:12:00.250+02:00"
+    "estado_anterior": "RES",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T13:20:40.070+02:00",
+    "fecha_limite_anterior": "2026-08-05",
+    "fecha_limite_cambiada_el": "2026-10-10"
   },
   {
     "folder_id": "300/2026/00445",
@@ -163,7 +165,7 @@
   },
   {
     "folder_id": "IC-2026000015",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Servicio de Redacción de Proyecto de Ejecución, Dirección Facultativa y Coordinación de Seguridad y Salud de las Obras de Restauración de la Envolvente del edificio de la Sede Central del Instituto Cervantes en Madrid, en la calle Alcalá número 49.",
     "updated": "2026-09-17T12:22:53.339+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Fyzip8xCiGx9Zh%2FyRJgM8w%3D%3D",
@@ -177,7 +179,7 @@
     "organo": "Dirección del Instituto Cervantes",
     "importe": "124550",
     "importe_num": 124550,
-    "fecha_limite": "2026-10-05",
+    "fecha_limite": "2026-10-08",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -189,7 +191,13 @@
     },
     "fecha_captura": "2026-09-18",
     "revisado_humano": true,
-    "revisado_fecha": "2026-10-02T11:34:05.296Z"
+    "revisado_fecha": "2026-10-02T11:34:05.296Z",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-10",
+    "fecha_limite_anterior": "2026-10-05",
+    "fecha_limite_cambiada_el": "2026-10-10",
+    "estado_updated": "2026-10-09T08:05:06.354+02:00"
   },
   {
     "folder_id": "2378/2026",
@@ -249,5 +257,33 @@
     "procedimiento_match": true,
     "importe_match": true,
     "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "02.07.01.01 2026/78-SS_REYES",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio para la redacción y ejecución del Plan de medición y seguimiento de los indicadores del proyecto Impulso de la Infraestructura verde de San Sebastián de los Reyes. ",
+    "updated": "2026-10-09T12:52:21.379+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Rxc0KKUi57vN3k3tjedSGw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71313000",
+      "90713000",
+      "71410000",
+      "90700000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=xQk2wtfTNOpDyOtkLhDUI0ZkNV2qLnbP/%2BIPxBmsuT%2BFOjwq8J8lk2iaTgAm497zSr7yazanSd6tr/OGbW7KxiWvcC6uqSC%2BBIGvBDlrTqtJOVDbGCDM%2BMigrvuVS7Rv",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=QwlX577h1e8zQTlsZdXmoE5nkOy5Ezg84SZBdSU823VIYahQVBbOCfR2moYdwTF2LjZ0K3svSOI/JnuScvcVOzi9dHeLcg53jnd2JBYSeADfdyQgZAdTm3EfcUAC7CJ6",
+    "organo": "Junta de Gobierno del Ayuntamiento de San Sebastián de los Reyes",
+    "importe": "87535.94",
+    "importe_num": 87535.94,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
   }
 ]

@@ -272,7 +272,7 @@
   },
   {
     "folder_id": "364/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "Contrato de servicios para la redacción del Plan General de Ordenación Municipal (PGOM) de La Guardia de Jaén, incluyendo toda la documentación urbanística, ambiental y técnica necesaria hasta su aprobación definitiva, con estricta sujeción a las condiciones y requisitos expresados en el Pliego de Prescripciones Técnicas.",
     "updated": "2026-07-15T10:26:42.671+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=B%2BgNBb6ROCnIGlsa0Wad%2Bw%3D%3D",
@@ -289,8 +289,14 @@
     "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=QjPtX68LBtMDqJGLdqN%2B4LwSvQwjHrw3mUBLqv6t13bhb4Bx0tCEJ1ANzVOei1tzP0lCRzg3%2B7tjheRNKfvrM6BJ5w9nHm8RwFuZlJWPvcLDdQD9RyhUmzT4jZ2In4zL",
     "organo": "Alcaldia del Ayuntamiento de La Guardia de Jaén",
     "importe": "160000",
-    "fecha_limite": "2026-07-20",
-    "fecha_captura": "2026-07-16"
+    "fecha_limite": "2026-04-16",
+    "fecha_captura": "2026-07-16",
+    "estado_anterior": "PUB",
+    "resultado": "formalizada",
+    "estado_cambiado_el": "2026-10-10",
+    "fecha_limite_anterior": "2026-07-20",
+    "fecha_limite_cambiada_el": "2026-10-10",
+    "estado_updated": "2026-10-09T14:32:36.530+02:00"
   },
   {
     "folder_id": "3809/2026",
@@ -921,7 +927,7 @@
   },
   {
     "folder_id": "CONTRATO_361/2026",
-    "estado": "ADJ",
+    "estado": "RES",
     "titulo": "Prestacion de los servicios de redaccion de proyecto tecnico, prestacion del servicio de Direccion Facultativa y coordinacion de seguridad y salud para la reparacion del acerado y muro de contencion en calle carretera de Estepona, incluyendo el levantamiento topografico previo de la zona de actuacion asi como el estudio geotecnico, previo y necesario para el calculo estructural",
     "updated": "2026-08-14T11:15:52.049+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=1MQxtOqoVMBPpzdqOdhuWg%3D%3D",
@@ -947,14 +953,14 @@
       "fecha_analisis": "2026-08-15T03:54:32.129302+00:00"
     },
     "fecha_captura": "2026-08-15",
-    "estado_anterior": "PUB",
-    "resultado": "adjudicada",
-    "estado_cambiado_el": "2026-10-02",
-    "estado_updated": "2026-09-30T08:42:15.171+02:00"
+    "estado_anterior": "ADJ",
+    "resultado": "formalizada",
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T13:19:23.806+02:00"
   },
   {
     "folder_id": "2717/2026",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "Servicio de redacción del proyecto básico y de ejecución dividido en tres fases diferenciadas, estudio de seguridad y salud, dirección de obra de la I y II fase, dirección de ejecución de obra de la I y II fase, coordinación de seguridad y salud durante la obra de la I y II fase, de CONSTRUCCIÓN DE POLIDEPORTIVO EN EL CHAPARRAL.",
     "updated": "2026-08-13T23:10:57.236+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Y8t5gxB98YSLAncw3qdZkA%3D%3D",
@@ -987,7 +993,11 @@
       "informe": "# Informe de Análisis PCAP — Servicio de Redacción de Proyecto y Dirección de Obra Polideportivo El Chaparral (Albolote)\n\n## 1. Solvencia económico-financiera\n\n**Medio exigido:** Volumen anual de negocios (artículo 87 LCSP), referido al mejor ejercicio de los tres últimos disponibles.\n\n- Umbral mínimo exigido: **no inferior al 70% del valor estimado**, es decir, **86.776,86 €**.\n\n**Forma de acreditación:**\n- Cuentas anuales aprobadas y depositadas en el Registro Mercantil (si el empresario está inscrito), o\n- Cuentas depositadas en el registro oficial correspondiente (si no está inscrito en el Mercantil), o\n- Libros de inventario y cuentas anuales legalizados por el Registro Mercantil (empresarios individuales no inscritos).\n\n⚠ No se exige garantía provisional ni clasificación empresarial (no necesaria conforme al art. 77.1 b) LCSP).\n\n---\n\n## 2. Solvencia técnica / Equipo mínimo\n\nEl PCAP **no define un equipo mínimo con perfiles, titulaciones y experiencias mínimas individualizadas** (tipo \"Arquitecto Director de Obra: X años\", \"Arquitecto Técnico: Y años\", etc.). La cláusula 14 remite únicamente a medios genéricos de acreditación de solvencia técnica (art. 90 LCSP):\n\n* Equipo técnico (sin perfiles ni número de personas especificado): sin titulación concreta detallada en el PCAP\n   * Títulos académicos y profesionales del empresario, de los directivos de la empresa y, en particular, del responsable o responsables de la ejecución del contrato, así como de los técnicos encargados directamente de la misma (sin mínimos cuantificados de años de experiencia)\n\n**Otros medios de acreditación exigidos (sin desglose por perfil):**\n- Relación de los principales servicios o trabajos de igual o similar naturaleza (CPV coincidente a 3 dígitos: 712) realizados en los **últimos 3 años**, indicando importe, fecha y destinatario.\n- Indicación de la parte del contrato que se tenga intención de subcontratar.\n- **Compromiso de adscripción de medios personales y/o materiales** suficientes para la ejecución del contrato (obligatorio, Archivo Único), con declaración de que dichos medios no suponen la afectación de la totalidad de los recursos de la empresa.\n\n⚠ REVISAR — El PCAP no aporta el detalle habitual de equipo mínimo (nº de técnicos, titulación exigida, años de experiencia por perfil). Es previsible que esta información se concrete en el **Pliego de Prescripciones Técnicas (PPT)**, no incluido en el texto analizado. Se recomienda solicitar/revisar el PPT antes de preparar la oferta.\n\n---\n\n## 3. Criterios de adjudicación\n\n**Total: 100 puntos** (20% juicio de valor / 80% automáticos)\n\n### A) Criterios dependientes de juicio de valor (hasta 20 puntos)\nMediante Memoria Justificativa (máx. 20 páginas y 5 planos; si se excede, 0 puntos en este criterio):\n\n- Conocimiento de las redes existentes (agua, saneamiento, electricidad, telecomunicaciones): **5 puntos**\n- Conocimiento del ámbito de actuación (parcelas, topografía, estado actual): **5 puntos**\n- Justificación de actuaciones vinculadas a infraestructuras de otras Administraciones: **5 puntos**\n- Análisis del anteproyecto (necesidades constructivas, mejoras de distribución/funcionalidad): **5 puntos**\n\n*(0 puntos por cada subcriterio no incluido en la memoria)*\n\n### B) Criterios automáticos (hasta 80 puntos)\n\n- **Reducción del plazo de ejecución** del proyecto básico/ejecución y estudio de SyS (plazo base: 45 días naturales): **hasta 50 puntos** (regla de 3 directa). 0 puntos si no se oferta reducción o se oferta en unidad distinta a días.\n- **Reducción del presupuesto de ejecución material**: **hasta 30 puntos** (regla de 3 directa). 0 puntos si no se oferta baja.\n\n**No se contempla ningún criterio ni subapartado de \"mejora de experiencia del equipo\" o \"experiencia adicional\" distinto del mínimo de solvencia.** No aplica, por tanto, la advertencia de posible confusión con el mínimo de solvencia en este expediente.\n\n**Umbrales de anormalidad (bajas temerarias):**\n- Reducción de plazo: temeraria si supera 15 días naturales de reducción sobre los 45 días.\n- Reducción de presupuesto: según escalas del art. 85 RGLCAP (1, 2, 3 o 4+ licitadores).\n\n---\n\n## 4. Valoración para CAI Consultores\n\n### Puntos a favor\n- **Solvencia económica ampliamente superada**: el umbral exigido (86.776,86 €) representa menos del 8% del volumen de negocio anual declarado por CAI (1.100.000 €/año), sin dificultad para su acreditación.\n- **Ponderación favorable a la baja económica y de plazos** (80% del total): un despacho con capacidad de ajuste de honorarios y de organización interna ágil puede obtener buena puntuación automática.\n- **Peso moderado del criterio técnico (20%)**, estructurado en 4 subcriterios muy concretos y acotados (máx. 20 páginas/5 planos), lo que facilita una preparación eficiente de la memoria sin necesidad de grandes desarrollos.\n- **No se exige clasificación empresarial ni garantía provisional**, reduciendo cargas administrativas previas.\n- **No hay criterio de \"mejora de experiencia de equipo\"** que pueda penalizar en la fase de valoración técnica por falta de trayectoria específica en polideportivos.\n\n### Puntos a verificar internamente\n- **Ausencia de equipo mínimo definido en el PCAP**: es imprescindible revisar el **Pliego de Prescripciones Técnicas (PPT)**, no incluido en este análisis, para confirmar si allí se exige un equipo mínimo con perfiles, titulaciones y experiencia (arquitecto, arquitecto técnico, ingeniero de instalaciones, coordinador de SyS, etc.), y contrastarlo con la plantilla y currícula de CAI Consultores.\n- **Experiencia previa en instalaciones deportivas**: el PCAP exige relación de servicios similares (CPV 712) de los últimos 3 años. CAI debe verificar y documentar proyectos de naturaleza análoga (edificación/obra civil, idealmente instalaciones deportivas) ejecutados en ese periodo, con certificados del destinatario (público o privado).\n- **Seguro de responsabilidad civil profesional (Cláusula 33)**: el PCAP exige una **suma asegurada mínima de 600.000 €**, pero el texto contiene una redacción anómala que menciona expresamente \"riesgo por intoxicación alimentaria\" y \"asistentes\" (aparentemente una cláusula tipo mal adaptada de un contrato de catering/eventos, no de servicios de arquitectura). ⚠ Se recomienda solicitar aclaración al órgano de contratación sobre el alcance real de esta póliza antes de presentar oferta, y verificar que la póliza de RC profesional de CAI (importe y aseguradora, según ficha de la empresa) cumple o puede adaptarse al mínimo de 600.000 €.\n- **Visitas a obra**: se exige un compromiso de dos visitas semanales a obra durante la ejecución (Fases I y II), lo que implica disponibilidad geográf",
       "fecha_analisis": "2026-08-15T03:55:26.204330+00:00"
     },
-    "fecha_captura": "2026-08-15"
+    "fecha_captura": "2026-08-15",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-08T20:29:57.552+02:00"
   },
   {
     "folder_id": "6491/2026",
@@ -1318,7 +1328,7 @@
   },
   {
     "folder_id": "115/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "El objeto del contrato lo constituye la redacción del proyecto de obras, dirección de obra y la coordinación y seguridad y salud de las obras necesarias para la mejora de la Pista Hípica “La Fuentecilla” de Puebla de Guzmán.",
     "updated": "2026-09-28T10:26:32.669+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Jy63I0UGvaoQyBAnWzHfCg%3D%3D",
@@ -1332,7 +1342,7 @@
     "organo": "Presidencia de la Mancomunidad de Municipios Beturia",
     "importe": "64462.29",
     "importe_num": 64462.29,
-    "fecha_limite": "2026-10-15",
+    "fecha_limite": "2026-06-04",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
@@ -1343,10 +1353,12 @@
       "fecha_analisis": "2026-09-29T09:51:40.791793+00:00"
     },
     "fecha_captura": "2026-09-29",
-    "estado_anterior": "EV",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-06",
-    "estado_updated": "2026-10-05T14:14:33.176+02:00"
+    "estado_anterior": "PUB",
+    "resultado": "formalizada",
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T10:04:51.619+02:00",
+    "fecha_limite_anterior": "2026-10-15",
+    "fecha_limite_cambiada_el": "2026-10-10"
   },
   {
     "folder_id": "25/26",
@@ -1732,5 +1744,60 @@
     "procedimiento_match": true,
     "importe_match": true,
     "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "P4102900J-2026/000099-PEAS",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de redacción de proyectos de reparcelación del Valle",
+    "updated": "2026-10-09T14:19:05.852+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=RjCL3yZgCppVYjgxA4nMUw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71410000",
+      "71400000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=5LaaCWm5RMLBqXHiPOgvt2TyQRYZWWGpHMns6IfslZ6uQcKldHE0aZfZtCAL6TU7DQSmCs7VuuGDEKpnRWUkdPV8eWabgvoFi7P3Rfapj1GB0nvVKRzfe4rpHcnlPhSZ",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=aA1LOn37jCruEw49mrjvMbg4Vs9InRDD4BpVmqm8TWhxJpOQyLDCmLewhku9eVHQJ11AA754wTyhSCR9j12CXbwyzKVsu5IIdtWisj6u%2BrMC1/zDIE0Kw/PWNnLS0Z0z",
+    "organo": "Alcaldía del Ayuntamiento de Castilleja de la Cuesta",
+    "importe": "28664.12",
+    "importe_num": 28664.12,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "2204/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de la redacción del proyecto, estudio de seguridad y salud, dirección facultativa y coordinación de seguridad y salud del CEIP FERNÁNDO GAVILÁN, CEIP VICTOR DE LA SERNA Y CEIP REINA SOFIA",
+    "updated": "2026-10-09T12:57:20.748+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=qwUQYWD5bkht5r0ngvMetA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71242000",
+      "71317200",
+      "71247000",
+      "71240000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=1vbWOTheeVCYCdcSH1MEe1L6aGsvgroyoi%2BI6lBaxgbtRPpKuUN/tgW1W35ofP%2BEvFUGJs85FDNyekHZeQQTO9/jNilVrBqTl/dGXlFG%2B0Y//q7NB2iMZvNyf0xrJmjt",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Ip6mbJ0n9NEgL7fkohgyxv0qBv6cMi77/WqafeyR3kqxeGpQg4WKsoOGx%2BpyEKVwUumhgdg%2BtJ0xYKq8oRYn2QwYL%2Bi1lfJEzPeX7n3Ns0hJOVDbGCDM%2BMigrvuVS7Rv",
+    "organo": "Alcaldía del Ayuntamiento de Ubrique",
+    "importe": "41074.38",
+    "importe_num": 41074.38,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
   }
 ]

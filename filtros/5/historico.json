@@ -302,7 +302,7 @@
   },
   {
     "folder_id": "24/2026",
-    "estado": "EV",
+    "estado": "ADJ",
     "titulo": "Constituye el objeto del contrato la prestación del servicio de redacción de proyectos, dirección técnica, tramitación y legalización de instalaciones eléctricas temporales y estructuras provisionales necesarias para la celebración de los certámenes organizados en FYCMA, conforme a las especificaciones del PPT.",
     "updated": "2026-09-16T11:12:22.478+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=DC%2Fm7JVt%2FLkUqXM96WStVA%3D%3D",
@@ -318,7 +318,7 @@
     "organo": "Dirección General del Palacio de Ferias y Congresos de Málaga",
     "importe": "23681.7",
     "importe_num": 118408.5,
-    "fecha_limite": "2026-09-11",
+    "fecha_limite": "2026-08-17",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -329,12 +329,12 @@
       "fecha_analisis": "2026-09-19T08:09:33.318103+00:00"
     },
     "fecha_captura": "2026-09-19",
-    "estado_anterior": "RES",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-09",
-    "estado_updated": "2026-10-08T14:26:34.292+02:00",
-    "fecha_limite_anterior": "2026-10-01",
-    "fecha_limite_cambiada_el": "2026-10-09"
+    "estado_anterior": "EV",
+    "resultado": "adjudicada",
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T13:04:21.373+02:00",
+    "fecha_limite_anterior": "2026-09-11",
+    "fecha_limite_cambiada_el": "2026-10-10"
   },
   {
     "folder_id": "11_LIMPIEZA 2026/2027",
@@ -532,7 +532,7 @@
   },
   {
     "folder_id": "78-26",
-    "estado": "PUB",
+    "estado": "EV",
     "titulo": "contratación por lotes del servicio de dirección facultativa de los trabajos de rehabilitación de colectores de la red de saneamiento integral de acosol, s.a. con manga cipp",
     "updated": "2026-09-28T15:26:04.139+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=259MiIPtVk7mnwcj%2BxbdTg%3D%3D",
@@ -570,7 +570,11 @@
       "informe": "# 1. Solvencia económico-financiera\n\nMedios exigidos (Anexo I, apartado 4.B) — se exige **acreditar los TRES requisitos simultáneamente**:\n\n* **Volumen anual de negocio** (mejor ejercicio de los últimos 3 disponibles) ≥ 1,5 veces el valor estimado del contrato (VEC = 500.991,77 €) → **mínimo exigido: 751.487,66 €**.\n   * Acreditación: cuentas anuales depositadas en Registro Mercantil (o registro oficial equivalente), o certificado de la AEAT de importe neto de cifra de negocios, o resumen del modelo 390 de IVA.\n* **Seguro de responsabilidad civil por riesgos profesionales** por importe mínimo igual al VEC → **mínimo exigido: 500.991,77 €**.\n   * Acreditación: certificado de la aseguradora con importes, riesgos cubiertos y vencimiento, junto con compromiso de renovación/prórroga durante la ejecución.\n* **Patrimonio neto** (según balance del último ejercicio) ≥ 1,5 veces el VEC → **mínimo exigido: 751.487,66 €**.\n   * Acreditación: cuentas anuales depositadas en Registro Mercantil (o libros de inventario/cuentas legalizados para no inscritos).\n\nNo se exige clasificación (no es exigible en contratos de servicios conforme art. 77.1.b LCSP) ni inscripción en ROLECE.\n\n---\n\n# 2. Solvencia técnica / Equipo mínimo\n\nEl PCAP (Anexo I, apartado 4.C) exige como **requisito previo de solvencia**:\n\n* **Experiencia de la empresa (no de personas concretas)**: al menos **3 certificados** que acrediten la participación en Direcciones de obra de objeto similar al del contrato, ejecutados en los **últimos 3 años**, expedidos por el órgano/cliente destinatario, indicando importe, fecha y destinatario.\n* **Maquinaria, material y equipo técnico**: se exige, pero su descripción y condiciones mínimas se remiten íntegramente al **PPTP**, documento no incluido en el texto analizado.\n* **Personal responsable de ejecutar la prestación**: se exige identificar nombres y cualificación profesional en la oferta, pero **el PCAP no detalla aquí una tabla de perfiles mínimos con titulación y experiencia individual exigida** (nº de personas, titulación concreta, años de experiencia mínima por perfil); remite igualmente al PPTP.\n\n⚠ **REVISAR** — El documento aportado no contiene el Pliego de Prescripciones Técnicas Particulares (PPTP), que es donde el propio PCAP indica que se definen: los perfiles concretos del equipo (Director de obra, Coordinador de Seguridad y Salud, Técnico de apoyo/vigilante de obra, técnico ambiental, etc.), sus titulaciones y su experiencia mínima individual, así como las condiciones mínimas de maquinaria/equipo técnico. **Es imprescindible solicitar y revisar el PPTP antes de preparar la oferta**, ya que sin él no puede confirmarse el cumplimiento de la solvencia técnica ni configurarse correctamente el equipo a adscribir.\n\nLo único que sí se menciona expresamente en el PCAP (Anexo I, apartado 1 y 8.A) es la figura de:\n\n* **Técnico de apoyo a la Dirección Facultativa — vigilante de obra (1 por lote)**: titulación no especificada en el PCAP (remite al PPTP)\n   * Dedicación exigida: 100% de jornada durante los periodos de actividad del contratista principal; no puede compartirse entre lotes adjudicados conjuntamente al mismo licitador.\n\n---\n\n# 3. Criterios de adjudicación\n\n**Total: 55 puntos (juicio de valor) + hasta 51 puntos indicados en el título del apartado 8.B, si bien la fórmula aplicada otorga un máximo real de 45 puntos a la oferta más baja** ⚠ (posible incoherencia del propio PCAP a verificar/consultar antes de licitar).\n\n### A. Criterios sujetos a juicio de valor — máximo 55 puntos\n\n**Bloque 1. Memoria técnica sobre metodología de prestación del servicio (máx. 20 puntos)**\n* 1.1. Metodología de Dirección Facultativa y control de ejecución de los trabajos principales: 0–20 puntos.\n\n**Bloque 2. Organización del equipo y medios adscritos al lote (máx. 35 puntos)**\n* 2.1. Adecuación, organización y dedicación de los medios humanos adscritos al lote: 0–30 puntos.\n* 2.2. Adecuación de los medios materiales adscritos al lote: 0–5 puntos.\n\n⚠ **REVISAR — criterio 2.1 es de mejora de equipo, no confundir con el mínimo de solvencia.** El propio pliego indica expresamente que \"no se valorará el mero cumplimiento de los perfiles, titulaciones, experiencias o dedicaciones mínimas exigidas en los pliegos, ni la simple acumulación nominal de personal\", sino el valor técnico añadido (organización, coherencia, dedicación porcentual, cobertura de fases críticas, sistema de sustitución/refuerzo, etc.) sobre esos mínimos.\n\n### B. Criterios automáticos — oferta económica (Anexo I, apartado 8.B)\n* Fórmula: Pi = 45 × (Ob / Oi), donde Ob = oferta más baja, Oi = oferta a valorar. La oferta más baja obtiene 45 puntos; el resto proporcionalmente. No puede superarse el PBL de cada lote.\n\n### C. Umbral de anormalidad (baja temeraria)\nSe aplican los parámetros del art. 149 LCSP y arts. 85-86 RGLCAP, con trámite de audiencia.\n\n### D. Desempate\nOrden: 1º % trabajadores con discapacidad > 2%; 2º medidas de igualdad/protocolo de acoso; 3º menor precio.\n\n---\n\n# 4. Valoración para CAI Consultores\n\n**Puntos a favor:**\n* La solvencia económica exigida (751.487,66 € de volumen de negocio/patrimonio neto y 500.991,77 € de seguro RC) es **holgadamente cubierta** por CAI (1.100.000 €/año de facturación en los tres últimos ejercicios), incluso considerando que se licita por 4 lotes con posibilidad de adjudicación conjunta.\n* El requisito de solvencia técnica (3 certificados de Dirección de obra similar en los últimos 3 años) es asumible si CAI dispone de referencias de dirección facultativa en obras de saneamiento/colectores; conviene verificar que sean \"de objeto similar\" (rehabilitación de colectores, preferiblemente con tecnología CIPP/manga) para evitar objeciones de la Mesa.\n* El régimen de lotes (máx. 4 por licitador, con reglas de compatibilidad de dedicaciones porcentuales) permite a CAI optar a varios lotes optimizando el mismo equipo si las dedicaciones son compatibles (suma ≤100%), salvo el vigilante de obra que debe ser exclusivo por lote.\n* La ponderación técnica (55 puntos) es elevada frente a la económica (45 puntos reales), lo que favorece a ofertas con equipos y metodología bien desarrollados, un terreno donde una consultora especializada en dirección de obra puede diferenciarse.\n\n**Puntos a verificar internamente:**\n* **Imprescindible obtener el PPTP** antes de preparar la oferta: el PCAP remite sistemáticamente a él para (i) perfiles concretos del equipo, titulaciones y experiencia mínima individual, (ii) condiciones mínimas de maquinaria/",
       "fecha_analisis": "2026-09-29T09:57:51.274169+00:00"
     },
-    "fecha_captura": "2026-09-29"
+    "fecha_captura": "2026-09-29",
+    "estado_anterior": "PUB",
+    "resultado": null,
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T07:53:10.816+02:00"
   },
   {
     "folder_id": "68-018035-A0",
@@ -632,7 +636,7 @@
   },
   {
     "folder_id": "115/2026",
-    "estado": "PUB",
+    "estado": "RES",
     "titulo": "El objeto del contrato lo constituye la redacción del proyecto de obras, dirección de obra y la coordinación y seguridad y salud de las obras necesarias para la mejora de la Pista Hípica “La Fuentecilla” de Puebla de Guzmán.",
     "updated": "2026-09-28T10:26:32.669+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Jy63I0UGvaoQyBAnWzHfCg%3D%3D",
@@ -646,7 +650,7 @@
     "organo": "Presidencia de la Mancomunidad de Municipios Beturia",
     "importe": "64462.29",
     "importe_num": 64462.29,
-    "fecha_limite": "2026-10-15",
+    "fecha_limite": "2026-06-04",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
@@ -657,10 +661,12 @@
       "fecha_analisis": "2026-09-29T09:59:56.459713+00:00"
     },
     "fecha_captura": "2026-09-29",
-    "estado_anterior": "EV",
-    "resultado": null,
-    "estado_cambiado_el": "2026-10-06",
-    "estado_updated": "2026-10-05T14:14:33.176+02:00"
+    "estado_anterior": "PUB",
+    "resultado": "formalizada",
+    "estado_cambiado_el": "2026-10-10",
+    "estado_updated": "2026-10-09T10:04:51.619+02:00",
+    "fecha_limite_anterior": "2026-10-15",
+    "fecha_limite_cambiada_el": "2026-10-10"
   },
   {
     "folder_id": "25/26",
@@ -920,7 +926,7 @@
     "organo": "Consejo de Administración de Desarrollo Urbanístico de El Ejido, S.L.",
     "importe": "65516",
     "importe_num": 235857.6,
-    "fecha_limite": "2026-11-03",
+    "fecha_limite": "2026-10-29",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "1",
@@ -930,7 +936,10 @@
       "informe": "# Informe de Análisis PCAP — Servicio de Recogida, Transporte y Tratamiento de RCD en El Ejido\n\n## 1. Solvencia económico-financiera\n\nEl PCAP **no fija umbrales cuantitativos mínimos** (ni volumen de negocio anual, ni acumulado, ni importe de seguro). Se limita a enumerar medios alternativos de acreditación, sin concretar cifra ni exigir varios simultáneamente:\n\n- Declaraciones apropiadas de entidades financieras, o justificante de existencia de un seguro de indemnización por riesgos profesionales.\n- Declaración jurada del volumen de negocio correspondiente al objeto del contrato de los **dos últimos años** (no tres, y sin importe mínimo especificado).\n- Aportación de cuentas anuales o declaraciones del IRPF (para personas físicas).\n\n⚠ No se indica en el pliego ningún importe mínimo exigido ni fórmula de cálculo (p. ej. 1x o 1,5x el valor estimado del contrato), por lo que la acreditación parece quedar a la valoración documental de la Mesa sin umbral objetivo predefinido en este documento.\n\n## 2. Solvencia técnica / Equipo mínimo\n\nEl PCAP **no define un equipo mínimo con perfiles profesionales, titulaciones ni experiencia individual exigida** (a diferencia de los contratos de servicios de redacción de instrumentos urbanísticos). La acreditación de solvencia técnica se limita a:\n\n* Relación de los principales suministros/servicios realizados en el último año (importe, fechas, destinatario público o privado).\n* Disponibilidad de medios técnicos y materiales para realizar el suministro/servicio.\n* Remisión genérica a \"demás documentos exigidos en el pliego técnico\" (PPT no incluido en el texto proporcionado).\n\nNo se identifican perfiles como Arquitecto, Ingeniero, Delineante, etc., ni experiencia mínima en LISTA/LOUA, ya que el objeto del contrato es un servicio de gestión de residuos de construcción y demolición, no una asistencia técnica de planeamiento urbanístico.\n\n## 3. Criterios de adjudicación\n\n| Criterio | Tipología | Puntuación |\n|---|---|---|\n| CV1) Mejoras propuestas con valoración objetiva | Objetivo | Hasta 20 puntos |\n| CV2) Proposición económica | Objetivo | Hasta 80 puntos |\n| **TOTAL** | | **100 puntos** |\n\n**Desglose CV1 (20 puntos) — Distancia instalaciones del gestor a instalaciones de DUE:**\n* < 10 km: 20 puntos\n* < 20 km: 10 puntos\n* > 20 km: 0 puntos\n(Medición sobre Google Maps por vías principales de comunicación)\n\n**Desglose CV2 (80 puntos) — Proposición económica:**\n* Fórmula: Oferta menor importe = 80 puntos; resto de ofertas = 80 × (Oferta menor importe / Oferta evaluada)\n\nNo existe ningún criterio ni subapartado de \"mejora de experiencia del equipo\" en este pliego — los 100 puntos se reparten exclusivamente entre distancia logística del gestor de residuos y precio. No hay juicio de valor propiamente dicho ni componente de equipo técnico en la puntuación.\n\n## 4. Valoración para CAI Consultores\n\n**Puntos a favor:**\n- Ninguno relevante desde la perspectiva de CAI Consultores. El objeto contractual (recogida, transporte y tratamiento de RCD) es un **servicio operativo/logístico de gestión de residuos**, completamente ajeno a la actividad de una consultora de arquitectura/ingeniería especializada en redacción de instrumentos urbanísticos (LISTA/LOUA).\n- La solvencia económica y técnica exigida es genérica y de umbral bajo, pero eso es irrelevante si la empresa no dispone de la actividad y medios materiales exigidos (instalaciones de gestión de residuos, flota de transporte, autorizaciones administrativas como gestor de RCD).\n\n**Puntos a verificar internamente:**\n- ⚠ **Este PCAP no corresponde al perfil de negocio de CAI Consultores.** No se trata de una licitación de redacción de instrumento urbanístico, sino de un contrato de servicios de gestión de residuos de construcción y demolición (transporte, recogida y tratamiento), típicamente adjudicado a empresas gestoras de residuos autorizadas, no a consultoras de arquitectura/urbanismo.\n- CAI Consultores **no cuenta previsiblemente con instalaciones de gestión/tratamiento de RCD, autorización como gestor de residuos, ni flota de transporte propia**, elementos indispensables para ejecutar el objeto del contrato y para ser competitivo en el criterio CV1 (distancia de instalaciones del gestor).\n- Se recomienda **descartar esta licitación** salvo que CAI Consultores tenga previsto actuar como intermediario/subcontratista de un gestor de RCD autorizado, lo cual no resulta coherente con su actividad principal ni con el perfil de equipo aportado (arquitectura/ingeniería urbanística).\n- Confirmar si existe algún error de asignación del PCAP a este análisis, dado que el encargo original menciona \"redacción de instrumento urbanístico\" y el documento adjunto trata de un servicio de residuos de construcción y demolición — objetos totalmente distintos.",
       "fecha_analisis": "2026-09-30T10:02:02.160590+00:00"
     },
-    "fecha_captura": "2026-09-30"
+    "fecha_captura": "2026-09-30",
+    "fecha_limite_anterior": "2026-11-03",
+    "fecha_limite_cambiada_el": "2026-10-10",
+    "estado_updated": "2026-10-09T14:47:44.819+02:00"
   },
   {
     "folder_id": "P4104500F-2026/000369-PEA",
@@ -1119,7 +1128,7 @@
     "organo": "Alcaldía del Ayuntamiento de la Línea de la Concepción",
     "importe": "14876.04",
     "importe_num": 14876.04,
-    "fecha_limite": "2026-10-07",
+    "fecha_limite": "2026-07-17",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
@@ -1133,9 +1142,9 @@
     "estado_anterior": "PUB",
     "resultado": null,
     "estado_cambiado_el": "2026-10-08",
-    "fecha_limite_anterior": "2026-10-15",
-    "fecha_limite_cambiada_el": "2026-10-08",
-    "estado_updated": "2026-10-07T19:11:00.521+02:00"
+    "fecha_limite_anterior": "2026-10-07",
+    "fecha_limite_cambiada_el": "2026-10-10",
+    "estado_updated": "2026-10-09T16:05:57.145+02:00"
   },
   {
     "folder_id": "SE-19/26",
@@ -2210,8 +2219,8 @@
   },
   {
     "folder_id": "3354/2026",
-    "estado": "PUB",
-    "resultado": null,
+    "estado": "RES",
+    "resultado": "adjudicada",
     "titulo": "Contrato de servicios para la iluminación extraordinario con motivo de la Navidad 2026",
     "updated": "2026-10-07T21:44:57.922+02:00",
     "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=ZB7Or%2BYwc7qGCFcHcNGIlQ%3D%3D",
@@ -2227,13 +2236,18 @@
     "organo": "Junta De Gobierno Local del Ayuntamiento de Huércal-Overa",
     "importe": "66135",
     "importe_num": 66135.0,
-    "fecha_limite": "2026-10-22",
+    "fecha_limite": "2026-10-05",
     "tipo_contrato": "2",
     "tipo_contrato_match": true,
     "procedimiento": "9",
     "procedimiento_match": true,
     "importe_match": true,
-    "fecha_captura": "2026-10-09"
+    "fecha_captura": "2026-10-09",
+    "estado_anterior": "PUB",
+    "estado_cambiado_el": "2026-10-10",
+    "fecha_limite_anterior": "2026-10-22",
+    "fecha_limite_cambiada_el": "2026-10-10",
+    "estado_updated": "2026-10-09T09:25:55.905+02:00"
   },
   {
     "folder_id": "JF2027-LIMP",
@@ -2451,5 +2465,191 @@
     "descripcion": "DESARROLLO E IMPLEMENTACIÓN DE UNA HERRAMIENTA MODULAR Y CONFIGURABLE PARA LA EDICIÓN COOPERATIVA, GESTIÓN  Y DIFUSIÓN DE INFORMACIÓN GEOGRÁFICA Y AMBIENTAL",
     "junta_consultado": "2026-10-09",
     "fecha_captura": "2026-10-09"
+  },
+  {
+    "folder_id": "SERV-ABR/2026000292",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de recogida selectiva y gestión de aceite de cocina usado de origen doméstico, incluyendo instalación y mantenimiento de contenedores incorporando condiciones especiales de ejecución",
+    "updated": "2026-10-09T15:56:43.531+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=iB9o%2FqDhPEqcCF8sV%2BqtYA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90500000"
+    ],
+    "pcap_url": null,
+    "ppt_url": null,
+    "organo": "Junta de Gobierno del Ayuntamiento de Molina de Segura",
+    "importe": "0",
+    "importe_num": 459012.22,
+    "fecha_limite": "2026-11-05",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "P4102900J-2026/000099-PEAS",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de redacción de proyectos de reparcelación del Valle",
+    "updated": "2026-10-09T14:19:05.852+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=RjCL3yZgCppVYjgxA4nMUw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71240000",
+      "71410000",
+      "71400000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=5LaaCWm5RMLBqXHiPOgvt2TyQRYZWWGpHMns6IfslZ6uQcKldHE0aZfZtCAL6TU7DQSmCs7VuuGDEKpnRWUkdPV8eWabgvoFi7P3Rfapj1GB0nvVKRzfe4rpHcnlPhSZ",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=aA1LOn37jCruEw49mrjvMbg4Vs9InRDD4BpVmqm8TWhxJpOQyLDCmLewhku9eVHQJ11AA754wTyhSCR9j12CXbwyzKVsu5IIdtWisj6u%2BrMC1/zDIE0Kw/PWNnLS0Z0z",
+    "organo": "Alcaldía del Ayuntamiento de Castilleja de la Cuesta",
+    "importe": "28664.12",
+    "importe_num": 28664.12,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "2204/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de la redacción del proyecto, estudio de seguridad y salud, dirección facultativa y coordinación de seguridad y salud del CEIP FERNÁNDO GAVILÁN, CEIP VICTOR DE LA SERNA Y CEIP REINA SOFIA",
+    "updated": "2026-10-09T12:57:20.748+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=qwUQYWD5bkht5r0ngvMetA%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71242000",
+      "71317200",
+      "71247000",
+      "71240000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=1vbWOTheeVCYCdcSH1MEe1L6aGsvgroyoi%2BI6lBaxgbtRPpKuUN/tgW1W35ofP%2BEvFUGJs85FDNyekHZeQQTO9/jNilVrBqTl/dGXlFG%2B0Y//q7NB2iMZvNyf0xrJmjt",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Ip6mbJ0n9NEgL7fkohgyxv0qBv6cMi77/WqafeyR3kqxeGpQg4WKsoOGx%2BpyEKVwUumhgdg%2BtJ0xYKq8oRYn2QwYL%2Bi1lfJEzPeX7n3Ns0hJOVDbGCDM%2BMigrvuVS7Rv",
+    "organo": "Alcaldía del Ayuntamiento de Ubrique",
+    "importe": "41074.38",
+    "importe_num": 41074.38,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "SC 118/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio integral de producción técnica de sonido, iluminación y medios auxiliares para los eventos de Navidad 2026-2027.",
+    "updated": "2026-10-09T12:31:19.883+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=zwgVHTqZjqAeIBJRHQiPkQ%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "51313000",
+      "71318100"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=OSR98xYEA6YqXp42G8hAcE0/3almDLGbsOhADVCme5BvrXiPW3Mp4YpJV32FpMUGEbdrwq/oexbTv8YicJN17PUd1hoSOW8zKHDdvvLiXlDfdyQgZAdTm3EfcUAC7CJ6",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=vrjV14%2B4WF/mC7xstE224fr%2BoA1DnRIFgeD55kXf9uKDcMcEWCvC6gg3xBv4uoxToEk4evmW%2B4ZUtq75UMTg9gDNR3c2exx9xELfXrDBTnrDdQD9RyhUmzT4jZ2In4zL",
+    "organo": "Alcaldia del Ayuntamiento de San Fernando",
+    "importe": "58965",
+    "importe_num": 58965.0,
+    "fecha_limite": "2026-10-09",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "SE-19/2026",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Servicio de mantenimiento de recogida y gestión de residuos no peligrosos",
+    "updated": "2026-10-09T10:22:17.497+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=%2Fn47vtZ%2FED%2BkU02jNGj1Fw%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90513000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=Cf/fz5YUX7OgMRHQNyGelMDkG3T9R4dyX1YrdjVvBTAVfH1t2BXjPMCxbI1Cr6T2YVsz7PgjVD6v7PiXs9qmzcuNKngUQ4Iyr60oiqmR%2BES1aXEvq3KHa/AEHgtDrQw0",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=pEx6RMcl7%2BO20N4OFQORWltuJagjFRspHjTYHOf00YfmkofXqCtACHschVDIxDJPuiubW%2BbDLjFljg5I2aRnA07GhxKdxsAlh4L0z/aY4ziB0nvVKRzfe4rpHcnlPhSZ",
+    "organo": "Dirección Gerente de Aguas de Lorca, S.A.",
+    "importe": "57673.32",
+    "importe_num": 173019.96,
+    "fecha_limite": "2026-10-26",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "144-3/2026 Bis",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "Contratación de los servicios de redacción del proyecto básico y de ejecución y la dirección facultativa de las obras denominadas REPARACIÓN Y CONSOLIDACIÓN DE LA TRASERA DE CALLE ANDALUCÍA Y CAMINO HUERTA MANDRES",
+    "updated": "2026-10-09T09:58:45.555+02:00",
+    "link": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=1f%2BqXEInFKktm4eBPtV6eQ%3D%3D",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "71000000",
+      "71420000",
+      "71200000",
+      "71242000"
+    ],
+    "pcap_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=xwLjrejys2TrR0YUrFhTvZYHdVUF2LFuhPEINzxRq/xQYm9cNNuQTlvBO7PW6%2BCYQYrHBsxf2jD0zpn5X%2B31rTLtpn5Cwh6kyew9noGa7gaHAj0WEJrB5sP7amrh2jBD",
+    "ppt_url": "https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D&DocumentIdParam=SA89viOXwanf%2BzT2YNjlP/zR1I6DlMeDYMxkvaZMhyy1YXupBXsd8wxrxBjC7zkR6SiteAK0ueULkB0%2B7eLb0Eyf2G%2B7SX25qAApXI25c6O1aXEvq3KHa/AEHgtDrQw0",
+    "organo": "Alcaldía del Ayuntamiento de Cuevas del Becerro",
+    "importe": "19834.71",
+    "importe_num": 19834.71,
+    "fecha_limite": "2026-10-24",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "9",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "fecha_captura": "2026-10-10"
+  },
+  {
+    "folder_id": "CONTR 2026 0000280447",
+    "estado": "PUB",
+    "resultado": null,
+    "titulo": "pa 85/2025 (sevilla) 0000661/2026 servicio de limpieza y mantenimiento preventivo de la red de vertidos del campus hospital universitario virgen macarena y del hospital macarena cartuja (sevilla)",
+    "updated": "2026-10-09T13:42:14.395+02:00",
+    "link": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec/perfiles-licitaciones/detalle-licitacion.jsf?idExpediente=1007473",
+    "es_andalucia": true,
+    "cpv_match": true,
+    "cpv_codes": [
+      "90470000"
+    ],
+    "pcap_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/426712",
+    "ppt_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/apl/pdc_sirec_documentacion/rest/descargar/documento/426716",
+    "organo": "Servicio Andaluz de Salud",
+    "importe": "99000.00",
+    "importe_num": 267300.0,
+    "fecha_limite": "2026-10-19",
+    "tipo_contrato": "2",
+    "tipo_contrato_match": true,
+    "procedimiento": "1",
+    "procedimiento_match": true,
+    "importe_match": true,
+    "descripcion": "PA 85/2025 SERVICIO DE LIMPIEZA Y MANTENIMIENTO PREVENTIVO DE LA RED DE VERTIDOS DEL CAMPUS HOSPITAL UNIVERSITARIO VIRGEN MACARENA Y DEL HOSPITAL MACARENA CARTUJA (SEVILLA)",
+    "junta_consultado": "2026-10-10",
+    "fecha_captura": "2026-10-10"
   }
 ]
